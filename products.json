@@ -1,0 +1,138 @@
+{
+  "_comment": "[JJ] Jeff Jenx · Product Catalog · products.json",
+  "_instructions": [
+    "To add a product: copy any product object, paste it into the correct collection's 'products' array, update the fields, save.",
+    "To add a collection: copy any collection object, paste it into the 'collections' array, update the fields, add products.",
+    "To hide a product without deleting it: set 'active' to false.",
+    "To mark a product as new: set 'new' to true.",
+    "Fields: id (unique slug), title, desc, price (string), url (full Zazzle/RB URL), vendor, tags, new, active.",
+    "Vendor values: 'zazzle' | 'redbubble' | 'gumroad' | 'direct'",
+    "Category values must match a key in 'categories' below."
+  ],
+
+  "categories": {
+    "web": {
+      "label": "Web",
+      "accent": "#0066CC",
+      "accent_light": "#e5f0fa",
+      "accent_dark": "#004f9e"
+    },
+    "warez": {
+      "label": "Warez",
+      "accent": "#107C10",
+      "accent_light": "#e6f4e6",
+      "accent_dark": "#0a5e0a"
+    },
+    "gb": {
+      "label": "GB Home",
+      "accent": "#7B5EA7",
+      "accent_light": "#ede9f8",
+      "accent_dark": "#5a4180"
+    },
+    "nes": {
+      "label": "NES",
+      "accent": "#9B1C1C",
+      "accent_light": "#fce8e8",
+      "accent_dark": "#7a1515"
+    },
+    "xbx": {
+      "label": "Xbox",
+      "accent": "#107C10",
+      "accent_light": "#e6f4e6",
+      "accent_dark": "#0a5e0a"
+    },
+    "shop": {
+      "label": "General",
+      "accent": "#C0A060",
+      "accent_light": "#faf4e5",
+      "accent_dark": "#9a7d44"
+    }
+  },
+
+  "collections": [
+    {
+      "id": "www",
+      "category": "web",
+      "label": "The World Wide Web Collection",
+      "desc": "Standards-based. Semantically correct. Machine washable.",
+      "active": true,
+      "products": [
+        {
+          "id": "web-html5-tshirt",
+          "title": "HTML5 Logo T-Shirt",
+          "desc": "The orange shield. Printed on heavyweight cotton. Sizes S–3XL.",
+          "price": "",
+          "url": "https://www.zazzle.com/html5_logo_t_shirt-235961946349077836",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "html"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "web-css3-tshirt",
+          "title": "CSS3 Logo T-Shirt",
+          "desc": "The blue shield. Classic fit, heavy cotton. Sizes S–3XL.",
+          "price": "",
+          "url": "https://www.zazzle.com/css3_logo_t_shirt-235961946349077836",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "css"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "web-js-tshirt",
+          "title": "JavaScript Logo T-Shirt",
+          "desc": "The yellow square. For the language everyone loves to argue about.",
+          "price": "",
+          "url": "https://www.zazzle.com/javascript_logo_t_shirt-235961946349077836",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "javascript"],
+          "new": false,
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "warez",
+      "category": "warez",
+      "label": "The Warez Collection",
+      "desc": "Vintage computing. Before the cloud. When you had to run it yourself.",
+      "active": true,
+      "products": [
+        {
+          "id": "warez-cdosrun-tshirt",
+          "title": "C:\\DOS\\RUN T-Shirt",
+          "desc": "The command that started everything. Black on white, sharp corners.",
+          "price": "",
+          "url": "https://www.zazzle.com/cdosrun_t_shirt-235961946349077836",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "dos", "retro"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "warez-dosprompt-tshirt",
+          "title": "DOS Prompt T-Shirt",
+          "desc": "C:\\> and a blinking cursor. The original UI.",
+          "price": "",
+          "url": "https://www.zazzle.com/dos_prompt_t_shirt-235961946349077836",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "dos", "retro"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "warez-helloworld-tshirt",
+          "title": "Hello, World! T-Shirt",
+          "desc": "The first program everyone writes. The last shirt you'll need.",
+          "price": "",
+          "url": "https://www.zazzle.com/hello_world_t_shirt-235961946349077836",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "programming", "retro"],
+          "new": false,
+          "active": true
+        }
+      ]
+    }
+  ]
+}
