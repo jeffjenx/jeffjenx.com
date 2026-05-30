@@ -58,13 +58,24 @@
       "active": true,
       "products": [
         {
-          "id": "web-html5-tshirt",
+          "id": "web-html5-zazzle",
           "title": "HTML5 Logo T-Shirt",
           "desc": "The orange shield. Printed on heavyweight cotton. Sizes S–3XL.",
           "price": "",
           "url": "https://www.zazzle.com/html5_logo_t_shirt-256071083697467896",
           "vendor": "zazzle",
-          "tags": ["t-shirt", "apparel", "html"],
+          "tags": ["t-shirt", "apparel", "html", "web"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "web-html5-redbubble",
+          "title": "HTML5 Logo T-Shirt",
+          "desc": "The orange shield. Available on Redbubble in multiple sizes and colors.",
+          "price": "",
+          "url": "https://www.redbubble.com/i/t-shirt/HTML5-Logo-T-shirt-by-jeffjenx/160744264/lrcw",
+          "vendor": "redbubble",
+          "tags": ["t-shirt", "apparel", "html", "web"],
           "new": false,
           "active": true
         },
@@ -75,7 +86,7 @@
           "price": "",
           "url": "https://www.zazzle.com/css3_logo_t_shirt-256854838668561500",
           "vendor": "zazzle",
-          "tags": ["t-shirt", "apparel", "css"],
+          "tags": ["t-shirt", "apparel", "css", "web"],
           "new": false,
           "active": true
         },
@@ -86,7 +97,95 @@
           "price": "",
           "url": "https://www.zazzle.com/javascript_logo_t_shirt-256969669930850555",
           "vendor": "zazzle",
-          "tags": ["t-shirt", "apparel", "javascript"],
+          "tags": ["t-shirt", "apparel", "javascript", "web"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "web-github-tshirt",
+          "title": "GitHub Icon T-Shirt",
+          "desc": "Octocat in grayscale. For distributed version control enthusiasts.",
+          "price": "",
+          "url": "https://www.zazzle.com/github_icon_t_shirt-256540839013868171",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "github", "web", "dev"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "web-discord-tshirt",
+          "title": "Discord Icon T-Shirt",
+          "desc": "The Discord blurple. For community builders everywhere.",
+          "price": "",
+          "url": "https://www.zazzle.com/discord_icon_t_shirt-256556509094964748",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "discord", "web", "social"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "web-twitch-tshirt",
+          "title": "Twitch Icon T-Shirt",
+          "desc": "Stream culture. For streamers and viewers.",
+          "price": "",
+          "url": "https://www.zazzle.com/twitch_icon_t_shirt-256290495570158547",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "twitch", "web", "streaming"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "web-patreon-tshirt",
+          "title": "Patreon Icon T-Shirt",
+          "desc": "Support creators. Wear the badge of patronage.",
+          "price": "",
+          "url": "https://www.zazzle.com/patreon_icon_t_shirt-256742933074746497",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "patreon", "web", "support"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "web-zazzle2020-tshirt",
+          "title": "Zazzle Icon 2020 T-Shirt",
+          "desc": "The Z mark. Celebrate the platform.",
+          "price": "",
+          "url": "https://www.zazzle.com/zazzle_icon_2020_t_shirt-256061392960679791",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "zazzle", "web"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "web-zazzle-tshirt",
+          "title": "Zazzle Icon T-Shirt",
+          "desc": "The Z mark classic. Retro style.",
+          "price": "",
+          "url": "https://www.zazzle.com/zazzle_icon_t_shirt-256787922315309811",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "zazzle", "web", "retro"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "web-profile-icon-redbubble",
+          "title": "Profile Icon T-Shirt",
+          "desc": "The universal profile avatar. Simple, recognizable, timeless.",
+          "price": "",
+          "url": "https://www.redbubble.com/i/t-shirt/Profile-Icon-T-Shirt-by-jeffjenx/160744214/lrcw",
+          "vendor": "redbubble",
+          "tags": ["t-shirt", "apparel", "profile", "web", "icon"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "web-smpte-tshirt",
+          "title": "SMPTE TV Color Bars T-Shirt",
+          "desc": "The engineer's palette. Test pattern nostalgia.",
+          "price": "",
+          "url": "https://www.redbubble.com/i/t-shirt/SMPTE-TV-Color-Bars-T-Shirt-by-jeffjenx/160730664/lrcw",
+          "vendor": "redbubble",
+          "tags": ["t-shirt", "apparel", "smpte", "tv", "retro", "engineering"],
           "new": false,
           "active": true
         }
@@ -104,9 +203,9 @@
           "title": "C:\\DOS\\RUN T-Shirt",
           "desc": "The command that started everything. Black on white, sharp corners.",
           "price": "",
-          "url": "https://www.zazzle.com/cdosrun_t_shirt-256100714210917216",
+          "url": "https://www.zazzle.com/c_dos_run_t_shirt-256100714210917216",
           "vendor": "zazzle",
-          "tags": ["t-shirt", "apparel", "dos", "retro"],
+          "tags": ["t-shirt", "apparel", "dos", "retro", "computing"],
           "new": false,
           "active": true
         },
@@ -117,18 +216,170 @@
           "price": "",
           "url": "https://www.zazzle.com/dos_prompt_t_shirt-256802321776730130",
           "vendor": "zazzle",
-          "tags": ["t-shirt", "apparel", "dos", "retro"],
+          "tags": ["t-shirt", "apparel", "dos", "retro", "computing"],
           "new": false,
           "active": true
         },
         {
-          "id": "warez-helloworld-tshirt",
+          "id": "warez-helloworld-zazzle",
           "title": "Hello, World! T-Shirt",
           "desc": "The first program everyone writes. The last shirt you'll need.",
           "price": "",
           "url": "https://www.zazzle.com/hello_world_t_shirt-256950668232552042",
           "vendor": "zazzle",
           "tags": ["t-shirt", "apparel", "programming", "retro"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "warez-helloworld-redbubble",
+          "title": "Hello World T-Shirt",
+          "desc": "The first program everyone writes. Available on Redbubble.",
+          "price": "",
+          "url": "https://www.redbubble.com/i/t-shirt/Hello-World-by-jeffjenx/160730525/lrcw",
+          "vendor": "redbubble",
+          "tags": ["t-shirt", "apparel", "programming", "retro"],
+          "new": false,
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "shop",
+      "category": "shop",
+      "label": "The General Collection",
+      "desc": "Exclusive designs. Limited availability. One-of-a-kind vibes.",
+      "active": true,
+      "products": [
+        {
+          "id": "shop-pi-tshirt",
+          "title": "Pi T-Shirt",
+          "desc": "π. For mathematicians, engineers, and lovers of irrational numbers.",
+          "price": "",
+          "url": "https://www.zazzle.com/pi_t_shirt-256934159741907306",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "math", "pi"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "shop-pi-symbol-tshirt",
+          "title": "Pi Symbol T-Shirt",
+          "desc": "The Greek letter π. Elegant and timeless.",
+          "price": "",
+          "url": "https://www.zazzle.com/pi_symbol_t_shirt-256761272869982654",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "math", "pi", "greek"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "shop-ilovepizazzle",
+          "title": "I Love Pi T-Shirt",
+          "desc": "I ❤ π. For the truly devoted.",
+          "price": "",
+          "url": "https://www.zazzle.com/i_love_pi_t_shirt-256195545911572671",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "math", "pi", "love"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "shop-ilovepiredbubble",
+          "title": "I Love Pi T-Shirt",
+          "desc": "I ❤ π. Available on Redbubble in multiple colors.",
+          "price": "",
+          "url": "https://www.redbubble.com/i/t-shirt/I-Love-Pi-T-Shirt-by-jeffjenx/160744400/z5wf",
+          "vendor": "redbubble",
+          "tags": ["t-shirt", "apparel", "math", "pi", "love"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "shop-sohcahtoa-tshirt",
+          "title": "SOH CAH TOA T-Shirt",
+          "desc": "Sine Cosine Tangent. For trigonometry students and professors.",
+          "price": "",
+          "url": "https://www.zazzle.com/soh_cah_toa_t_shirt-256852980266979811",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "math", "trigonometry", "education"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "shop-emoji-tshirt",
+          "title": "Smiling Face with Heart Eyes Emoji T-Shirt",
+          "desc": "😍 Pure joy in emoji form.",
+          "price": "",
+          "url": "https://www.zazzle.com/smiling_face_with_heart_eyes_emoji_t_shirt-256070177186992197",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "emoji", "expression"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "shop-copyright-tshirt",
+          "title": "Copyright Year T-Shirt",
+          "desc": "© YYYY. Customizable year. Your mark of ownership.",
+          "price": "",
+          "url": "https://www.zazzle.com/copyright_year_t_shirt_customizable_year-256676508118812297",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "copyright", "customizable"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "shop-mythical-odyssey-zazzle",
+          "title": "Mythical Odyssey Tee T-Shirt",
+          "desc": "An adventure awaits. Mythological vibes.",
+          "price": "",
+          "url": "https://www.zazzle.com/mythical_odyssey_tee_t_shirt-256342782260475510",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "mythology", "adventure"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "shop-mythical-odyssey-redbubble",
+          "title": "Mythical Odyssey T-Shirt",
+          "desc": "An adventure awaits. Available on Redbubble.",
+          "price": "",
+          "url": "https://www.redbubble.com/i/t-shirt/Mythical-Odyssey-T-Shirt-by-jeffjenx/160744809/lrcw",
+          "vendor": "redbubble",
+          "tags": ["t-shirt", "apparel", "mythology", "adventure"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "shop-bottom-fifth-tshirt",
+          "title": "Bottom of the Fifth Jersey T-Shirt",
+          "desc": "Baseball energy. Game on.",
+          "price": "",
+          "url": "https://www.zazzle.com/bottom_of_the_fifth_jersey_t_shirt-256290213912857808",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "baseball", "sports"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "shop-grand-theft-tshirt",
+          "title": "Grand Theft Army Tri Blend Shirt",
+          "desc": "Parody meets comfort. Tri-blend fabric.",
+          "price": "",
+          "url": "https://www.zazzle.com/grand_theft_army_tri_blend_shirt-256310114650581901",
+          "vendor": "zazzle",
+          "tags": ["t-shirt", "apparel", "parody", "gaming", "comfort"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "shop-another-castle-hoodie",
+          "title": "Another Castle Hoodie",
+          "desc": "Princess is in another castle. Cozy comfort in video game nostalgia.",
+          "price": "",
+          "url": "https://www.zazzle.com/another_castle_hoodie-256818810432394390",
+          "vendor": "zazzle",
+          "tags": ["hoodie", "apparel", "gaming", "retro", "nintendo"],
           "new": false,
           "active": true
         }
