@@ -436,8 +436,27 @@ img { display: block; max-width: 100%; border: 0; }
       ? '<span class="jj-price">' + esc(product.price) + '</span>'
       : '<span class="jj-price" style="font-size:12px;opacity:0.6">See listing</span>';
 
+    // Handle both old schema (product.vendor/url) and new schema (product.vendors array)
+    var vendorLabel = '';
+    var productUrl = product.url || '';
     var vendorMap = { zazzle: 'Zazzle', redbubble: 'Redbubble', gumroad: 'Gumroad', direct: 'Direct' };
-    var vendorLabel = vendorMap[product.vendor] || esc(product.vendor || '');
+
+    if (product.vendors && product.vendors.length) {
+      // New schema: find first active vendor
+      for (var v = 0; v < product.vendors.length; v++) {
+        if (product.vendors[v].active !== false) {
+          var vendor = product.vendors[v];
+          vendorLabel = vendorMap[vendor.name] || esc(vendor.name || '');
+          productUrl = vendor.url || '';
+          break;
+        }
+      }
+    } else {
+      // Old schema fallback
+      vendorLabel = vendorMap[product.vendor] || esc(product.vendor || '');
+      productUrl = product.url || '';
+    }
+
     var vendorHtml = vendorLabel ? '<span class="jj-vendor">' + vendorLabel + '</span>' : '';
     var newHtml    = product['new'] ? '<span class="jj-new-badge" aria-label="New">NEW</span>' : '';
     var ariaLabel  = esc(product.title) + (product.price ? ', ' + esc(product.price) : '') + (vendorLabel ? ', on ' + vendorLabel : '');
@@ -448,7 +467,7 @@ img { display: block; max-width: 100%; border: 0; }
       : '';
 
     return '<div class="jj-col"' + accentStyle + '>'
-      + '<a class="jj-card" href="' + esc(product.url) + '" target="_blank" rel="noopener noreferrer" aria-label="' + ariaLabel + '">'
+      + '<a class="jj-card" href="' + esc(productUrl) + '" target="_blank" rel="noopener noreferrer" aria-label="' + ariaLabel + '">'
         + '<div class="jj-card-bar" aria-hidden="true"></div>'
         + '<div class="jj-card-body">'
           + '<span class="jj-card-cat">' + esc(catLabel) + '</span>'
@@ -464,14 +483,16 @@ img { display: block; max-width: 100%; border: 0; }
       + '</div>';
   }
 
-  function renderCollection(col, categories) {
-    var catCfg = categories[col.category] || {};
-    var catLabel = catCfg.label || col.category;
-    var accent = col.category && categories[col.category] ? {
-      base:  categories[col.category].accent  || '',
-      light: categories[col.category].accent_light || '',
-      dark:  categories[col.category].accent_dark  || ''
-    } : null;
+  function renderCollection(col) {
+    // Get accent colors from collection (new schema) or try legacy approach
+    var accent = null;
+    if (col.accent || col.accent_light || col.accent_dark) {
+      accent = {
+        base:  col.accent  || '',
+        light: col.accent_light || '',
+        dark:  col.accent_dark  || ''
+      };
+    }
 
     // Filter active products
     var products = [];
@@ -482,22 +503,23 @@ img { display: block; max-width: 100%; border: 0; }
 
     var cards = '';
     for (var j = 0; j < products.length; j++) {
-      cards += renderCard(products[j], catLabel, accent);
+      cards += renderCard(products[j], col.label || col.id, accent);
     }
 
     // Collection-level accent bar style
     var dividerStyle = accent ? ' style="border-top-color:' + esc(accent.base) + '"' : '';
     var labelStyle   = accent ? ' style="color:' + esc(accent.base) + '"' : '';
 
-    return '<section class="jj-collection" data-category="' + esc(col.category) + '" aria-label="' + esc(col.label) + '">'
+    return '<section class="jj-collection" data-category="' + esc(col.id) + '" aria-label="' + esc(col.label) + '">'
       + '<div class="jj-collection-header">'
-        + '<span class="jj-collection-label"' + labelStyle + '>' + esc(catLabel) + '</span>'
+        + '<span class="jj-collection-label"' + labelStyle + '>' + esc(col.id) + '</span>'
         + '<span class="jj-collection-title">' + esc(col.label) + '</span>'
         + (col.desc ? '<span class="jj-collection-desc">' + esc(col.desc) + '</span>' : '')
       + '</div>'
       + '<hr class="jj-collection-divider"' + dividerStyle + '>'
       + '<div class="jj-grid">' + cards + '</div>'
       + '</section>';
+  }
   }
 
   // ── Filter buttons ───────────────────────────────────────────────────────
@@ -506,8 +528,8 @@ img { display: block; max-width: 100%; border: 0; }
     var bar = document.getElementById('filter-bar');
     if (!bar) return;
 
-    // Collect which categories actually have active products
-    var seen = {};
+    // Collect which collections actually have active products
+    var collections = [];
     for (var i = 0; i < data.collections.length; i++) {
       var col = data.collections[i];
       if (!col.active) continue;
@@ -515,7 +537,7 @@ img { display: block; max-width: 100%; border: 0; }
       for (var j = 0; j < col.products.length; j++) {
         if (col.products[j].active !== false) { hasProd = true; break; }
       }
-      if (hasProd) seen[col.category] = data.categories[col.category] || { label: col.category };
+      if (hasProd) collections.push(col);
     }
 
     var allBtn = document.createElement('button');
@@ -525,14 +547,14 @@ img { display: block; max-width: 100%; border: 0; }
     allBtn.innerHTML = 'All';
     bar.appendChild(allBtn);
 
-    for (var cat in seen) {
-      if (!seen.hasOwnProperty(cat)) continue;
+    for (var k = 0; k < collections.length; k++) {
+      var col = collections[k];
       var btn = document.createElement('button');
       btn.className = 'jj-filter-btn';
       btn.setAttribute('aria-pressed', 'false');
-      btn.setAttribute('data-filter', cat);
-      btn.setAttribute('data-cat', cat);
-      btn.innerHTML = esc(seen[cat].label);
+      btn.setAttribute('data-filter', col.id);
+      btn.setAttribute('data-col-id', col.id);
+      btn.innerHTML = esc(col.label);
       bar.appendChild(btn);
     }
 
@@ -543,9 +565,9 @@ img { display: block; max-width: 100%; border: 0; }
       currentFilter = f;
 
       var btns = bar.getElementsByTagName('button');
-      for (var k = 0; k < btns.length; k++) {
-        btns[k].className = 'jj-filter-btn';
-        btns[k].setAttribute('aria-pressed', 'false');
+      for (var m = 0; m < btns.length; m++) {
+        btns[m].className = 'jj-filter-btn';
+        btns[m].setAttribute('aria-pressed', 'false');
       }
       target.className = 'jj-filter-btn is-active';
       target.setAttribute('aria-pressed', 'true');
@@ -566,8 +588,8 @@ img { display: block; max-width: 100%; border: 0; }
     for (var i = 0; i < data.collections.length; i++) {
       var col = data.collections[i];
       if (!col.active) continue;
-      if (filter !== 'all' && col.category !== filter) continue;
-      html += renderCollection(col, data.categories);
+      if (filter !== 'all' && col.id !== filter) continue;
+      html += renderCollection(col);
       totalShown++;
     }
 
