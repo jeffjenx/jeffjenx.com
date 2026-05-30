@@ -128,9 +128,41 @@ img { display: block; max-width: 100%; border: 0; }
 .jj-tag         { display: inline-block; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid #c8c8c8; color: #888; padding: 2px 6px; margin: 0 3px 3px 0; }
 .jj-card-footer { border-top: 1px solid #e8e8e8; padding: 10px 18px; }
 .jj-price       { font-size: 16px; font-weight: 500; letter-spacing: -0.02em; display: inline-block; vertical-align: middle; }
-.jj-vendor      { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; background: #e8e8e8; color: #555; padding: 2px 7px; display: inline-block; vertical-align: middle; margin-left: 8px; }
 .jj-new-badge   { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; background: #0a0a0a; color: #f8f8f8; padding: 2px 5px; display: inline-block; vertical-align: middle; margin-left: 6px; }
-.jj-cta         { float: right; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #888; padding: 4px 0; }
+.jj-cta         { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #888; padding: 4px 0; }
+
+/* Multi-vendor card (div, acts as button) */
+div.jj-card     { cursor: pointer; }
+div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
+
+/* Vendor picker overlay */
+.jj-overlay {
+  display: none;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(10,10,10,0.55);
+  z-index: 9000;
+}
+.jj-overlay.is-open { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; padding: 16px; }
+.jj-picker {
+  background: #f8f8f8;
+  border: 1px solid #0a0a0a;
+  padding: 24px 24px 18px;
+  width: 100%;
+  max-width: 300px;
+}
+.jj-picker-eyebrow { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #888; display: block; margin-bottom: 8px; }
+.jj-picker-title   { font-size: 16px; font-weight: 500; letter-spacing: -0.02em; color: #0a0a0a; display: block; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid #c8c8c8; }
+.jj-picker-options { display: block; margin-bottom: 14px; }
+.jj-picker-option  {
+  display: block; padding: 11px 14px; margin-bottom: 6px;
+  border: 1px solid #c8c8c8; background: #fff;
+  text-decoration: none; color: #0a0a0a;
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.jj-picker-option:hover { background: #0a0a0a; color: #f8f8f8; border-color: #0a0a0a; opacity: 1; }
+.jj-picker-cancel  { display: block; width: 100%; text-align: center; font-family: "IBM Plex Mono", "Courier New", monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #888; background: none; border: none; cursor: pointer; padding: 4px 0; }
+.jj-picker-cancel:hover { color: #0a0a0a; }
 
 /* Loading / error / empty states */
 .jj-state {
@@ -233,10 +265,17 @@ img { display: block; max-width: 100%; border: 0; }
   .jj-card-desc   { color: var(--jj-fg-muted); font-family: var(--jj-font-sans); }
   .jj-card-footer { border-top-color: var(--jj-border-color); }
   .jj-price       { color: var(--jj-fg); }
-  .jj-vendor      { background: var(--jj-accent-light, var(--jj-bg-sunken)); color: var(--jj-accent, var(--jj-fg-muted)); }
   .jj-tag         { border-color: var(--jj-border-color); color: var(--jj-fg-subtle); }
   .jj-cta         { color: var(--jj-fg-subtle); }
   .jj-new-badge   { background: var(--jj-fg); color: var(--jj-bg); }
+  div.jj-card:focus { outline-color: var(--jj-fg); }
+  .jj-picker      { background: var(--jj-bg); border-color: var(--jj-fg); }
+  .jj-picker-eyebrow { color: var(--jj-fg-subtle); }
+  .jj-picker-title   { color: var(--jj-fg); border-bottom-color: var(--jj-border-color); }
+  .jj-picker-option  { background: var(--jj-bg-raised); border-color: var(--jj-border-color); color: var(--jj-fg); font-family: var(--jj-font-mono); transition: background var(--jj-dur-fast) var(--jj-ease), color var(--jj-dur-fast) var(--jj-ease); }
+  .jj-picker-option:hover { background: var(--jj-fg); color: var(--jj-bg); border-color: var(--jj-fg); opacity: 1; }
+  .jj-picker-cancel  { color: var(--jj-fg-muted); font-family: var(--jj-font-mono); }
+  .jj-picker-cancel:hover { color: var(--jj-fg); }
   .jj-state       { border-color: var(--jj-border-color); color: var(--jj-fg-subtle); }
   .jj-state-mark  { background: var(--jj-fg); color: var(--jj-bg); }
   .jj-notice      { background: var(--jj-bg-sunken); border-left-color: var(--jj-fg); color: var(--jj-fg-muted); }
@@ -329,7 +368,7 @@ img { display: block; max-width: 100%; border: 0; }
   <div class="jj-page-header">
     <h1 class="jj-page-title">[JJ] Shop</h1>
     <p class="jj-page-lead">
-      Merchandise printed on demand. Ships directly from Zazzle.
+      Merchandise printed on demand. Ships directly from Zazzle or Redbubble.
       No inventory held. No data collected.
     </p>
     <!-- filter buttons injected by JS -->
@@ -337,7 +376,7 @@ img { display: block; max-width: 100%; border: 0; }
   </div>
 
   <div class="jj-notice" role="note">
-    <strong>How it works:</strong> Clicking a product opens the listing on Zazzle.
+    <strong>How it works:</strong> Click any product to open its store listing.
     Jeff Jenx does not process orders or handle shipping.
   </div>
 
@@ -382,7 +421,9 @@ img { display: block; max-width: 100%; border: 0; }
 
   var DATA_URL = 'products.json';
   var currentFilter = 'all';
-  var catalog = null; // populated after load
+  var catalog = null;
+  var multiVendorProducts = {}; // pid → { title, vendors } for the picker
+  var _overlay = null;
 
   // ── Utility ─────────────────────────────────────────────────────────────
 
@@ -432,56 +473,92 @@ img { display: block; max-width: 100%; border: 0; }
     return out;
   }
 
+  // ── Vendor picker ─────────────────────────────────────────────────────────
+
+  function getOverlay() {
+    if (!_overlay) {
+      _overlay = document.createElement('div');
+      _overlay.className = 'jj-overlay';
+      document.body.appendChild(_overlay);
+      _overlay.onclick = function (e) {
+        if (e.target === _overlay) closeVendorPicker();
+      };
+    }
+    return _overlay;
+  }
+
+  function openVendorPicker(pid) {
+    var data = multiVendorProducts[pid];
+    if (!data) return;
+    var vendorNames = { zazzle: 'Zazzle', redbubble: 'Redbubble', gumroad: 'Gumroad', direct: 'Direct' };
+    var options = '';
+    for (var i = 0; i < data.vendors.length; i++) {
+      var v = data.vendors[i];
+      var label = vendorNames[v.name] || esc(v.name);
+      options += '<a href="' + esc(v.url) + '" target="_blank" rel="noopener noreferrer" class="jj-picker-option">' + label + '</a>';
+    }
+    var ol = getOverlay();
+    ol.innerHTML = '<div class="jj-picker" role="dialog" aria-modal="true" aria-labelledby="jj-picker-hd">'
+      + '<span class="jj-picker-eyebrow">Shop this product</span>'
+      + '<span class="jj-picker-title" id="jj-picker-hd">' + esc(data.title) + '</span>'
+      + '<div class="jj-picker-options">' + options + '</div>'
+      + '<button class="jj-picker-cancel">Cancel</button>'
+      + '</div>';
+    ol.className = 'jj-overlay is-open';
+    var cancel = ol.querySelector('.jj-picker-cancel');
+    if (cancel) { cancel.onclick = closeVendorPicker; setTimeout(function () { cancel.focus(); }, 0); }
+  }
+
+  function closeVendorPicker() {
+    if (_overlay) _overlay.className = 'jj-overlay';
+  }
+
   function renderCard(product, catLabel, accent) {
-    var priceHtml = product.price
-      ? '<span class="jj-price">' + esc(product.price) + '</span>'
-      : '<span class="jj-price" style="font-size:12px;opacity:0.6">See listing</span>';
-
-    // Handle both old schema (product.vendor/url) and new schema (product.vendors array)
-    var vendorLabel = '';
-    var productUrl = product.url || '';
-    var vendorMap = { zazzle: 'Zazzle', redbubble: 'Redbubble', gumroad: 'Gumroad', direct: 'Direct' };
-
+    // Collect all active vendors
+    var activeVendors = [];
     if (product.vendors && product.vendors.length) {
-      // New schema: find first active vendor
       for (var v = 0; v < product.vendors.length; v++) {
-        if (product.vendors[v].active !== false) {
-          var vendor = product.vendors[v];
-          vendorLabel = vendorMap[vendor.name] || esc(vendor.name || '');
-          productUrl = vendor.url || '';
-          break;
-        }
+        if (product.vendors[v].active !== false) activeVendors.push(product.vendors[v]);
       }
-    } else {
-      // Old schema fallback
-      vendorLabel = vendorMap[product.vendor] || esc(product.vendor || '');
-      productUrl = product.url || '';
+    } else if (product.url && product.vendor) {
+      activeVendors.push({ name: product.vendor, url: product.url });
     }
 
-    var vendorHtml = vendorLabel ? '<span class="jj-vendor">' + vendorLabel + '</span>' : '';
     var newHtml    = product['new'] ? '<span class="jj-new-badge" aria-label="New">NEW</span>' : '';
-    var ariaLabel  = esc(product.title) + (product.price ? ', ' + esc(product.price) : '') + (vendorLabel ? ', on ' + vendorLabel : '');
-
-    // Inline accent on the card wrapper so CSS custom props cascade to children
+    var priceHtml  = product.price ? '<div class="jj-price-cell"><span class="jj-price">' + esc(product.price) + '</span></div>' : '';
     var accentStyle = accent
       ? ' style="--jj-accent:' + esc(accent.base) + ';--jj-accent-light:' + esc(accent.light) + ';--jj-accent-dark:' + esc(accent.dark) + '"'
       : '';
 
-    return '<div class="jj-col"' + accentStyle + '>'
-      + '<a class="jj-card" href="' + esc(productUrl) + '" target="_blank" rel="noopener noreferrer" aria-label="' + ariaLabel + '">'
-        + '<div class="jj-card-bar" aria-hidden="true"></div>'
-        + '<div class="jj-card-body">'
-          + '<span class="jj-card-cat">' + esc(catLabel) + '</span>'
-          + '<span class="jj-card-title">' + esc(product.title) + newHtml + '</span>'
-          + '<span class="jj-card-desc">' + esc(product.desc) + '</span>'
-          + '<div class="jj-card-tags">' + renderTags(product.tags) + '</div>'
-        + '</div>'
-        + '<div class="jj-card-footer">'
-          + '<div class="jj-price-cell">' + priceHtml + vendorHtml + '</div>'
-          + '<span class="jj-cta" aria-hidden="true">Shop &rarr;</span>'
-        + '</div>'
-      + '</a>'
+    var cardBody = '<div class="jj-card-bar" aria-hidden="true"></div>'
+      + '<div class="jj-card-body">'
+        + '<span class="jj-card-cat">' + esc(catLabel) + '</span>'
+        + '<span class="jj-card-title">' + esc(product.title) + newHtml + '</span>'
+        + '<span class="jj-card-desc">' + esc(product.desc) + '</span>'
+        + '<div class="jj-card-tags">' + renderTags(product.tags) + '</div>'
+      + '</div>'
+      + '<div class="jj-card-footer">'
+        + priceHtml
+        + '<span class="jj-cta">Shop &rarr;</span>'
       + '</div>';
+
+    if (activeVendors.length > 1) {
+      // Multi-vendor: clicking opens the picker overlay
+      multiVendorProducts[product.id] = { title: product.title, vendors: activeVendors };
+      return '<div class="jj-col"' + accentStyle + '>'
+        + '<div class="jj-card" data-pid="' + esc(product.id) + '" role="button" tabindex="0" aria-label="Shop ' + esc(product.title) + '">'
+          + cardBody
+        + '</div>'
+        + '</div>';
+    } else {
+      // Single vendor: entire card is a direct link
+      var url = activeVendors.length > 0 ? activeVendors[0].url : '#';
+      return '<div class="jj-col"' + accentStyle + '>'
+        + '<a class="jj-card" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer" aria-label="Shop ' + esc(product.title) + '">'
+          + cardBody
+        + '</a>'
+        + '</div>';
+    }
   }
 
   function renderCollection(col) {
@@ -579,6 +656,7 @@ img { display: block; max-width: 100%; border: 0; }
   // ── Main render ──────────────────────────────────────────────────────────
 
   function renderShop(data, filter) {
+    multiVendorProducts = {};
     var output = document.getElementById('shop-output');
     if (!output) return;
 
@@ -609,6 +687,35 @@ img { display: block; max-width: 100%; border: 0; }
     catalog = data;
     buildFilters(data);
     renderShop(data, 'all');
+
+    // Close picker on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' || e.keyCode === 27) closeVendorPicker();
+    });
+
+    // Delegate multi-vendor card clicks and keyboard activation
+    var output = document.getElementById('shop-output');
+    if (output) {
+      output.addEventListener('click', function (e) {
+        var el = e.target;
+        while (el && el !== output) {
+          if (el.getAttribute && el.getAttribute('data-pid')) {
+            openVendorPicker(el.getAttribute('data-pid'));
+            return;
+          }
+          el = el.parentNode;
+        }
+      });
+      output.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
+          var el = e.target;
+          if (el.getAttribute && el.getAttribute('data-pid')) {
+            e.preventDefault();
+            openVendorPicker(el.getAttribute('data-pid'));
+          }
+        }
+      });
+    }
   }
 
   function onError(msg) {
