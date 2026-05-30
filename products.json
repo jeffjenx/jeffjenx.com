@@ -220,7 +220,120 @@
       "label": "The Signature Collection",
       "desc": "Personal. Original. Signature designs from Jeff Jenx.",
       "active": true,
-      "products": []
+      "products": [
+        {
+          "id": "sig-github-icon",
+          "title": "GitHub Icon T-Shirt",
+          "desc": "Octocat in grayscale. The signature icon of distributed version control.",
+          "price": "",
+          "vendors": [
+            {
+              "name": "zazzle",
+              "url": "https://www.zazzle.com/github_icon_t_shirt-256540839013868171",
+              "active": true
+            }
+          ],
+          "tags": ["t-shirt", "apparel", "github", "signature", "icon"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "sig-zazzle-icon-2020",
+          "title": "Zazzle Icon 2020 T-Shirt",
+          "desc": "The Z mark. My personal brand on the platform.",
+          "price": "",
+          "vendors": [
+            {
+              "name": "zazzle",
+              "url": "https://www.zazzle.com/zazzle_icon_2020_t_shirt-256061392960679791",
+              "active": true
+            }
+          ],
+          "tags": ["t-shirt", "apparel", "signature", "icon"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "sig-zazzle-icon",
+          "title": "Zazzle Icon T-Shirt",
+          "desc": "The Z mark classic. Retro style signature.",
+          "price": "",
+          "vendors": [
+            {
+              "name": "zazzle",
+              "url": "https://www.zazzle.com/zazzle_icon_t_shirt-256787922315309811",
+              "active": true
+            }
+          ],
+          "tags": ["t-shirt", "apparel", "signature", "icon", "retro"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "sig-discord-icon",
+          "title": "Discord Icon T-Shirt",
+          "desc": "The Discord blurple. My signature mark in the communities I build.",
+          "price": "",
+          "vendors": [
+            {
+              "name": "zazzle",
+              "url": "https://www.zazzle.com/discord_icon_t_shirt-256556509094964748",
+              "active": true
+            }
+          ],
+          "tags": ["t-shirt", "apparel", "discord", "signature", "icon"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "sig-patreon-icon",
+          "title": "Patreon Icon T-Shirt",
+          "desc": "Support creators. My signature mark for patrons.",
+          "price": "",
+          "vendors": [
+            {
+              "name": "zazzle",
+              "url": "https://www.zazzle.com/patreon_icon_t_shirt-256742933074746497",
+              "active": true
+            }
+          ],
+          "tags": ["t-shirt", "apparel", "patreon", "signature", "icon"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "sig-twitch-icon",
+          "title": "Twitch Icon T-Shirt",
+          "desc": "Stream culture. My signature presence on streaming platforms.",
+          "price": "",
+          "vendors": [
+            {
+              "name": "zazzle",
+              "url": "https://www.zazzle.com/twitch_icon_t_shirt-256290495570158547",
+              "active": true
+            }
+          ],
+          "tags": ["t-shirt", "apparel", "twitch", "signature", "icon"],
+          "new": false,
+          "active": true
+        },
+        {
+          "id": "sig-redbubble-icon",
+          "title": "Redbubble Icon T-Shirt",
+          "desc": "My signature mark on Redbubble. The universal profile avatar personalized.",
+          "price": "",
+          "vendors": [
+            {
+              "name": "redbubble",
+              "url": "https://www.redbubble.com/i/t-shirt/Profile-Icon-T-Shirt-by-jeffjenx/160744214/lrcw",
+              "active": true
+            }
+          ],
+          "tags": ["t-shirt", "apparel", "signature", "icon"],
+          "new": false,
+          "active": true
+        }
+      ]
     },
     {
       "id": "unba",
@@ -304,6 +417,22 @@
           "tags": ["t-shirt", "apparel", "programming", "retro"],
           "new": false,
           "active": true
+        },
+        {
+          "id": "warez-smpte-color-bars",
+          "title": "SMPTE TV Color Bars T-Shirt",
+          "desc": "The engineer's palette. Test pattern nostalgia. Vintage computing aesthetics.",
+          "price": "",
+          "vendors": [
+            {
+              "name": "redbubble",
+              "url": "https://www.redbubble.com/i/t-shirt/SMPTE-TV-Color-Bars-T-Shirt-by-jeffjenx/160730664/lrcw",
+              "active": true
+            }
+          ],
+          "tags": ["t-shirt", "apparel", "smpte", "tv", "retro", "engineering", "vintage"],
+          "new": false,
+          "active": true
         }
       ]
     },
@@ -365,134 +494,6 @@
           "tags": ["t-shirt", "apparel", "javascript", "web", "standards"],
           "new": false,
           "active": true
-        },
-        {
-          "id": "www-github-icon",
-          "title": "GitHub Icon T-Shirt",
-          "desc": "Octocat in grayscale. For distributed version control enthusiasts.",
-          "price": "",
-          "vendors": [
-            {
-              "name": "zazzle",
-              "url": "https://www.zazzle.com/github_icon_t_shirt-256540839013868171",
-              "active": true
-            }
-          ],
-          "tags": ["t-shirt", "apparel", "github", "web", "dev"],
-          "new": false,
-          "active": true
-        },
-        {
-          "id": "www-zazzle-icon-2020",
-          "title": "Zazzle Icon 2020 T-Shirt",
-          "desc": "The Z mark. Celebrate the platform.",
-          "price": "",
-          "vendors": [
-            {
-              "name": "zazzle",
-              "url": "https://www.zazzle.com/zazzle_icon_2020_t_shirt-256061392960679791",
-              "active": true
-            }
-          ],
-          "tags": ["t-shirt", "apparel", "zazzle", "web"],
-          "new": false,
-          "active": true
-        },
-        {
-          "id": "www-zazzle-icon",
-          "title": "Zazzle Icon T-Shirt",
-          "desc": "The Z mark classic. Retro style.",
-          "price": "",
-          "vendors": [
-            {
-              "name": "zazzle",
-              "url": "https://www.zazzle.com/zazzle_icon_t_shirt-256787922315309811",
-              "active": true
-            }
-          ],
-          "tags": ["t-shirt", "apparel", "zazzle", "web", "retro"],
-          "new": false,
-          "active": true
-        },
-        {
-          "id": "www-discord-icon",
-          "title": "Discord Icon T-Shirt",
-          "desc": "The Discord blurple. For community builders everywhere.",
-          "price": "",
-          "vendors": [
-            {
-              "name": "zazzle",
-              "url": "https://www.zazzle.com/discord_icon_t_shirt-256556509094964748",
-              "active": true
-            }
-          ],
-          "tags": ["t-shirt", "apparel", "discord", "web", "social"],
-          "new": false,
-          "active": true
-        },
-        {
-          "id": "www-patreon-icon",
-          "title": "Patreon Icon T-Shirt",
-          "desc": "Support creators. Wear the badge of patronage.",
-          "price": "",
-          "vendors": [
-            {
-              "name": "zazzle",
-              "url": "https://www.zazzle.com/patreon_icon_t_shirt-256742933074746497",
-              "active": true
-            }
-          ],
-          "tags": ["t-shirt", "apparel", "patreon", "web", "support"],
-          "new": false,
-          "active": true
-        },
-        {
-          "id": "www-twitch-icon",
-          "title": "Twitch Icon T-Shirt",
-          "desc": "Stream culture. For streamers and viewers.",
-          "price": "",
-          "vendors": [
-            {
-              "name": "zazzle",
-              "url": "https://www.zazzle.com/twitch_icon_t_shirt-256290495570158547",
-              "active": true
-            }
-          ],
-          "tags": ["t-shirt", "apparel", "twitch", "web", "streaming"],
-          "new": false,
-          "active": true
-        },
-        {
-          "id": "www-profile-icon",
-          "title": "Profile Icon T-Shirt",
-          "desc": "The universal profile avatar. Simple, recognizable, timeless.",
-          "price": "",
-          "vendors": [
-            {
-              "name": "redbubble",
-              "url": "https://www.redbubble.com/i/t-shirt/Profile-Icon-T-Shirt-by-jeffjenx/160744214/lrcw",
-              "active": true
-            }
-          ],
-          "tags": ["t-shirt", "apparel", "profile", "web", "icon"],
-          "new": false,
-          "active": true
-        },
-        {
-          "id": "www-smpte-color-bars",
-          "title": "SMPTE TV Color Bars T-Shirt",
-          "desc": "The engineer's palette. Test pattern nostalgia.",
-          "price": "",
-          "vendors": [
-            {
-              "name": "redbubble",
-              "url": "https://www.redbubble.com/i/t-shirt/SMPTE-TV-Color-Bars-T-Shirt-by-jeffjenx/160730664/lrcw",
-              "active": true
-            }
-          ],
-          "tags": ["t-shirt", "apparel", "smpte", "tv", "retro", "engineering"],
-          "new": false,
-          "active": true
         }
       ]
     }
@@ -502,8 +503,12 @@
     "lastUpdated": "2026-05-30",
     "totalCollections": 10,
     "activeCollections": 10,
-    "totalProducts": 28,
+    "totalProducts": 26,
+    "totalZazzleProducts": 24,
+    "totalRedbubbleProducts": 6,
+    "multiVendorProducts": 4,
+    "redbubbleOnlyProducts": 2,
     "vendors": ["zazzle", "redbubble"],
-    "note": "SOURCE OF TRUTH: Phase 1 complete (catalog existing). Phase 2 in progress (populate all 10 collections). Phase 3B: Build syndication tool for one-click publishing to Zazzle/Redbubble/other platforms."
+    "note": "SOURCE OF TRUTH: Product catalog using multi-vendor schema (one entry per product with multiple vendor URLs). Phase 1 complete (catalog existing). Phase 2 in progress (populate all 10 collections). Phase 3B: Build syndication tool for one-click publishing to Zazzle/Redbubble/other platforms."
   }
 }
