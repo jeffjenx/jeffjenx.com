@@ -65,6 +65,9 @@ img { display: block; max-width: 100%; border: 0; }
   background: #f8f8f8;
   border-bottom: 1px solid #c8c8c8;
   padding: 12px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 .jj-nav-brand { text-decoration: none; color: #0a0a0a; display: inline-block; vertical-align: middle; }
 .jj-nav-name  { font-size: 16px; font-weight: 500; letter-spacing: -0.02em; display: block; }
@@ -247,7 +250,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   }
 
   body            { background: var(--jj-bg); color: var(--jj-fg); font-family: var(--jj-font-mono); }
-  .jj-nav         { background: var(--jj-bg); border-bottom-color: var(--jj-border-color); }
+  .jj-nav         { background: color-mix(in srgb, var(--jj-bg) 92%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom-color: var(--jj-border-color); }
   .jj-nav-brand   { color: var(--jj-fg); }
   .jj-nav-sub     { color: var(--jj-fg-subtle); }
   .jj-mark-sm     { background: var(--jj-fg); color: var(--jj-bg); }
@@ -355,9 +358,9 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
         <span class="jj-nav-sub">Shop</span>
       </a>
       <ul class="jj-nav-links-list" role="list">
-        <li><a href="jeffjenx-brand-strategy.html" class="jj-nav-link">Brand</a></li>
-        <li><a href="jeffjenx-style-guide.html"    class="jj-nav-link">Style</a></li>
-        <li><a href="jeffjenx-shop.html"           class="jj-nav-link" aria-current="page">Shop</a></li>
+        <li><a href="https://jeffjenx.com"    class="jj-nav-link" aria-current="page">Shop</a></li>
+        <li><a href="https://jeffjenx.design" class="jj-nav-link">Design</a></li>
+        <li><a href="https://jeffjenx.net"    class="jj-nav-link">Network</a></li>
       </ul>
     </div>
     <!-- theme toggle injected by JS -->
@@ -404,9 +407,9 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
 <footer class="jj-footer" role="contentinfo">
   <div class="jj-footer-row">
     [JJ] Jeff Jenx &nbsp;&middot;&nbsp;
-    <a href="jeffjenx-brand-strategy.html">Brand Strategy</a> &nbsp;&middot;&nbsp;
-    <a href="jeffjenx-style-guide.html">Style Guide</a> &nbsp;&middot;&nbsp;
-    <a href="https://www.zazzle.com/store/jeffjenx" target="_blank" rel="noopener noreferrer">Zazzle Store</a>
+    <a href="https://jeffjenx.com" aria-current="page">Shop</a> &nbsp;&middot;&nbsp;
+    <a href="https://jeffjenx.design">Design</a> &nbsp;&middot;&nbsp;
+    <a href="https://jeffjenx.net">Network</a>
   </div>
   <div class="jj-footer-row">No tracking. No ads. No data collected.</div>
 </footer>
