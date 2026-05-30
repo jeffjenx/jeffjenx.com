@@ -6,7 +6,8 @@
     "To add a collection: copy any collection object, paste it into the 'collections' array, update the fields, add products.",
     "To hide a product without deleting it: set 'active' to false.",
     "To mark a product as new: set 'new' to true.",
-    "Fields: id (unique slug), title, desc, price (empty for Zazzle/RB auto-pricing), vendors array, tags, new, active.",
+    "Product fields: id (unique slug), title, desc, price (empty for Zazzle/RB auto-pricing), vendors array, tags, new, active.",
+    "Collection fields: id, label, desc, active, accent (hex), accent_light (hex), accent_dark (hex), mark (symbol/short text on card thumb), products.",
     "Vendor structure: { name ('zazzle'|'redbubble'|'gumroad'|'direct'), url, active }",
     "Each unique product should have one entry with multiple vendor URLs (not duplicated across products).",
     "Phase 3B: Build syndication tool to auto-push products.json → Zazzle/Redbubble APIs."
@@ -18,6 +19,10 @@
       "label": "The Showdown Army Collection",
       "desc": "Community. Competition. Showdown designs.",
       "active": true,
+      "accent": "#C0A060",
+      "accent_light": "#faf4e5",
+      "accent_dark": "#9a7d44",
+      "mark": "★",
       "products": [
         {
           "id": "showdown-grand-theft-army",
@@ -42,6 +47,10 @@
       "label": "The Artificial Collection",
       "desc": "AI-generated. Machine-created. The future of design.",
       "active": true,
+      "accent": "#7B5EA7",
+      "accent_light": "#ede9f8",
+      "accent_dark": "#5a4180",
+      "mark": "AI",
       "products": [
         {
           "id": "artificial-mythical-odyssey",
@@ -71,6 +80,10 @@
       "label": "The Emoticon Collection",
       "desc": "Express yourself. Emoji energy. Pure emotion.",
       "active": true,
+      "accent": "#E8433A",
+      "accent_light": "#fef2f2",
+      "accent_dark": "#b91c1c",
+      "mark": "❤",
       "products": [
         {
           "id": "emoticon-heart-eyes",
@@ -95,6 +108,10 @@
       "label": "The Irrational Collection",
       "desc": "For the mathematically minded. Pi. Numbers. Infinite precision.",
       "active": true,
+      "accent": "#0891B2",
+      "accent_light": "#e0f2fe",
+      "accent_dark": "#0369A1",
+      "mark": "π",
       "products": [
         {
           "id": "irrational-pi",
@@ -172,6 +189,10 @@
       "label": "The Justice & Liberty Collection",
       "desc": "USA. Rights. Freedom. Liberty and justice for all.",
       "active": true,
+      "accent": "#003791",
+      "accent_light": "#e5f0fa",
+      "accent_dark": "#00215e",
+      "mark": "©",
       "products": [
         {
           "id": "justice-copyright-year",
@@ -196,6 +217,10 @@
       "label": "The PC:MR Collection",
       "desc": "Video games. Retro. Nintendo. The classics.",
       "active": true,
+      "accent": "#107C10",
+      "accent_light": "#e6f4e6",
+      "accent_dark": "#0a5e0a",
+      "mark": "PC",
       "products": [
         {
           "id": "pcmr-another-castle",
@@ -220,6 +245,10 @@
       "label": "The Signature Collection",
       "desc": "Personal. Original. Signature designs from Jeff Jenx.",
       "active": true,
+      "accent": "#0a0a0a",
+      "accent_light": "#e8e8e8",
+      "accent_dark": "#2a2a2a",
+      "mark": "[JJ]",
       "products": [
         {
           "id": "sig-github-icon",
@@ -340,6 +369,10 @@
       "label": "The UNBA Collection",
       "desc": "Sports. Baseball. Softball. The ball game.",
       "active": true,
+      "accent": "#9B1C1C",
+      "accent_light": "#fce8e8",
+      "accent_dark": "#7a1515",
+      "mark": "⬟",
       "products": [
         {
           "id": "unba-bottom-fifth",
@@ -364,6 +397,10 @@
       "label": "The Warez Collection",
       "desc": "Vintage computing. Before the cloud. When you had to run it yourself.",
       "active": true,
+      "accent": "#166534",
+      "accent_light": "#dcfce7",
+      "accent_dark": "#14532d",
+      "mark": "C:\\",
       "products": [
         {
           "id": "warez-cdos-run",
@@ -441,6 +478,10 @@
       "label": "The World Wide Web Collection",
       "desc": "Web standards. Semantically correct. The internet made wearable.",
       "active": true,
+      "accent": "#E44D26",
+      "accent_light": "#fef3ee",
+      "accent_dark": "#c03a1b",
+      "mark": "</>",
       "products": [
         {
           "id": "www-html5-logo",

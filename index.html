@@ -120,6 +120,8 @@ img { display: block; max-width: 100%; border: 0; }
   color: #0a0a0a;
 }
 .jj-card-bar    { height: 3px; background: #0a0a0a; }
+.jj-card-thumb  { height: 72px; background: #c8c8c8; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+.jj-card-mark   { font-family: "IBM Plex Mono", "Courier New", monospace; font-size: 22px; font-weight: 500; color: rgba(255,255,255,0.92); letter-spacing: -0.02em; user-select: none; pointer-events: none; }
 .jj-card-body   { padding: 16px 18px; }
 .jj-card-cat    { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #888; display: block; margin-bottom: 6px; }
 .jj-card-title  { font-size: 14px; font-weight: 500; display: block; margin-bottom: 8px; letter-spacing: -0.01em; }
@@ -260,6 +262,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   .jj-card        { background: var(--jj-bg-raised); border-color: var(--jj-border-color); transition: border-color var(--jj-dur-normal) var(--jj-ease); }
   .jj-card:hover  { border-color: var(--jj-accent, var(--jj-fg)); }
   .jj-card-bar    { background: var(--jj-accent, var(--jj-fg)); }
+  .jj-card-mark   { font-family: var(--jj-font-mono); }
   .jj-card-cat    { color: var(--jj-accent, var(--jj-fg-subtle)); }
   .jj-card-title  { color: var(--jj-fg); }
   .jj-card-desc   { color: var(--jj-fg-muted); font-family: var(--jj-font-sans); }
@@ -513,7 +516,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
     if (_overlay) _overlay.className = 'jj-overlay';
   }
 
-  function renderCard(product, catLabel, accent) {
+  function renderCard(product, catLabel, accent, mark) {
     // Collect all active vendors
     var activeVendors = [];
     if (product.vendors && product.vendors.length) {
@@ -530,7 +533,14 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
       ? ' style="--jj-accent:' + esc(accent.base) + ';--jj-accent-light:' + esc(accent.light) + ';--jj-accent-dark:' + esc(accent.dark) + '"'
       : '';
 
-    var cardBody = '<div class="jj-card-bar" aria-hidden="true"></div>'
+    // Colored thumb with typographic mark; fallback to accent bar if no collection accent
+    var thumbHtml = (accent && accent.base)
+      ? '<div class="jj-card-thumb" style="background:' + esc(accent.base) + '">'
+          + (mark ? '<span class="jj-card-mark">' + esc(mark) + '</span>' : '')
+          + '</div>'
+      : '<div class="jj-card-bar" aria-hidden="true"></div>';
+
+    var cardBody = thumbHtml
       + '<div class="jj-card-body">'
         + '<span class="jj-card-cat">' + esc(catLabel) + '</span>'
         + '<span class="jj-card-title">' + esc(product.title) + newHtml + '</span>'
@@ -579,9 +589,10 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
     }
     if (!products.length) return '';
 
+    var mark = col.mark || '';
     var cards = '';
     for (var j = 0; j < products.length; j++) {
-      cards += renderCard(products[j], col.label || col.id, accent);
+      cards += renderCard(products[j], col.label || col.id, accent, mark);
     }
 
     // Collection-level accent bar style
