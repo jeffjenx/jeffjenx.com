@@ -8,7 +8,7 @@
     "To mark a product as new: set 'new' to true.",
     "Product fields: id (unique slug), title, desc, type ('physical'|'digital', defaults to 'physical'), price (empty for Zazzle/RB auto-pricing), vendors array, tags, new, active.",
     "Collection fields: id, label, desc, active, accent (hex), accent_light (hex), accent_dark (hex), mark (symbol/short text on card thumb), products.",
-    "Vendor structure: { name ('zazzle'|'redbubble'|'gumroad'|'direct'), url, active }",
+    "Vendor structure: { name ('zazzle'|'redbubble'|'gumroad'|'kofi'|'direct'), url, active }",
     "Each unique product should have one entry with multiple vendor URLs (not duplicated across products).",
     "Phase 3B: Build syndication tool to auto-push products.json → Zazzle/Redbubble APIs."
   ],
@@ -611,7 +611,7 @@
       "label": "Digital Downloads",
       "desc": "Instant digital downloads. ROMs, design tokens, templates, wallpapers, and brand assets.",
       "active": false,
-      "_activate_note": "Set active: true once Gumroad payment is configured and at least one product has a live vendor URL",
+      "_activate_note": "Set active: true once Ko-fi store is live and at least one product has a vendor URL",
       "accent": "#6366F1",
       "accent_light": "#eef2ff",
       "accent_dark": "#4338CA",
@@ -664,7 +664,7 @@
           "tags": ["wallpaper", "retro", "web", "computing", "design", "desktop"],
           "new": false,
           "active": false,
-          "_draft": "Phase 4A — create 10-15 wallpapers per brief in GUMROAD-PRODUCT-COPY.md, upload to Gumroad, add vendor URL, set active: true"
+          "_draft": "Phase 4A — create 10-15 wallpapers per brief in GUMROAD-PRODUCT-COPY.md, upload to Ko-fi, add vendor URL, set active: true"
         },
         {
           "id": "digital-brand-kit",
@@ -694,7 +694,7 @@
     "multiVendorProducts": 2,
     "redbubbleOnlyProducts": 3,
     "productTypes": ["physical", "digital"],
-    "vendors": ["zazzle", "redbubble", "gumroad"],
+    "vendors": ["zazzle", "redbubble", "gumroad", "kofi"],
     "note": "SOURCE OF TRUTH: Multi-vendor schema — one entry per product with multiple vendor URLs. Phase 3 complete (catalog + multi-vendor UI). Phase 4 in progress: 6 physical drafts need designs; 5 digital drafts need Ko-fi setup (preferred over Gumroad — 0% fee). To activate digital collection: create Ko-fi store → upload files → add vendor URLs → set digital products active:true → set digital collection active:true."
   }
 }
