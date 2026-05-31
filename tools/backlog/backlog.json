@@ -210,7 +210,7 @@
     },
     {
       "id": "digital-downloads-setup",
-      "title": "Set up Gumroad/Ko-fi and activate digital downloads collection",
+      "title": "Set up Ko-fi and activate digital downloads collection",
       "detail": "products.json has digital collection ready (active: false). Ko-fi has 0% platform fee vs Gumroad 10%. When icons are ready: create Ko-fi store, add product entries with type: 'digital', set digital collection active: true.",
       "category": "revenue",
       "value": 5,
@@ -328,6 +328,7 @@
       "completedAt": "2026-06-01"
     },
     {
+      "id": "phase4b-typescript-tee",
       "title": "Create and list TypeScript Logo T-Shirt (Phase 4B)",
       "detail": "Draft entry www-typescript-logo is in products.json (active: false). TAG_MAP entries added. Create design using official TypeScript logo (MIT licensed). Upload to Zazzle and Redbubble. Add vendor URLs to products.json draft entry, set active: true, remove _draft field.",
       "category": "revenue",
