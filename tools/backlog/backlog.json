@@ -412,8 +412,8 @@
     },
     {
       "id": "product-images",
-      "title": "Add product images to products.json and jeffjenx.com",
-      "detail": "Products have no images. Adding an 'image' field to each product entry + hosting 400x400 thumbnails on jeffjenx.com would: (a) enable og:image per product if we ever do product pages, (b) complete the schema.org Product JSON-LD (currently missing image), (c) make the shop visually scannable. Zazzle and Redbubble both have downloadable product preview images.",
+      "title": "Add product images to shop cards (index.html)",
+      "detail": "Product pages (generator) already support product.image field for og:image, twitter:image, JSON-LD, and visual area. Remaining work: add product card images to the main shop grid. Add image field to each product entry in products.json, host 400x400 thumbnails at /images/products/{id}/thumb.jpg. Zazzle and Redbubble both have downloadable product preview images.",
       "category": "ux",
       "value": 4,
       "alignment": 4,
@@ -421,6 +421,76 @@
       "effort": 3,
       "status": "open",
       "files": ["products.json", "index.html"]
+    },
+    {
+      "id": "anti-fouc-all-sites",
+      "title": "Anti-FOUC head scripts across all sites and generator",
+      "detail": "Added inline anti-FOUC script to <head> on jeffjenx.com, jeffjenx.design (index + all 3 sub-pages), jeffjenx.net, and all 24 generated product pages. Dark mode users no longer see a flash of light mode on any page.",
+      "category": "ux",
+      "value": 4, "alignment": 4, "urgency": 3, "effort": 1,
+      "status": "done",
+      "files": ["index.html", "jeffjenx.design/index.html", "jeffjenx.net/index.htm", "tools/generate/index.js"],
+      "completedAt": "2026-06-01"
+    },
+    {
+      "id": "wow-factor-shop",
+      "title": "Shop wow-factor: skeleton loading, instant search, card animations, dark mode transitions",
+      "detail": "Skeleton loading: 6 shimmer placeholder cards appear immediately on page load before fetch completes. Instant search: setupSearch() with 80ms debounce, filter bar hides while searching, search meta shows count. Card entrance animation: CSS @keyframes with nth-child stagger (40/80/80/120/120ms). Dark mode: body/nav/footer color transitions on theme toggle. All reduced-motion safe.",
+      "category": "ux",
+      "value": 4, "alignment": 4, "urgency": 2, "effort": 2,
+      "status": "done",
+      "files": ["index.html"],
+      "completedAt": "2026-06-01"
+    },
+    {
+      "id": "filter-button-counts",
+      "title": "Filter buttons show product counts per collection",
+      "detail": "buildFilters() now appends (All 24), (WWW 5), etc. to each filter button. Count is computed at runtime from active products only. Persists on activeFilterBtn() class change since only className is updated.",
+      "category": "ux",
+      "value": 3, "alignment": 3, "urgency": 1, "effort": 1,
+      "status": "done",
+      "files": ["index.html"],
+      "completedAt": "2026-06-01"
+    },
+    {
+      "id": "404-page",
+      "title": "Branded 404 page",
+      "detail": "Created 404.html matching shop design: [JJ] nav, anti-FOUC, theme toggle, 'Browse the Shop →' CTA, footer nav links. No canonical tag (correct for error pages).",
+      "category": "ux",
+      "value": 3, "alignment": 3, "urgency": 2, "effort": 1,
+      "status": "done",
+      "files": ["404.html"],
+      "completedAt": "2026-06-01"
+    },
+    {
+      "id": "generator-product-image-support",
+      "title": "Generator: product.image support for og:image, visual area, and JSON-LD",
+      "detail": "tools/generate/index.js updated: when product.image is set, og:image and twitter:image use the product image instead of fallback og-image.png; JSON-LD adds 'image' field; .pg-visual renders <img> tag instead of collection mark character. All 24 product pages regenerated. Code-ready for Phase 5A image uploads.",
+      "category": "infrastructure",
+      "value": 4, "alignment": 4, "urgency": 2, "effort": 1,
+      "status": "done",
+      "files": ["tools/generate/index.js"],
+      "completedAt": "2026-06-01"
+    },
+    {
+      "id": "og-image-alt-meta",
+      "title": "og:image:alt + twitter:image:alt on all sites and generator",
+      "detail": "Added descriptive og:image:alt and twitter:image:alt meta tags to jeffjenx.com, jeffjenx.design (all 4 pages), jeffjenx.net, and all 24 generated product pages. Improves screen reader accessibility of social share previews.",
+      "category": "seo",
+      "value": 2, "alignment": 3, "urgency": 1, "effort": 1,
+      "status": "done",
+      "files": ["index.html", "tools/generate/index.js"],
+      "completedAt": "2026-06-01"
+    },
+    {
+      "id": "url-search-param",
+      "title": "URL-addressable search + Google Sitelinks Search Box",
+      "detail": "Search queries now reflected in URL as ?q=term via history.replaceState. On load, ?q= param restores search state (enables sharing and browser back nav). Added SearchAction potentialAction to WebSite JSON-LD for Google Sitelinks Search Box eligibility.",
+      "category": "seo",
+      "value": 3, "alignment": 4, "urgency": 1, "effort": 1,
+      "status": "done",
+      "files": ["index.html"],
+      "completedAt": "2026-06-01"
     }
   ]
 }
