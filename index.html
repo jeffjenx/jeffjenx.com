@@ -58,6 +58,10 @@
 
 <style type="text/css">
 
+/* Skip navigation — screen readers and keyboard users */
+.jj-skip-link { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.jj-skip-link:focus { position: static; width: auto; height: auto; overflow: visible; display: inline-block; padding: 8px 16px; background: #0a0a0a; color: #f8f8f8; font-family: "IBM Plex Mono", "Courier New", monospace; font-size: 14px; text-decoration: none; z-index: 9999; }
+
 /* =========================================================================
    LAYER 1 — BASE (IE5.5+)
    Hardcoded values. No custom properties. Float grid.
@@ -89,7 +93,7 @@ img { display: block; max-width: 100%; border: 0; }
 }
 .jj-nav-brand { text-decoration: none; color: #0a0a0a; display: inline-block; vertical-align: middle; }
 .jj-nav-name  { font-size: 16px; font-weight: 500; letter-spacing: -0.02em; display: block; }
-.jj-nav-sub   { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #888; display: block; }
+.jj-nav-sub   { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #717171; display: block; }
 .jj-mark-sm   { display: inline-block; background: #0a0a0a; color: #f8f8f8; font-weight: 500; font-size: 14px; width: 32px; height: 32px; text-align: center; line-height: 32px; vertical-align: middle; margin-right: 10px; }
 
 /* Wrap */
@@ -122,7 +126,7 @@ img { display: block; max-width: 100%; border: 0; }
 /* Collection section */
 .jj-collection { margin-bottom: 56px; }
 .jj-collection-header { margin-bottom: 20px; display: block; }
-.jj-collection-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #888; display: block; margin-bottom: 4px; }
+.jj-collection-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #717171; display: block; margin-bottom: 4px; }
 .jj-collection-title { font-size: 18px; font-weight: 500; letter-spacing: -0.02em; display: block; margin-bottom: 4px; }
 .jj-collection-desc  { font-size: 13px; color: #555; font-family: "IBM Plex Sans", Arial, sans-serif; line-height: 1.5; }
 .jj-collection-divider { border: none; border-top: 1px solid #c8c8c8; margin-bottom: 20px; }
@@ -144,16 +148,16 @@ img { display: block; max-width: 100%; border: 0; }
 .jj-card-thumb  { height: 72px; background: #c8c8c8; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
 .jj-card-mark   { font-family: "IBM Plex Mono", "Courier New", monospace; font-size: 22px; font-weight: 500; color: rgba(255,255,255,0.92); letter-spacing: -0.02em; user-select: none; pointer-events: none; }
 .jj-card-body   { padding: 16px 18px; }
-.jj-card-cat    { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #888; display: block; margin-bottom: 6px; }
+.jj-card-cat    { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #717171; display: block; margin-bottom: 6px; }
 .jj-card-title  { font-size: 14px; font-weight: 500; display: block; margin-bottom: 8px; letter-spacing: -0.01em; }
 .jj-card-desc   { font-size: 12px; color: #555; font-family: "IBM Plex Sans", Arial, sans-serif; display: block; line-height: 1.5; margin-bottom: 10px; }
 .jj-card-tags   { display: block; margin-bottom: 0; }
-.jj-tag         { display: inline-block; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid #c8c8c8; color: #888; padding: 2px 6px; margin: 0 3px 3px 0; }
+.jj-tag         { display: inline-block; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid #c8c8c8; color: #717171; padding: 2px 6px; margin: 0 3px 3px 0; }
 .jj-card-footer { border-top: 1px solid #e8e8e8; padding: 10px 18px; }
 .jj-price       { font-size: 16px; font-weight: 500; letter-spacing: -0.02em; display: inline-block; vertical-align: middle; }
 .jj-new-badge       { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; background: #0a0a0a; color: #f8f8f8; padding: 2px 5px; display: inline-block; vertical-align: middle; margin-left: 6px; }
 .jj-download-badge  { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; background: #166534; color: #f8f8f8; padding: 2px 5px; display: inline-block; vertical-align: middle; margin-left: 6px; }
-.jj-cta         { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #888; padding: 4px 0; }
+.jj-cta         { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #717171; padding: 4px 0; }
 
 /* Multi-vendor card (div, acts as button) */
 div.jj-card     { cursor: pointer; }
@@ -174,7 +178,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   width: 100%;
   max-width: 300px;
 }
-.jj-picker-eyebrow { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #888; display: block; margin-bottom: 8px; }
+.jj-picker-eyebrow { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #717171; display: block; margin-bottom: 8px; }
 .jj-picker-title   { font-size: 16px; font-weight: 500; letter-spacing: -0.02em; color: #0a0a0a; display: block; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid #c8c8c8; }
 .jj-picker-options { display: block; margin-bottom: 14px; }
 .jj-picker-option  {
@@ -185,7 +189,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
 }
 .jj-picker-option:hover { background: #0a0a0a; color: #f8f8f8; border-color: #0a0a0a; opacity: 1; }
-.jj-picker-cancel  { display: block; width: 100%; text-align: center; font-family: "IBM Plex Mono", "Courier New", monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #888; background: none; border: none; cursor: pointer; padding: 4px 0; }
+.jj-picker-cancel  { display: block; width: 100%; text-align: center; font-family: "IBM Plex Mono", "Courier New", monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #717171; background: none; border: none; cursor: pointer; padding: 4px 0; }
 .jj-picker-cancel:hover { color: #0a0a0a; }
 
 /* Loading / error / empty states */
@@ -193,7 +197,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   padding: 48px 24px;
   text-align: center;
   border: 1px solid #c8c8c8;
-  color: #888;
+  color: #717171;
   font-size: 13px;
   font-family: "IBM Plex Sans", Arial, sans-serif;
 }
@@ -205,8 +209,8 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
 .jj-notice { background: #e8e8e8; border-left: 3px solid #0a0a0a; padding: 12px 16px; font-size: 13px; font-family: "IBM Plex Sans", Arial, sans-serif; color: #555; margin-bottom: 40px; line-height: 1.5; }
 
 /* Footer */
-.jj-footer { border-top: 1px solid #c8c8c8; padding: 28px 0; color: #888; font-size: 11px; letter-spacing: 0.08em; }
-.jj-footer a { color: #888; }
+.jj-footer { border-top: 1px solid #c8c8c8; padding: 28px 0; color: #717171; font-size: 11px; letter-spacing: 0.08em; }
+.jj-footer a { color: #717171; }
 .jj-footer-row + .jj-footer-row { margin-top: 8px; }
 
 /* Theme toggle */
@@ -241,9 +245,9 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
 @supports (--x: 0) {
   :root {
     --jj-black: #0a0a0a; --jj-ink: #1a1a1a; --jj-charcoal: #2a2a2a;
-    --jj-silver: #c8c8c8; --jj-smoke: #e8e8e8; --jj-white: #f8f8f8; --jj-muted: #888;
+    --jj-silver: #c8c8c8; --jj-smoke: #e8e8e8; --jj-white: #f8f8f8; --jj-muted: #717171; /* #888 fails 4.5:1 on light bg; #717171 = 4.6:1 */
     --jj-bg: #f8f8f8; --jj-bg-raised: #ffffff; --jj-bg-sunken: #e8e8e8;
-    --jj-fg: #0a0a0a; --jj-fg-muted: #555; --jj-fg-subtle: #888;
+    --jj-fg: #0a0a0a; --jj-fg-muted: #555; --jj-fg-subtle: #717171;
     --jj-border-color: #c8c8c8;
     --jj-font-mono: "IBM Plex Mono", "Courier New", monospace;
     --jj-font-sans: "IBM Plex Sans", system-ui, Arial, sans-serif;
@@ -252,7 +256,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   }
   [data-theme="dark"] {
     --jj-bg: var(--jj-ink); --jj-bg-raised: var(--jj-charcoal); --jj-bg-sunken: #111;
-    --jj-fg: var(--jj-white); --jj-fg-muted: #aaa; --jj-fg-subtle: var(--jj-muted);
+    --jj-fg: var(--jj-white); --jj-fg-muted: #aaa; --jj-fg-subtle: #888; /* #888 on #1a1a1a = 5.1:1 — passes dark mode */
     --jj-border-color: #3a3a3a;
   }
   [data-theme="light"] {
@@ -263,7 +267,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   @media (prefers-color-scheme: dark) {
     :root {
       --jj-bg: var(--jj-ink); --jj-bg-raised: var(--jj-charcoal); --jj-bg-sunken: #111;
-      --jj-fg: var(--jj-white); --jj-fg-muted: #aaa; --jj-fg-subtle: var(--jj-muted);
+      --jj-fg: var(--jj-white); --jj-fg-muted: #aaa; --jj-fg-subtle: #888; /* passes on dark bg */
       --jj-border-color: #3a3a3a;
     }
   }
@@ -331,7 +335,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   .jj-nav-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
   .jj-nav-left  { display: flex; align-items: center; gap: 20px; }
   .jj-nav-links-list { display: flex; gap: 18px; list-style: none; flex-wrap: wrap; }
-  .jj-nav-link  { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: #888; padding-bottom: 2px; border-bottom: 2px solid transparent; }
+  .jj-nav-link  { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: #717171; padding-bottom: 2px; border-bottom: 2px solid transparent; }
   .jj-nav-link:hover { color: #0a0a0a; border-bottom-color: #0a0a0a; opacity: 1; }
   .jj-nav-link[aria-current="page"] { color: #0a0a0a; border-bottom-color: #0a0a0a; }
   @supports (--x: 0) {
@@ -367,6 +371,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
 </style>
 </head>
 <body>
+<a href="#main" class="jj-skip-link">Skip to main content</a>
 
 <!-- NAV ================================================================== -->
 <nav class="jj-nav" role="navigation" aria-label="Site navigation">
@@ -450,6 +455,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   var catalog = null;
   var multiVendorProducts = {}; // pid → { title, vendors } for the picker
   var _overlay = null;
+  var _pickerTrigger = null; // element that opened the picker; restored on close
 
   // ── Utility ─────────────────────────────────────────────────────────────
 
@@ -509,11 +515,25 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
       _overlay.onclick = function (e) {
         if (e.target === _overlay) closeVendorPicker();
       };
+      // Focus trap — keep Tab/Shift+Tab within the dialog while open
+      _overlay.addEventListener('keydown', function (e) {
+        if (_overlay.className.indexOf('is-open') < 0) return;
+        if (e.key !== 'Tab' && e.keyCode !== 9) return;
+        var focusable = _overlay.querySelectorAll('a[href], button:not([disabled])');
+        if (!focusable.length) return;
+        var first = focusable[0], last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+        } else {
+          if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      });
     }
     return _overlay;
   }
 
-  function openVendorPicker(pid) {
+  function openVendorPicker(pid, triggerEl) {
+    _pickerTrigger = triggerEl || null;
     var data = multiVendorProducts[pid];
     if (!data) return;
     var vendorNames = { zazzle: 'Zazzle', redbubble: 'Redbubble', gumroad: 'Gumroad', direct: 'Direct' };
@@ -537,6 +557,9 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
 
   function closeVendorPicker() {
     if (_overlay) _overlay.className = 'jj-overlay';
+    var t = _pickerTrigger;
+    _pickerTrigger = null;
+    if (t) setTimeout(function () { t.focus(); }, 0);
   }
 
   function renderCard(product, catLabel, accent, mark) {
@@ -627,7 +650,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
     return '<section class="jj-collection" data-category="' + esc(col.id) + '" aria-label="' + esc(col.label) + '">'
       + '<div class="jj-collection-header">'
         + '<span class="jj-collection-label"' + labelStyle + '>' + esc(col.id) + '</span>'
-        + '<span class="jj-collection-title">' + esc(col.label) + '</span>'
+        + '<h2 class="jj-collection-title">' + esc(col.label) + '</h2>'
         + (col.desc ? '<span class="jj-collection-desc">' + esc(col.desc) + '</span>' : '')
       + '</div>'
       + '<hr class="jj-collection-divider"' + dividerStyle + '>'
@@ -780,20 +803,19 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
     if (output) {
       output.addEventListener('click', function (e) {
         var el = e.target;
+        var card = null;
         while (el && el !== output) {
-          if (el.getAttribute && el.getAttribute('data-pid')) {
-            openVendorPicker(el.getAttribute('data-pid'));
-            return;
-          }
+          if (el.getAttribute && el.getAttribute('data-pid')) { card = el; break; }
           el = el.parentNode;
         }
+        if (card) openVendorPicker(card.getAttribute('data-pid'), card);
       });
       output.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
           var el = e.target;
           if (el.getAttribute && el.getAttribute('data-pid')) {
             e.preventDefault();
-            openVendorPicker(el.getAttribute('data-pid'));
+            openVendorPicker(el.getAttribute('data-pid'), el);
           }
         }
       });
