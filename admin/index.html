@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>[JJ] Admin — Sync Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:           #0d0d0d;
+  --bg-card:      #171717;
+  --bg-input:     #222;
+  --border:       #2a2a2a;
+  --text:         #e2e2e2;
+  --text-muted:   #777;
+  --text-dim:     #444;
+  --green:        #22c55e;
+  --green-bg:     #052e16;
+  --amber:        #f59e0b;
+  --amber-bg:     #1c1400;
+  --blue:         #60a5fa;
+  --blue-bg:      #0d1f3a;
+  --red:          #f87171;
+  --font-mono:    'IBM Plex Mono', monospace;
+  --font-sans:    'IBM Plex Sans', system-ui, sans-serif;
+  --radius:       4px;
+}
+
+body { background: var(--bg); color: var(--text); font-family: var(--font-sans); font-size: 14px; line-height: 1.5; }
+a    { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+button { cursor: pointer; border: none; border-radius: var(--radius); font-family: var(--font-mono); font-size: 12px; padding: 4px 10px; transition: opacity .15s; }
+button:hover { opacity: .8; }
+button:active { opacity: .6; }
+input { background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-family: var(--font-mono); font-size: 12px; padding: 5px 10px; width: 100%; }
+input:focus { outline: 1px solid var(--blue); }
+
+/* ── Layout ──────────────────────────────────────── */
+.container { max-width: 900px; margin: 0 auto; padding: 0 20px 60px; }
+
+/* ── Header ──────────────────────────────────────── */
+.jj-header { border-bottom: 1px solid var(--border); padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; }
+.jj-header h1 { font-family: var(--font-mono); font-size: 14px; font-weight: 500; letter-spacing: .05em; }
+.jj-header a   { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+
+/* ── Token bar ───────────────────────────────────── */
+.token-bar { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; margin: 20px 0 0; display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 12px; }
+.token-bar input { max-width: 340px; font-family: var(--font-mono); }
+.token-status { font-size: 11px; }
+.token-status.ok  { color: var(--green); }
+.token-status.missing { color: var(--text-muted); }
+.token-label { color: var(--text-muted); white-space: nowrap; }
+.btn-clear { background: #2a2a2a; color: var(--text-muted); }
+
+/* ── Status panel ────────────────────────────────── */
+.status-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 0; }
+.status-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+.status-card h2 { font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--text-muted); letter-spacing: .08em; margin-bottom: 12px; }
+.status-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; font-family: var(--font-mono); font-size: 12px; }
+.status-row .count { font-weight: 500; }
+.count.green  { color: var(--green); }
+.count.amber  { color: var(--amber); }
+.count.blue   { color: var(--blue); }
+.count.muted  { color: var(--text-muted); }
+.status-actions { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
+.btn-mark-all { background: #1e2a1e; color: var(--green); border: 1px solid #2a4a2a; font-size: 11px; }
+.btn-refresh  { background: #1a1f2e; color: var(--blue); border: 1px solid #1e2e4a; font-size: 11px; }
+.needs-update-note { font-size: 11px; color: var(--amber); margin-top: 6px; display: none; }
+
+/* ── Listings ────────────────────────────────────── */
+.listings-header { margin: 28px 0 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.listings-header h2 { font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--text-muted); letter-spacing: .08em; }
+.filter-bar { display: flex; gap: 8px; }
+.filter-bar select { background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-family: var(--font-mono); font-size: 12px; padding: 4px 8px; }
+.toggle-all { background: var(--bg-input); border: 1px solid var(--border); color: var(--text-muted); font-size: 11px; }
+.toggle-all.active { background: #1a1f2e; color: var(--blue); border-color: #1e2e4a; }
+
+/* ── Product card ────────────────────────────────── */
+.product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; overflow: hidden; }
+.product-card.is-current { border-left: 2px solid var(--green); }
+.product-card.needs-update { border-left: 2px solid var(--amber); }
+.product-card.untracked { border-left: 2px solid var(--blue); }
+
+.card-header { padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; user-select: none; }
+.card-header:hover { background: #1e1e1e; }
+.card-left  { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.card-badge { font-family: var(--font-mono); font-size: 10px; font-weight: 500; padding: 2px 7px; border-radius: 2px; white-space: nowrap; flex-shrink: 0; }
+.badge-current      { background: var(--green-bg); color: var(--green); }
+.badge-needs-update { background: var(--amber-bg); color: var(--amber); }
+.badge-untracked    { background: var(--blue-bg);  color: var(--blue); }
+.card-title { font-family: var(--font-mono); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-id    { font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); flex-shrink: 0; }
+.card-chevron { color: var(--text-dim); font-size: 10px; flex-shrink: 0; }
+
+.card-body  { display: none; border-top: 1px solid var(--border); }
+.card-body.open { display: block; }
+
+.platform-section { padding: 14px 16px; border-bottom: 1px solid var(--border); }
+.platform-section:last-child { border-bottom: none; }
+.platform-label { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); letter-spacing: .08em; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.platform-status-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.dot-green  { background: var(--green); }
+.dot-amber  { background: var(--amber); }
+.dot-blue   { background: var(--blue); }
+.dot-dim    { background: var(--text-dim); }
+
+.field-row { margin-bottom: 10px; }
+.field-label { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); letter-spacing: .06em; margin-bottom: 4px; display: flex; align-items: center; justify-content: space-between; }
+.field-value { font-family: var(--font-mono); font-size: 12px; color: var(--text); background: #111; border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 10px; word-break: break-all; white-space: pre-wrap; }
+.field-value.multiline { max-height: 120px; overflow-y: auto; }
+
+.btn-copy     { background: #222; color: var(--text-muted); font-size: 10px; padding: 2px 7px; }
+.btn-copy.copied { background: var(--green-bg); color: var(--green); }
+
+.card-actions { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-top: 1px solid var(--border); background: #111; }
+.synced-meta  { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); }
+.btn-mark-synced { background: #1e2a1e; color: var(--green); border: 1px solid #2a4a2a; font-size: 11px; }
+.btn-mark-synced.local-only { border-color: #4a3a1e; background: #2a1e0e; color: var(--amber); }
+.not-listed   { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); font-style: italic; }
+
+/* ── Loading / empty ─────────────────────────────── */
+.loading { text-align: center; padding: 60px 0; font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+.empty   { text-align: center; padding: 40px 0; font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+.error-banner { background: #2a0a0a; border: 1px solid #5a1a1a; border-radius: var(--radius); padding: 12px 16px; font-family: var(--font-mono); font-size: 12px; color: var(--red); margin-top: 20px; }
+
+/* ── Spinner ─────────────────────────────────────── */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid var(--border); border-top-color: var(--text-muted); border-radius: 50%; animation: spin .7s linear infinite; vertical-align: middle; margin-right: 6px; }
+</style>
+</head>
+<body>
+
+<header class="jj-header">
+  <h1>[JJ] Admin — Sync Dashboard</h1>
+  <a href="/">← store</a>
+</header>
+
+<div class="container">
+  <!-- Token -->
+  <div class="token-bar">
+    <span class="token-label">GitHub token:</span>
+    <input type="password" id="token-input" placeholder="ghp_… (required to mark products as synced)" autocomplete="off">
+    <span id="token-status" class="token-status missing">not set</span>
+    <button class="btn-clear" id="token-clear" style="display:none">clear</button>
+  </div>
+  <div id="error-banner" class="error-banner" style="display:none"></div>
+
+  <!-- Status summary -->
+  <div class="status-panel">
+    <div class="status-card" id="zazzle-status-card">
+      <h2>ZAZZLE</h2>
+      <div class="loading"><span class="spinner"></span>loading…</div>
+    </div>
+    <div class="status-card" id="redbubble-status-card">
+      <h2>REDBUBBLE</h2>
+      <div class="loading"><span class="spinner"></span>loading…</div>
+    </div>
+  </div>
+
+  <!-- Product listings -->
+  <div class="listings-header">
+    <h2>PRODUCT LISTINGS</h2>
+    <div class="filter-bar">
+      <select id="filter-platform">
+        <option value="all">All platforms</option>
+        <option value="zazzle">Zazzle only</option>
+        <option value="redbubble">Redbubble only</option>
+      </select>
+      <select id="filter-status">
+        <option value="needs-update">Needs update</option>
+        <option value="all">All products</option>
+      </select>
+      <button class="btn-refresh" id="btn-refresh">↺ refresh</button>
+    </div>
+  </div>
+  <div id="listings"></div>
+</div>
+
+<script>
+'use strict';
+
+// ── Config ──────────────────────────────────────────────────────────────────
+var REPO  = 'jeffjenx/jeffjenx.com';
+var SYNC_PATH = 'tools/sync/sync-state.json';
+var PLATFORMS = ['zazzle', 'redbubble'];
+var MAX_TAGS  = { zazzle: 10, redbubble: 15 };
+
+// ── TAG maps (mirrors platforms/zazzle.js + redbubble.js) ──────────────────
+var TAG_MAP_ZAZZLE = {
+  'apparel':      ['clothing', 'gift', 'wearable'],
+  't-shirt':      ['shirt', 'tee', 'unisex'],
+  'hoodie':       ['sweatshirt', 'pullover', 'cozy'],
+  'dos':          ['ms-dos', 'command-line', 'vintage-tech'],
+  'retro':        ['vintage', 'throwback', 'classic', 'nostalgic'],
+  'computing':    ['tech', 'geek', 'computer'],
+  'programming':  ['developer', 'coder', 'programmer', 'software-engineer'],
+  'web':          ['web-developer', 'internet', 'frontend'],
+  'html':         ['html5', 'markup', 'web-developer'],
+  'css':          ['css3', 'stylesheet', 'frontend'],
+  'javascript':   ['js', 'nodejs', 'frontend'],
+  'standards':    ['web-standards', 'developer'],
+  'math':         ['mathematics', 'stem', 'pi-day', 'math-teacher'],
+  'pi':           ['pi-day', 'mathematics', 'geometry', 'irrational'],
+  'love':         ['heart', 'gift', 'i-love'],
+  'greek':        ['letter', 'symbol', 'mathematics', 'stem'],
+  'trigonometry': ['sine', 'cosine', 'tangent', 'math'],
+  'education':    ['student', 'teacher', 'school', 'learning'],
+  'gaming':       ['gamer', 'video-games', 'game'],
+  'nintendo':     ['nes', 'super-mario', 'retrogaming'],
+  'github':       ['git', 'open-source', 'developer', 'version-control'],
+  'discord':      ['gaming', 'community', 'server-admin'],
+  'twitch':       ['streaming', 'live-stream', 'content-creator'],
+  'patreon':      ['creator', 'crowdfunding', 'supporter'],
+  'baseball':     ['softball', 'rec-league', 'team-sports'],
+  'sports':       ['athletic', 'team', 'league'],
+  'jersey':       ['sports', 'team', 'uniform'],
+  'emoji':        ['emoticon', 'unicode', 'smiley'],
+  'emotion':      ['emoticon', 'feeling', 'smiley'],
+  'expression':   ['emoticon', 'fun', 'personality'],
+  'humor':        ['funny', 'gag-gift', 'comedy'],
+  'parody':       ['humor', 'funny', 'parody-design'],
+  'showdown':     ['skateboard', 'snowboard', 'detroit'],
+  'mythology':    ['fantasy', 'mythical', 'rpg'],
+  'adventure':    ['fantasy', 'quest', 'epic'],
+  'copyright':    ['rights', 'legal', 'customizable'],
+  'rights':       ['justice', 'liberty', 'freedom'],
+  'customizable': ['personalized', 'custom', 'your-name'],
+  'smpte':        ['broadcast', 'television', 'engineering'],
+  'engineering':  ['engineer', 'tech', 'av'],
+  'vintage':      ['retro', 'classic', 'throwback'],
+  'ai-generated': ['ai-art', 'generative', 'machine-learning'],
+  'icon':         ['logo', 'brand', 'profile'],
+  'signature':    ['personal', 'branded', 'qr-code'],
+  'qr-code':      ['scan', 'link', 'profile'],
+  'zazzle':       ['creator', 'custom-design', 'marketplace'],
+  'redbubble':    ['creator', 'artist', 'indie-design']
+};
+
+var TAG_MAP_REDBUBBLE = {
+  'apparel':      ['clothing', 'gift', 'fashion'],
+  't-shirt':      ['shirt', 'tee', 'graphic-tee'],
+  'hoodie':       ['sweatshirt', 'pullover', 'warm'],
+  'dos':          ['ms-dos', 'command-line', 'retro-computing', 'vintage-pc'],
+  'retro':        ['vintage', 'classic', 'throwback', 'nostalgia'],
+  'computing':    ['computer', 'technology', 'geek'],
+  'programming':  ['developer', 'coder', 'programmer', 'software-engineer', 'coding'],
+  'web':          ['web-developer', 'internet', 'frontend-dev'],
+  'html':         ['html5', 'markup', 'web-dev'],
+  'css':          ['css3', 'stylesheet', 'web-design'],
+  'javascript':   ['js', 'typescript', 'frontend'],
+  'standards':    ['web-standards', 'developer'],
+  'math':         ['mathematics', 'stem', 'pi-day', 'math-gift'],
+  'pi':           ['pi-day', 'irrational-number', 'geometry', 'pi-symbol'],
+  'love':         ['heart-gift', 'i-love', 'valentines'],
+  'greek':        ['greek-letter', 'mathematics', 'science', 'stem-gift'],
+  'trigonometry': ['sine-cosine-tangent', 'soh-cah-toa', 'right-triangle'],
+  'education':    ['math-teacher', 'student', 'school', 'learning'],
+  'gaming':       ['gamer', 'video-games', 'gaming-culture'],
+  'nintendo':     ['nes', 'super-mario', 'retro-gaming', 'nintendo-fan'],
+  'github':       ['git', 'open-source', 'coding', 'version-control'],
+  'discord':      ['discord-server', 'gaming-community', 'gamer'],
+  'twitch':       ['twitch-streamer', 'live-streaming', 'content-creator'],
+  'patreon':      ['creator-support', 'crowdfunding', 'art'],
+  'baseball':     ['softball', 'rec-league', 'team-sports', 'kickball'],
+  'sports':       ['athletic', 'team', 'recreational'],
+  'jersey':       ['sports-jersey', 'team-shirt', 'athletic'],
+  'emoji':        ['emoticon', 'unicode-emoji', 'smiley-face'],
+  'emotion':      ['expressive', 'emoji-art', 'fun-gift'],
+  'expression':   ['emoji', 'mood', 'unicode-art'],
+  'humor':        ['funny-gift', 'gag-gift', 'comedy-shirt'],
+  'parody':       ['funny', 'humor', 'parody-design', 'gag-gift'],
+  'showdown':     ['skateboarding', 'snowboarding', 'detroit', 'michigan'],
+  'mythology':    ['fantasy-art', 'mythical-creature', 'folklore'],
+  'adventure':    ['fantasy', 'epic-quest', 'rpg'],
+  'copyright':    ['copyright-symbol', 'customizable', 'personalized'],
+  'rights':       ['justice-gift', 'freedom', 'civil-rights'],
+  'smpte':        ['tv-test-pattern', 'broadcast', 'color-bars'],
+  'engineering':  ['engineer', 'av-tech', 'broadcast-engineering'],
+  'vintage':      ['retro-aesthetic', 'classic', 'old-school'],
+  'ai-generated': ['ai-art', 'generative-art', 'machine-learning'],
+  'icon':         ['logo', 'brand-icon', 'profile'],
+  'signature':    ['personal-brand', 'qr-code', 'creator'],
+  'qr-code':      ['scan-me', 'link', 'profile-link'],
+  'zazzle':       ['custom-merch', 'creator-design', 'print-on-demand'],
+  'redbubble':    ['indie-art', 'artist-merch', 'creator']
+};
+
+// ── State ───────────────────────────────────────────────────────────────────
+var appState = {
+  products:   [],   // flat array of active products from products.json
+  syncState:  {},   // committed sync-state.json
+  localSync:  {},   // localStorage overrides
+  status:     {},   // computed: { [productId]: { hash, platforms: { zazzle: {status,hasVendor,syncedAt}, ... } } }
+  syncStateSha: '', // GitHub file SHA (needed for API writes)
+  loaded: false
+};
+
+// ── Utilities ───────────────────────────────────────────────────────────────
+function bust(url) { return url + (url.includes('?') ? '&' : '?') + 't=' + Date.now(); }
+
+function fmtDate(iso) {
+  if (!iso) return '—';
+  var d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function expandTags(baseTags, platform) {
+  var map = platform === 'zazzle' ? TAG_MAP_ZAZZLE : TAG_MAP_REDBUBBLE;
+  var max = MAX_TAGS[platform] || 10;
+  var tagSet = [], seen = {};
+  baseTags.forEach(function(t) {
+    var l = t.toLowerCase();
+    if (!seen[l]) { seen[l] = true; tagSet.push(l); }
+  });
+  baseTags.slice().reverse().forEach(function(t) {
+    var extras = map[t.toLowerCase()];
+    if (!extras) return;
+    extras.forEach(function(e) {
+      if (tagSet.length >= max) return;
+      if (!seen[e]) { seen[e] = true; tagSet.push(e); }
+    });
+  });
+  if (tagSet.length < max && !seen['jeffjenx']) tagSet.push('jeffjenx');
+  return tagSet.slice(0, max);
+}
+
+// ── Hash (Web Crypto — must match lib/catalog.js sha256 implementation) ─────
+async function hashProduct(p) {
+  var data = JSON.stringify({
+    title: p.title      || '',
+    desc:  p.desc       || '',
+    tags:  (p.tags || []).slice().sort(),
+    price: p.price      || '',
+    type:  p.type       || 'physical'
+  });
+  var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(data));
+  return Array.from(new Uint8Array(buf)).map(function(b) { return b.toString(16).padStart(2, '0'); }).join('').slice(0, 16);
+}
+
+// ── Token management ────────────────────────────────────────────────────────
+function getToken()     { return localStorage.getItem('jj-admin-token') || ''; }
+function saveToken(t)   { if (t) localStorage.setItem('jj-admin-token', t); else localStorage.removeItem('jj-admin-token'); }
+function getLocalSync() { try { return JSON.parse(localStorage.getItem('jj-admin-sync') || '{}'); } catch(e) { return {}; } }
+function saveLocalSync(s) { localStorage.setItem('jj-admin-sync', JSON.stringify(s)); }
+
+// ── Data loading ─────────────────────────────────────────────────────────────
+async function loadData() {
+  showError('');
+
+  // Products
+  var pRes = await fetch(bust('/products.json'));
+  if (!pRes.ok) throw new Error('Could not load products.json: ' + pRes.status);
+  var pData = await pRes.json();
+  appState.products = [];
+  (pData.collections || []).forEach(function(col) {
+    if (!col.active) return;
+    (col.products || []).forEach(function(p) {
+      if (!p.active) return;
+      appState.products.push(Object.assign({}, p, { _collection: { id: col.id, label: col.label } }));
+    });
+  });
+
+  // Sync state — try GitHub API first (gets SHA for writes), fall back to same-origin
+  var token = getToken();
+  var syncOk = false;
+  if (token) {
+    try {
+      var apiRes = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + SYNC_PATH, {
+        headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
+      });
+      if (apiRes.ok) {
+        var apiData = await apiRes.json();
+        appState.syncStateSha = apiData.sha;
+        appState.syncState = JSON.parse(atob(apiData.content.replace(/\n/g, '')));
+        syncOk = true;
+      }
+    } catch(e) {}
+  }
+  if (!syncOk) {
+    var sRes = await fetch(bust('/tools/sync/sync-state.json'));
+    if (sRes.ok) appState.syncState = await sRes.json();
+  }
+
+  appState.localSync = getLocalSync();
+}
+
+// ── Status computation ───────────────────────────────────────────────────────
+async function computeStatus() {
+  appState.status = {};
+  for (var i = 0; i < appState.products.length; i++) {
+    var p = appState.products[i];
+    var hash = await hashProduct(p);
+    appState.status[p.id] = { hash: hash, platforms: {} };
+    PLATFORMS.forEach(function(platform) {
+      var committed = (appState.syncState[platform]  || {})[p.id];
+      var local     = (appState.localSync[platform]  || {})[p.id];
+      var hasVendor = (p.vendors || []).some(function(v) { return v.name === platform && v.active !== false; });
+      var syncedHash = (local && local.hash) || (committed && committed.hash);
+      var syncedAt   = (local && local.synced) || (committed && committed.synced);
+      var isLocal    = !!(local && local.hash);
+      var status;
+      if (!hasVendor)        status = 'not-listed';
+      else if (!syncedHash)  status = 'untracked';
+      else if (syncedHash === hash) status = 'current';
+      else                   status = 'needs-update';
+      appState.status[p.id].platforms[platform] = { status: status, syncedAt: syncedAt, hasVendor: hasVendor, isLocal: isLocal };
+    });
+  }
+}
+
+// ── GitHub API write ─────────────────────────────────────────────────────────
+async function writeToGitHub(newState) {
+  var token = getToken();
+  if (!token) return false;
+
+  // Refresh SHA if we don't have it
+  if (!appState.syncStateSha) {
+    var r = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + SYNC_PATH, {
+      headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if (!r.ok) return false;
+    var d = await r.json();
+    appState.syncStateSha = d.sha;
+  }
+
+  var content = btoa(unescape(encodeURIComponent(JSON.stringify(newState, null, 2) + '\n')));
+  var res = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + SYNC_PATH, {
+    method:  'PUT',
+    headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' },
+    body: JSON.stringify({
+      message: 'sync: mark product(s) synced via admin dashboard',
+      content: content,
+      sha:     appState.syncStateSha
+    })
+  });
+  if (res.ok) {
+    var result = await res.json();
+    appState.syncStateSha = result.content.sha;
+    return true;
+  }
+  return false;
+}
+
+// ── Mark synced ──────────────────────────────────────────────────────────────
+async function markSynced(productId, platform) {
+  var info = appState.status[productId];
+  if (!info) return;
+
+  var ts     = new Date().toISOString();
+  var entry  = { hash: info.hash, synced: ts, title: appState.products.find(function(p) { return p.id === productId; }).title };
+
+  // Always update local state
+  if (!appState.localSync[platform]) appState.localSync[platform] = {};
+  appState.localSync[platform][productId] = entry;
+  saveLocalSync(appState.localSync);
+
+  // Try GitHub API
+  var wrote = false;
+  if (getToken()) {
+    var merged = JSON.parse(JSON.stringify(appState.syncState));
+    Object.keys(appState.localSync).forEach(function(plat) {
+      if (!merged[plat]) merged[plat] = {};
+      Object.assign(merged[plat], appState.localSync[plat]);
+    });
+    wrote = await writeToGitHub(merged);
+    if (wrote) {
+      appState.syncState = merged;
+      appState.localSync = {};
+      saveLocalSync({});
+    }
+  }
+
+  await computeStatus();
+  renderAll();
+  return wrote;
+}
+
+async function markAllSynced(platform) {
+  var ts  = new Date().toISOString();
+  if (!appState.localSync[platform]) appState.localSync[platform] = {};
+  appState.products.forEach(function(p) {
+    var info = appState.status[p.id];
+    if (!info) return;
+    appState.localSync[platform][p.id] = { hash: info.hash, synced: ts, title: p.title };
+  });
+  saveLocalSync(appState.localSync);
+
+  var wrote = false;
+  if (getToken()) {
+    var merged = JSON.parse(JSON.stringify(appState.syncState));
+    Object.keys(appState.localSync).forEach(function(plat) {
+      if (!merged[plat]) merged[plat] = {};
+      Object.assign(merged[plat], appState.localSync[plat]);
+    });
+    wrote = await writeToGitHub(merged);
+    if (wrote) { appState.syncState = merged; appState.localSync = {}; saveLocalSync({}); }
+  }
+  await computeStatus();
+  renderAll();
+}
+
+// ── Copy to clipboard ────────────────────────────────────────────────────────
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(function() {
+    var orig = btn.textContent;
+    btn.textContent = 'copied ✓';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+  });
+}
+
+// ── Render ───────────────────────────────────────────────────────────────────
+function statusLabel(s) {
+  if (s === 'current')     return 'CURRENT';
+  if (s === 'needs-update') return 'NEEDS UPDATE';
+  if (s === 'untracked')   return 'UNTRACKED';
+  if (s === 'not-listed')  return 'NOT LISTED';
+  return s.toUpperCase();
+}
+
+function overallStatus(productId) {
+  var ps = appState.status[productId];
+  if (!ps) return 'untracked';
+  var statuses = PLATFORMS.map(function(pl) { return ps.platforms[pl] && ps.platforms[pl].status; });
+  if (statuses.some(function(s) { return s === 'needs-update'; })) return 'needs-update';
+  if (statuses.some(function(s) { return s === 'untracked'; }))   return 'untracked';
+  return 'current';
+}
+
+function renderStatusCard(platform) {
+  var counts = { current: 0, 'needs-update': 0, untracked: 0, 'not-listed': 0 };
+  appState.products.forEach(function(p) {
+    var ps = appState.status[p.id];
+    if (!ps) return;
+    var s = ps.platforms[platform] && ps.platforms[platform].status;
+    if (counts[s] !== undefined) counts[s]++;
+  });
+
+  var card = document.getElementById(platform + '-status-card');
+  var hasToken = !!getToken();
+  card.innerHTML =
+    '<h2>' + platform.toUpperCase() + '</h2>' +
+    '<div class="status-row"><span>Current</span><span class="count green">' + counts.current + '</span></div>' +
+    '<div class="status-row"><span>Needs update</span><span class="count ' + (counts['needs-update'] > 0 ? 'amber' : 'muted') + '">' + counts['needs-update'] + '</span></div>' +
+    '<div class="status-row"><span>Untracked</span><span class="count ' + (counts.untracked > 0 ? 'blue' : 'muted') + '">' + counts.untracked + '</span></div>' +
+    '<div class="status-row"><span>Not listed</span><span class="count muted">' + counts['not-listed'] + '</span></div>' +
+    '<div class="status-actions">' +
+      '<button class="btn-mark-all" onclick="markAllSynced(\'' + platform + '\')">✓ Mark all synced — ' + platform + '</button>' +
+    '</div>' +
+    (counts['needs-update'] > 0 ? '<div class="needs-update-note" style="display:block">↑ ' + counts['needs-update'] + ' product(s) need updating on ' + platform + '</div>' : '') +
+    (!hasToken ? '<div class="needs-update-note" style="display:block;color:var(--text-muted)">Add token above to commit sync state to GitHub</div>' : '');
+}
+
+function buildPlatformSection(product, platform, platformInfo) {
+  var s = platformInfo.status;
+  var tags = expandTags(product.tags || [], platform);
+  var vendor = (product.vendors || []).find(function(v) { return v.name === platform && v.active !== false; });
+  var vendorUrl = vendor ? vendor.url : null;
+
+  var dotClass = s === 'current' ? 'dot-green' : s === 'needs-update' ? 'dot-amber' : s === 'untracked' ? 'dot-blue' : 'dot-dim';
+  var isLocal  = platformInfo.isLocal;
+
+  var html =
+    '<div class="platform-section">' +
+    '<div class="platform-label"><span class="platform-status-dot ' + dotClass + '"></span>' + platform.toUpperCase() + ' — ' + statusLabel(s) + (isLocal ? ' (local only)' : '') + '</div>';
+
+  if (s === 'not-listed') {
+    html += '<div class="not-listed">This product is not listed on ' + platform + '</div>';
+  } else {
+    html +=
+      fieldRow('TITLE', product.title, 'copy-title-' + product.id + '-' + platform) +
+      fieldRow('DESCRIPTION', product.desc || '', 'copy-desc-' + product.id + '-' + platform, true) +
+      fieldRow('TAGS [' + tags.length + '/' + MAX_TAGS[platform] + ']', tags.join(', '), 'copy-tags-' + product.id + '-' + platform) +
+      (vendorUrl
+        ? '<div class="field-row"><div class="field-label">LISTING URL</div><div class="field-value"><a href="' + vendorUrl + '" target="_blank" rel="noopener">' + vendorUrl + '</a></div></div>'
+        : '<div class="field-row"><div class="field-label">LISTING URL</div><div class="field-value not-listed">No URL in products.json — add vendor entry to list this product</div></div>') +
+      '<div class="card-actions">' +
+        '<span class="synced-meta">' + (platformInfo.syncedAt ? 'synced ' + fmtDate(platformInfo.syncedAt) : 'never synced') + '</span>' +
+        '<button class="btn-mark-synced' + (isLocal ? ' local-only' : '') + '" onclick="markSynced(\'' + product.id + '\',\'' + platform + '\')">' +
+          (isLocal ? '⚠ mark synced (local)' : '✓ mark synced') +
+        '</button>' +
+      '</div>';
+  }
+
+  html += '</div>';
+  return html;
+}
+
+function fieldRow(label, value, btnId, multiline) {
+  return '<div class="field-row">' +
+    '<div class="field-label">' + label +
+      '<button class="btn-copy" id="' + btnId + '" onclick="copyText(' + JSON.stringify(value) + ', this)">[copy]</button>' +
+    '</div>' +
+    '<div class="field-value' + (multiline ? ' multiline' : '') + '">' + escHtml(value) + '</div>' +
+  '</div>';
+}
+
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function renderListings() {
+  var filterPlatform = document.getElementById('filter-platform').value;
+  var filterStatus   = document.getElementById('filter-status').value;
+
+  var products = appState.products.filter(function(p) {
+    var s = appState.status[p.id];
+    if (!s) return false;
+    if (filterStatus === 'needs-update') {
+      var relevant = PLATFORMS.filter(function(pl) { return filterPlatform === 'all' || pl === filterPlatform; });
+      return relevant.some(function(pl) {
+        var ps = s.platforms[pl] && s.platforms[pl].status;
+        return ps === 'needs-update' || ps === 'untracked';
+      });
+    }
+    return true;
+  });
+
+  var container = document.getElementById('listings');
+  if (!products.length) {
+    container.innerHTML = '<div class="empty">✓ All products are current</div>';
+    return;
+  }
+
+  container.innerHTML = products.map(function(p) {
+    var overall   = overallStatus(p.id);
+    var badgeClass = overall === 'current' ? 'badge-current' : overall === 'needs-update' ? 'badge-needs-update' : 'badge-untracked';
+    var platforms  = PLATFORMS.filter(function(pl) { return filterPlatform === 'all' || pl === filterPlatform; });
+
+    return '<div class="product-card ' + overall + '" id="card-' + p.id + '">' +
+      '<div class="card-header" onclick="toggleCard(\'' + p.id + '\')">' +
+        '<div class="card-left">' +
+          '<span class="card-badge ' + badgeClass + '">' + statusLabel(overall) + '</span>' +
+          '<span class="card-title">' + escHtml(p.title) + '</span>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:12px">' +
+          '<span class="card-id">' + p.id + '</span>' +
+          '<span class="card-chevron" id="chev-' + p.id + '">▶</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="card-body" id="body-' + p.id + '">' +
+        platforms.map(function(pl) {
+          return buildPlatformSection(p, pl, appState.status[p.id].platforms[pl]);
+        }).join('') +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  // Auto-expand cards that need attention
+  products.forEach(function(p) {
+    if (overall = overallStatus(p.id), overall === 'needs-update' || overall === 'untracked') {
+      if (products.length <= 6) openCard(p.id);
+    }
+  });
+}
+
+function toggleCard(id) {
+  var body = document.getElementById('body-' + id);
+  var chev = document.getElementById('chev-' + id);
+  if (body.classList.contains('open')) { body.classList.remove('open'); chev.textContent = '▶'; }
+  else                                  { openCard(id); }
+}
+function openCard(id) {
+  var body = document.getElementById('body-' + id);
+  var chev = document.getElementById('chev-' + id);
+  if (body) { body.classList.add('open'); chev.textContent = '▼'; }
+}
+
+function renderAll() {
+  renderStatusCard('zazzle');
+  renderStatusCard('redbubble');
+  renderListings();
+}
+
+function showError(msg) {
+  var el = document.getElementById('error-banner');
+  el.textContent = msg;
+  el.style.display = msg ? 'block' : 'none';
+}
+
+// ── Token UI ─────────────────────────────────────────────────────────────────
+function updateTokenUI() {
+  var t = getToken();
+  var input  = document.getElementById('token-input');
+  var status = document.getElementById('token-status');
+  var clear  = document.getElementById('token-clear');
+  if (t) {
+    input.value = t;
+    status.textContent = '● token set';
+    status.className = 'token-status ok';
+    clear.style.display = 'inline-block';
+  } else {
+    input.value = '';
+    status.textContent = 'not set';
+    status.className = 'token-status missing';
+    clear.style.display = 'none';
+  }
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+async function init() {
+  updateTokenUI();
+
+  document.getElementById('token-input').addEventListener('change', function() {
+    saveToken(this.value.trim());
+    updateTokenUI();
+  });
+  document.getElementById('token-clear').addEventListener('click', function() {
+    saveToken('');
+    updateTokenUI();
+  });
+  document.getElementById('btn-refresh').addEventListener('click', refresh);
+  document.getElementById('filter-platform').addEventListener('change', renderListings);
+  document.getElementById('filter-status').addEventListener('change', renderListings);
+
+  await refresh();
+}
+
+async function refresh() {
+  document.getElementById('listings').innerHTML = '<div class="loading"><span class="spinner"></span>loading products…</div>';
+  document.getElementById('zazzle-status-card').innerHTML = '<h2>ZAZZLE</h2><div class="loading"><span class="spinner"></span></div>';
+  document.getElementById('redbubble-status-card').innerHTML = '<h2>REDBUBBLE</h2><div class="loading"><span class="spinner"></span></div>';
+  try {
+    await loadData();
+    await computeStatus();
+    appState.loaded = true;
+    renderAll();
+  } catch(e) {
+    showError('Load error: ' + e.message);
+    document.getElementById('listings').innerHTML = '';
+  }
+}
+
+init();
+</script>
+</body>
+</html>
