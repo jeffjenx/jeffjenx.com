@@ -93,6 +93,7 @@ function buildPage(product, collection, siblings) {
     'keywords': (product.tags || []).join(', '),
     'offers': offers.length === 1 ? offers[0] : { '@type': 'AggregateOffer', 'offers': offers }
   };
+  if (product.image) productSchema['image'] = BASE_URL + product.image;
 
   var breadcrumb = {
     '@type': 'BreadcrumbList',
@@ -167,14 +168,16 @@ function buildPage(product, collection, siblings) {
     + '<meta property="og:title" content="' + esc(product.title) + ' &mdash; Jeff Jenx">\n'
     + '<meta property="og:description" content="' + esc(product.desc) + '">\n'
     + '<meta property="og:site_name" content="Jeff Jenx">\n'
-    + '<meta property="og:image" content="' + BASE_URL + '/og-image.png">\n'
+    + '<meta property="og:image" content="' + (product.image ? BASE_URL + esc(product.image) : BASE_URL + '/og-image.png') + '">\n'
+    + '<meta property="og:image:alt" content="' + esc(product.title + ' \u2014 Jeff Jenx') + '">\n'
     + '<meta name="theme-color" content="#f8f8f8" media="(prefers-color-scheme: light)">\n'
     + '<meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">\n'
     + '<meta name="twitter:card" content="summary_large_image">\n'
     + '<meta name="twitter:site" content="@jeff_jenx">\n'
     + '<meta name="twitter:title" content="' + esc(product.title) + ' &mdash; Jeff Jenx">\n'
     + '<meta name="twitter:description" content="' + esc(product.desc) + '">\n'
-    + '<meta name="twitter:image" content="' + BASE_URL + '/og-image.png">\n'
+    + '<meta name="twitter:image" content="' + (product.image ? BASE_URL + esc(product.image) : BASE_URL + '/og-image.png') + '">\n'
+    + '<meta name="twitter:image:alt" content="' + esc(product.title + ' \u2014 Jeff Jenx') + '">\n'
     + '<link rel="icon" href="/favicon.ico" sizes="any">\n'
     + '<script type="application/ld+json">' + escJson(structuredData) + '</script>\n'
     + '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
@@ -220,8 +223,9 @@ function buildPage(product, collection, siblings) {
     + '.pg-btn--vendor:hover{background:#0a0a0a;color:#f8f8f8;}\n'
     + '.pg-unavail{color:#999;font-family:"IBM Plex Mono","Courier New",monospace;font-size:13px;margin-bottom:24px;}\n'
     + '/* Product visual */\n'
-    + '.pg-visual{height:200px;display:flex;align-items:center;justify-content:center;margin-bottom:32px;}\n'
+    + '.pg-visual{height:200px;display:flex;align-items:center;justify-content:center;margin-bottom:32px;overflow:hidden;}\n'
     + '.pg-visual-mark{font-family:"IBM Plex Mono","Courier New",monospace;font-size:80px;color:#f8f8f8;line-height:1;user-select:none;}\n'
+    + '.pg-visual img{width:100%;height:100%;object-fit:contain;display:block;}\n'
     + '/* Tags */\n'
     + '.pg-tags{margin-bottom:32px;}\n'
     + '.pg-tag{display:inline-block;background:#ebebeb;font-family:"IBM Plex Mono","Courier New",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;margin:0 4px 4px 0;color:#666;}\n'
@@ -308,7 +312,11 @@ function buildPage(product, collection, siblings) {
     + '    <span>' + esc(product.title) + '</span>\n'
     + '  </nav>\n'
     + '\n'
-    + '  <div class="pg-visual" style="background:' + accentBase + '" aria-hidden="true"><span class="pg-visual-mark">' + esc(collection.mark || '[JJ]') + '</span></div>\n'
+    + '  <div class="pg-visual" style="background:' + accentBase + '" aria-hidden="true">'
+    + (product.image
+        ? '<img src="' + esc(BASE_URL + product.image) + '" alt="' + esc(product.title + ' — Jeff Jenx') + '" loading="eager">'
+        : '<span class="pg-visual-mark">' + esc(collection.mark || '[JJ]') + '</span>')
+    + '</div>\n'
     + '\n'
     + '  <div class="pg-collection-bar">' + esc(collection.label) + '</div>\n'
     + '\n'
