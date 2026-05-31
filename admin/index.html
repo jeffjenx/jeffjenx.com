@@ -504,13 +504,33 @@ async function markAllSynced(platform) {
 }
 
 // ── Copy to clipboard ────────────────────────────────────────────────────────
-function copyText(text, btn) {
-  navigator.clipboard.writeText(text).then(function() {
-    var orig = btn.textContent;
+// Values are stored here by fieldRow() keyed by button id, avoiding all
+// HTML-attribute escaping issues (backslashes, quotes, special chars).
+var COPY_STORE = {};
+
+function doCopy(text, btn) {
+  var orig = btn.textContent;
+  var flash = function() {
     btn.textContent = 'copied ✓';
     btn.classList.add('copied');
     setTimeout(function() { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
-  });
+  };
+  // Modern async clipboard API
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(flash).catch(function() { legacyCopy(text); flash(); });
+  } else {
+    legacyCopy(text); flash();
+  }
+}
+
+function legacyCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
 }
 
 // ── Render ───────────────────────────────────────────────────────────────────
@@ -591,9 +611,10 @@ function buildPlatformSection(product, platform, platformInfo) {
 }
 
 function fieldRow(label, value, btnId, multiline) {
+  COPY_STORE[btnId] = value; // store raw unescaped text
   return '<div class="field-row">' +
     '<div class="field-label">' + label +
-      '<button class="btn-copy" id="' + btnId + '" onclick="copyText(' + JSON.stringify(value) + ', this)">[copy]</button>' +
+      '<button class="btn-copy" id="' + btnId + '" data-copy-id="' + btnId + '">[copy]</button>' +
     '</div>' +
     '<div class="field-value' + (multiline ? ' multiline' : '') + '">' + escHtml(value) + '</div>' +
   '</div>';
@@ -704,9 +725,35 @@ function updateTokenUI() {
 async function init() {
   updateTokenUI();
 
-  document.getElementById('token-input').addEventListener('change', function() {
+  // Copy button delegation — handles all [copy] buttons regardless of when they render
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('button.btn-copy');
+    if (btn && btn.dataset.copyId && COPY_STORE[btn.dataset.copyId] !== undefined) {
+      doCopy(COPY_STORE[btn.dataset.copyId], btn);
+    }
+  });
+
+  document.getElementById('token-input').addEventListener('change', async function() {
     saveToken(this.value.trim());
     updateTokenUI();
+    // If there's pending local-only sync state, push it to GitHub now that we have a token
+    var local = getLocalSync();
+    var hasLocal = Object.keys(local).some(function(pl) { return Object.keys(local[pl] || {}).length > 0; });
+    if (hasLocal && getToken() && appState.loaded) {
+      var merged = JSON.parse(JSON.stringify(appState.syncState));
+      Object.keys(local).forEach(function(pl) {
+        if (!merged[pl]) merged[pl] = {};
+        Object.assign(merged[pl], local[pl]);
+      });
+      var wrote = await writeToGitHub(merged);
+      if (wrote) {
+        appState.syncState = merged;
+        appState.localSync = {};
+        saveLocalSync({});
+        await computeStatus();
+        renderAll();
+      }
+    }
   });
   document.getElementById('token-clear').addEventListener('click', function() {
     saveToken('');
