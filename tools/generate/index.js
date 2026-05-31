@@ -46,6 +46,14 @@ function esc(str) {
     .replace(/'/g, '&#39;');
 }
 
+// Truncate to maxLen at a word boundary for <meta> description tags (ideal: ~155 chars)
+function truncMeta(str, maxLen) {
+  if (!str || str.length <= maxLen) return str || '';
+  var t = str.substring(0, maxLen);
+  var sp = t.lastIndexOf(' ');
+  return (sp > maxLen - 20 ? t.substring(0, sp) : t) + '\u2026';
+}
+
 function escJson(obj) {
   return JSON.stringify(obj).replace(/<\/script>/gi, '<\\/script>');
 }
@@ -159,14 +167,14 @@ function buildPage(product, collection, siblings) {
     + '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">\n'
     + '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
     + '<title>' + esc(product.title) + ' &mdash; Jeff Jenx</title>\n'
-    + '<meta name="description" content="' + esc(product.desc) + '">\n'
+    + '<meta name="description" content="' + esc(truncMeta(product.desc, 155)) + '">\n'
     + '<meta name="keywords" content="' + esc((product.tags || []).concat(['Jeff Jenx', 'apparel']).join(', ')) + '">\n'
     + '<meta name="robots" content="index, follow">\n'
     + '<link rel="canonical" href="' + canonicalUrl + '">\n'
     + '<meta property="og:type" content="product">\n'
     + '<meta property="og:url" content="' + canonicalUrl + '">\n'
     + '<meta property="og:title" content="' + esc(product.title) + ' &mdash; Jeff Jenx">\n'
-    + '<meta property="og:description" content="' + esc(product.desc) + '">\n'
+    + '<meta property="og:description" content="' + esc(truncMeta(product.desc, 155)) + '">\n'
     + '<meta property="og:site_name" content="Jeff Jenx">\n'
     + '<meta property="og:image" content="' + (product.image ? BASE_URL + esc(product.image) : BASE_URL + '/og-image.png') + '">\n'
     + '<meta property="og:image:alt" content="' + esc(product.title + ' \u2014 Jeff Jenx') + '">\n'
@@ -175,7 +183,7 @@ function buildPage(product, collection, siblings) {
     + '<meta name="twitter:card" content="summary_large_image">\n'
     + '<meta name="twitter:site" content="@jeff_jenx">\n'
     + '<meta name="twitter:title" content="' + esc(product.title) + ' &mdash; Jeff Jenx">\n'
-    + '<meta name="twitter:description" content="' + esc(product.desc) + '">\n'
+    + '<meta name="twitter:description" content="' + esc(truncMeta(product.desc, 155)) + '">\n'
     + '<meta name="twitter:image" content="' + (product.image ? BASE_URL + esc(product.image) : BASE_URL + '/og-image.png') + '">\n'
     + '<meta name="twitter:image:alt" content="' + esc(product.title + ' \u2014 Jeff Jenx') + '">\n'
     + '<link rel="icon" href="/favicon.ico" sizes="any">\n'
