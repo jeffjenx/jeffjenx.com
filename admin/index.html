@@ -650,8 +650,9 @@ function renderListings() {
 
   // Auto-expand cards that need attention
   products.forEach(function(p) {
-    if (overall = overallStatus(p.id), overall === 'needs-update' || overall === 'untracked') {
-      if (products.length <= 6) openCard(p.id);
+    var overall = overallStatus(p.id);
+    if ((overall === 'needs-update' || overall === 'untracked') && products.length <= 6) {
+      openCard(p.id);
     }
   });
 }
