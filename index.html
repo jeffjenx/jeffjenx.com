@@ -141,6 +141,7 @@ img { display: block; max-width: 100%; border: 0; }
 }
 .jj-filter-btn:hover { background: #0a0a0a; color: #f8f8f8; border-color: #0a0a0a; }
 .jj-filter-btn.is-active { background: #0a0a0a; color: #f8f8f8; border-color: #0a0a0a; font-weight: 500; }
+.jj-filter-count { font-size: 9px; opacity: 0.7; margin-left: 4px; }
 
 /* Collection section */
 .jj-collection { margin-bottom: 56px; }
@@ -810,33 +811,35 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
     var bar = document.getElementById('filter-bar');
     if (!bar) return;
 
-    // Collect which collections actually have active products
+    // Collect which collections actually have active products, with counts
     var collections = [];
+    var totalActive = 0;
     for (var i = 0; i < data.collections.length; i++) {
       var col = data.collections[i];
       if (!col.active) continue;
-      var hasProd = false;
+      var count = 0;
       for (var j = 0; j < col.products.length; j++) {
-        if (col.products[j].active !== false) { hasProd = true; break; }
+        if (col.products[j].active !== false) count++;
       }
-      if (hasProd) collections.push(col);
+      if (count > 0) { collections.push({ col: col, count: count }); totalActive += count; }
     }
 
     var allBtn = document.createElement('button');
     allBtn.className = 'jj-filter-btn is-active';
     allBtn.setAttribute('aria-pressed', 'true');
     allBtn.setAttribute('data-filter', 'all');
-    allBtn.innerHTML = 'All';
+    allBtn.innerHTML = 'All <span class="jj-filter-count" aria-label="' + totalActive + ' products">' + totalActive + '</span>';
     bar.appendChild(allBtn);
 
     for (var k = 0; k < collections.length; k++) {
-      var col = collections[k];
+      var item = collections[k];
+      var col = item.col;
       var btn = document.createElement('button');
       btn.className = 'jj-filter-btn';
       btn.setAttribute('aria-pressed', 'false');
       btn.setAttribute('data-filter', col.id);
       btn.setAttribute('data-col-id', col.id);
-      btn.innerHTML = esc(col.label);
+      btn.innerHTML = esc(col.label) + ' <span class="jj-filter-count" aria-label="' + item.count + ' products">' + item.count + '</span>';
       bar.appendChild(btn);
     }
 

@@ -14,6 +14,8 @@
 <meta property="og:description" content="The classic SMPTE color bar test pattern — a staple of broadcast television engineering and vintage computing. The engineer&#39;s palette on a shirt. A must-have for AV nerds, broadcast engineers, and anyone who grew up seeing this at 2am.">
 <meta property="og:site_name" content="Jeff Jenx">
 <meta property="og:image" content="https://www.jeffjenx.com/og-image.png">
+<meta name="theme-color" content="#f8f8f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@jeff_jenx">
 <meta name="twitter:title" content="SMPTE TV Color Bars T-Shirt &mdash; Jeff Jenx">
@@ -123,18 +125,9 @@ a{color:#0a0a0a;}a:hover{opacity:.75;}
   .pg-also-link:hover{border-color:var(--jj-fg);}
 }
 </style>
+<script>/* anti-FOUC */(function(){var r=document.documentElement,s,ov;try{s=localStorage.getItem('jj-theme');ov=localStorage.getItem('jj-theme-override')==="true";}catch(e){}var sys=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;r.setAttribute('data-theme',(ov&&s)?s:(sys?'dark':'light'));})();</script>
 </head>
 <body>
-
-<script>
-(function(){
-  var r=document.documentElement,s;
-  try{s=localStorage.getItem('jj-theme');}catch(e){}
-  var ov;try{ov=localStorage.getItem('jj-theme-override')==="true";}catch(e){}
-  var sys=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;
-  r.setAttribute('data-theme',(ov&&s)?s:(sys?'dark':'light'));
-})();
-</script>
 
 <div class="jj-nav">
   <div class="jj-nav-inner">

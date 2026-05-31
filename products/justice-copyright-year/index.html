@@ -14,6 +14,8 @@
 <meta property="og:description" content="The copyright symbol with a fully customizable year — perfect for showing when your work was made. Defaults to 1983, but customize it to any four-digit year: 1969, 1988, 1997, 2020, or any other. Show your roots with the Copyright Year T-Shirt.">
 <meta property="og:site_name" content="Jeff Jenx">
 <meta property="og:image" content="https://www.jeffjenx.com/og-image.png">
+<meta name="theme-color" content="#f8f8f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@jeff_jenx">
 <meta name="twitter:title" content="Copyright Year T-Shirt &mdash; Jeff Jenx">
@@ -123,18 +125,9 @@ a{color:#0a0a0a;}a:hover{opacity:.75;}
   .pg-also-link:hover{border-color:var(--jj-fg);}
 }
 </style>
+<script>/* anti-FOUC */(function(){var r=document.documentElement,s,ov;try{s=localStorage.getItem('jj-theme');ov=localStorage.getItem('jj-theme-override')==="true";}catch(e){}var sys=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;r.setAttribute('data-theme',(ov&&s)?s:(sys?'dark':'light'));})();</script>
 </head>
 <body>
-
-<script>
-(function(){
-  var r=document.documentElement,s;
-  try{s=localStorage.getItem('jj-theme');}catch(e){}
-  var ov;try{ov=localStorage.getItem('jj-theme-override')==="true";}catch(e){}
-  var sys=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;
-  r.setAttribute('data-theme',(ov&&s)?s:(sys?'dark':'light'));
-})();
-</script>
 
 <div class="jj-nav">
   <div class="jj-nav-inner">
