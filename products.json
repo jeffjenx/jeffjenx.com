@@ -609,13 +609,75 @@
     {
       "id": "digital",
       "label": "Digital Downloads",
-      "desc": "Instant digital downloads. Icon packs, design tokens, wallpapers, and more.",
+      "desc": "Instant digital downloads. ROMs, design tokens, templates, wallpapers, and brand assets.",
       "active": false,
+      "_activate_note": "Set active: true once Gumroad payment is configured and at least one product has a live vendor URL",
       "accent": "#6366F1",
       "accent_light": "#eef2ff",
       "accent_dark": "#4338CA",
       "mark": "DL",
-      "products": []
+      "products": [
+        {
+          "id": "digital-home-gb",
+          "title": "Home — Game Boy System Menu ROM",
+          "desc": "A custom Game Boy system menu for flash cartridges. Browse your library, view cartridge art, search titles, and mark favorites — all on real hardware. Includes 6 ROM variants (MBC1, MBC1M, MBC5) for compatibility with all major flash cartridges.",
+          "type": "digital",
+          "price": "$4.99",
+          "vendors": [],
+          "tags": ["rom", "game-boy", "flash-cartridge", "homebrew", "retro-gaming", "nintendo"],
+          "new": false,
+          "active": false,
+          "_draft": "Phase 4A — upload Home-mbc*.gb + README.txt to Gumroad, add vendor URL, set active: true, then activate digital collection"
+        },
+        {
+          "id": "digital-design-tokens",
+          "title": "jeffjenx Design Tokens CSS",
+          "desc": "The exact CSS custom properties system powering jeffjenx.com. Major Third typography scale, 4px spacing grid, monochrome color system, and dark mode support — all in a single zero-dependency file. Includes usage guide and demo.",
+          "type": "digital",
+          "price": "$7.00",
+          "vendors": [],
+          "tags": ["css", "design-tokens", "design-system", "css-variables", "front-end", "web-design"],
+          "new": false,
+          "active": false,
+          "_draft": "Phase 4A — package jeffjenx-tokens.css + README.md + demo.html, upload to Gumroad, add vendor URL, set active: true"
+        },
+        {
+          "id": "digital-progressive-starter",
+          "title": "Progressive Enhancement HTML Starter Kit",
+          "desc": "A production-ready HTML/CSS template built on a 6-layer progressive enhancement architecture. Works in IE4 and Lynx (Layer 0) and progressively enhances to full CSS Grid, custom properties, and JavaScript — zero build tools required.",
+          "type": "digital",
+          "price": "$12.00",
+          "vendors": [],
+          "tags": ["html", "css", "template", "progressive-enhancement", "web-standards", "starter-kit"],
+          "new": false,
+          "active": false,
+          "_draft": "Phase 4A — build template from jeffjenx.com architecture, upload to Gumroad, add vendor URL, set active: true"
+        },
+        {
+          "id": "digital-wallpaper-pack",
+          "title": "jeffjenx Retro Web Wallpaper Pack",
+          "desc": "15 high-resolution desktop wallpapers celebrating web history, retro computing, and the jeffjenx aesthetic. Includes SMPTE bars, DOS terminal, Hello World, HTML source code, and more. Delivered at 3840×2160 and 1920×1080.",
+          "type": "digital",
+          "price": "$5.00",
+          "vendors": [],
+          "tags": ["wallpaper", "retro", "web", "computing", "design", "desktop"],
+          "new": false,
+          "active": false,
+          "_draft": "Phase 4A — create 10-15 wallpapers per brief in GUMROAD-PRODUCT-COPY.md, upload to Gumroad, add vendor URL, set active: true"
+        },
+        {
+          "id": "digital-brand-kit",
+          "title": "jeffjenx Brand Kit SVG",
+          "desc": "The complete jeffjenx brand identity: [JJ] mark, lockup variants, color palette swatches, and type specimen SVGs. Includes jeffjenx-tokens.css and a brand guidelines quick reference.",
+          "type": "digital",
+          "price": "$9.00",
+          "vendors": [],
+          "tags": ["svg", "brand-kit", "logo", "design-assets", "identity", "design-system"],
+          "new": false,
+          "active": false,
+          "_draft": "Phase 4A — export SVGs from design tool, package with README.md + tokens.css, upload to Gumroad, add vendor URL, set active: true"
+        }
+      ]
     }
   ],
 
@@ -623,15 +685,15 @@
     "lastUpdated": "2026-05-31",
     "totalCollections": 11,
     "activeCollections": 10,
-    "totalProducts": 30,
+    "totalProducts": 35,
     "activeProducts": 24,
-    "draftProducts": 6,
+    "draftProducts": 11,
     "totalZazzleProducts": 20,
     "totalRedbubbleProducts": 6,
     "multiVendorProducts": 2,
     "redbubbleOnlyProducts": 3,
     "productTypes": ["physical", "digital"],
     "vendors": ["zazzle", "redbubble", "gumroad"],
-    "note": "SOURCE OF TRUTH: Product catalog using multi-vendor schema (one entry per product with multiple vendor URLs). Phase 3 complete (full catalog with multi-vendor). Phase 3B in progress (UI + API integrations). Phase 4: Digital Downloads collection ready — set active: true and add products with type: 'digital' and gumroad vendor URLs."
+    "note": "SOURCE OF TRUTH: Multi-vendor schema — one entry per product with multiple vendor URLs. Phase 3 complete (catalog + multi-vendor UI). Phase 4 in progress: 6 physical drafts need designs; 5 digital drafts need Gumroad setup. To activate digital collection: fix Gumroad payments → upload files → add vendor URLs → set digital products active:true → set digital collection active:true."
   }
 }

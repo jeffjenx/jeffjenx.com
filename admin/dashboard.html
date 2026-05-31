@@ -236,11 +236,171 @@ th      { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; col
     <div class="links-bar">
       <a href="https://www.zazzle.com/store/jeffjenx" target="_blank" rel="noopener">Zazzle Store ↗</a>
       <a href="https://www.redbubble.com/people/jeffjenx/shop" target="_blank" rel="noopener">Redbubble Store ↗</a>
+      <a href="https://app.gumroad.com/dashboard" target="_blank" rel="noopener">Gumroad Dashboard ↗</a>
+      <a href="https://app.gumroad.com/settings/payment" target="_blank" rel="noopener">Gumroad Payments ↗</a>
       <a href="https://search.google.com/search-console" target="_blank" rel="noopener">Search Console ↗</a>
       <a href="https://github.com/jeffjenx/jeffjenx.com" target="_blank" rel="noopener">GitHub Repo ↗</a>
       <a href="https://github.com/jeffjenx/jeffjenx.com/issues" target="_blank" rel="noopener">GitHub Issues ↗</a>
       <a href="index.html">Sync Tool</a>
     </div>
+  </div>
+
+  <!-- ── Launch this week ────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-head"><h2>Launch This Week — Priority Actions</h2></div>
+    <table class="ideas-table">
+      <thead>
+        <tr><th>Priority</th><th>Action</th><th>Type</th><th>Status / Instructions</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="pri-high">▲ 1</td>
+          <td><strong>Fix Gumroad payment setup</strong></td>
+          <td><span class="tag">gumroad</span></td>
+          <td>Contact Gumroad support — country validation bug on payment setup. Once fixed: upload home.gb ROM ZIP → publish → add URL to products.json → activate digital collection.
+            <span class="pri-note">→ <a href="https://app.gumroad.com/settings/payment" target="_blank" rel="noopener">app.gumroad.com/settings/payment</a></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="pri-high">▲ 2</td>
+          <td><strong>Upload home.gb ROM to Gumroad</strong></td>
+          <td><span class="tag">digital</span></td>
+          <td>Files ready in <code>home.gb/build/Home-mbc*.gb</code>. Copy ready in <code>jeffjenx.org/planning/GUMROAD-PRODUCT-COPY.md</code>. Price: $4.99. This is the only digital product that is 100% ready to sell with zero prep work.
+            <span class="pri-note">→ Activate <code>digital-home-gb</code> in products.json after publishing</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="pri-high">▲ 3</td>
+          <td><strong>Enable Redbubble sticker/mug/case on existing designs</strong></td>
+          <td><span class="tag">redbubble</span></td>
+          <td>Zero design work required. Log into Redbubble → each existing design → enable: Stickers, Mugs, Phone Cases, Tote Bags. 6 designs × ~5 min = 30 min total. Multiplies available SKUs with no effort.
+            <span class="pri-note">→ <a href="https://www.redbubble.com/portfolio/manage_works" target="_blank" rel="noopener">redbubble.com/portfolio/manage_works</a></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="pri-med">● 4</td>
+          <td><strong>"It Works on My Machine" T-Shirt design</strong></td>
+          <td><span class="tag">warez</span></td>
+          <td>Text-only design — lowest effort, highest humor conversion. Design spec in <code>jeffjenx.org/planning/PHASE-4-DESIGN-BRIEFS.md</code>. Upload to Zazzle + Redbubble → add vendor URLs → set <code>warez-it-works</code> active: true.
+            <span class="pri-note">Draft entry already in products.json. Estimated design time: 20–30 min.</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="pri-med">● 5</td>
+          <td><strong>TypeScript Logo T-Shirt design</strong></td>
+          <td><span class="tag">www</span></td>
+          <td>Official TypeScript SVG logo available at typescriptlang.org/branding. Download → place on shirt template → upload to Zazzle + Redbubble → set <code>www-typescript-logo</code> active: true.
+            <span class="pri-note">Draft entry already in products.json. Estimated design time: 10–15 min.</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="pri-med">● 6</td>
+          <td><strong>Node.js Logo T-Shirt design</strong></td>
+          <td><span class="tag">www</span></td>
+          <td>Official Node.js SVG logo at nodejs.org/en/about/branding. Same process as TypeScript. Set <code>www-nodejs-logo</code> active: true.
+            <span class="pri-note">Draft entry already in products.json. Estimated design time: 10–15 min.</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="pri-med">● 7</td>
+          <td><strong>BSOD T-Shirt design</strong></td>
+          <td><span class="tag">warez</span></td>
+          <td>Blue background, white terminal text. Two design options in <code>jeffjenx.org/planning/PHASE-4-DESIGN-BRIEFS.md</code>. Best on Redbubble all-over print. Set <code>warez-bsod</code> active: true.
+            <span class="pri-note">Draft entry already in products.json. Estimated design time: 30–45 min.</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="pri-med">● 8</td>
+          <td><strong>Design Tokens CSS — package for Gumroad</strong></td>
+          <td><span class="tag">digital</span></td>
+          <td>jeffjenx-tokens.css already written. Package with README.md + demo.html → upload to Gumroad → price $7.00 → add URL to products.json. Copy ready in <code>jeffjenx.org/planning/GUMROAD-PRODUCT-COPY.md</code>.
+            <span class="pri-note">Estimated prep time: 30–45 min to write README + demo.</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── Draft products ──────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-head"><h2>Draft Products — Pending Activation</h2></div>
+    <table class="ideas-table">
+      <thead>
+        <tr><th>ID</th><th>Title</th><th>Collection</th><th>To Activate</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="c-amber" style="font-size:10px;white-space:nowrap">warez-it-works</td>
+          <td>It Works on My Machine T-Shirt</td>
+          <td><span class="tag">warez</span></td>
+          <td>Create design → upload Zazzle + Redbubble → add vendor URLs → <code>active: true</code></td>
+        </tr>
+        <tr>
+          <td class="c-amber" style="font-size:10px;white-space:nowrap">warez-bsod</td>
+          <td>Blue Screen of Death T-Shirt</td>
+          <td><span class="tag">warez</span></td>
+          <td>Create design → upload Zazzle + Redbubble (try all-over print) → add vendor URLs → <code>active: true</code></td>
+        </tr>
+        <tr>
+          <td class="c-amber" style="font-size:10px;white-space:nowrap">warez-640k</td>
+          <td>640K Ought to Be Enough T-Shirt</td>
+          <td><span class="tag">warez</span></td>
+          <td>Create text design → upload Zazzle + Redbubble → add vendor URLs → <code>active: true</code></td>
+        </tr>
+        <tr>
+          <td class="c-amber" style="font-size:10px;white-space:nowrap">www-typescript-logo</td>
+          <td>TypeScript Logo T-Shirt</td>
+          <td><span class="tag">www</span></td>
+          <td>Download official TS SVG → upload Zazzle + Redbubble → add vendor URLs → <code>active: true</code></td>
+        </tr>
+        <tr>
+          <td class="c-amber" style="font-size:10px;white-space:nowrap">www-nodejs-logo</td>
+          <td>Node.js Logo T-Shirt</td>
+          <td><span class="tag">www</span></td>
+          <td>Download official Node.js SVG → upload Zazzle + Redbubble → add vendor URLs → <code>active: true</code></td>
+        </tr>
+        <tr>
+          <td class="c-amber" style="font-size:10px;white-space:nowrap">irrational-euler</td>
+          <td>Euler's Number T-Shirt</td>
+          <td><span class="tag">irrational</span></td>
+          <td>Create math typography design → upload Zazzle + Redbubble → add vendor URLs → <code>active: true</code></td>
+        </tr>
+        <tr style="border-top: 2px solid #2a2a2a">
+          <td class="c-blue" style="font-size:10px;white-space:nowrap">digital-home-gb</td>
+          <td>Home — Game Boy System Menu ROM</td>
+          <td><span class="tag">digital</span></td>
+          <td>Fix Gumroad payments → upload <code>Home-mbc*.gb</code> ZIP → publish at $4.99 → add vendor URL → <code>active: true</code> on product + collection</td>
+        </tr>
+        <tr>
+          <td class="c-blue" style="font-size:10px;white-space:nowrap">digital-design-tokens</td>
+          <td>jeffjenx Design Tokens CSS</td>
+          <td><span class="tag">digital</span></td>
+          <td>Package tokens.css + README + demo → upload Gumroad → $7.00 → add vendor URL → <code>active: true</code></td>
+        </tr>
+        <tr>
+          <td class="c-blue" style="font-size:10px;white-space:nowrap">digital-progressive-starter</td>
+          <td>Progressive Enhancement Starter Kit</td>
+          <td><span class="tag">digital</span></td>
+          <td>Build template from jeffjenx.com → upload Gumroad → $12.00 → add vendor URL → <code>active: true</code></td>
+        </tr>
+        <tr>
+          <td class="c-blue" style="font-size:10px;white-space:nowrap">digital-wallpaper-pack</td>
+          <td>Retro Web Wallpaper Pack</td>
+          <td><span class="tag">digital</span></td>
+          <td>Design 10–15 wallpapers (see GUMROAD-PRODUCT-COPY.md for concepts) → upload → $5.00 → add vendor URL → <code>active: true</code></td>
+        </tr>
+        <tr>
+          <td class="c-blue" style="font-size:10px;white-space:nowrap">digital-brand-kit</td>
+          <td>jeffjenx Brand Kit SVG</td>
+          <td><span class="tag">digital</span></td>
+          <td>Export SVGs → package with README + tokens.css → upload Gumroad → $9.00 → add vendor URL → <code>active: true</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:10px;color:#555;margin-top:8px">
+      Design briefs: <code>jeffjenx.org/planning/PHASE-4-DESIGN-BRIEFS.md</code> &nbsp;|&nbsp;
+      Gumroad copy: <code>jeffjenx.org/planning/GUMROAD-PRODUCT-COPY.md</code>
+    </p>
   </div>
 
   <!-- ── Product ideas ───────────────────────────────────────────────── -->
