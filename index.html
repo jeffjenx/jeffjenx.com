@@ -742,55 +742,10 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
 
   // ── Data loading ─────────────────────────────────────────────────────────
 
-  function injectProductSchema(data) {
-    var items = [];
-    var pos = 1;
-    for (var c = 0; c < data.collections.length; c++) {
-      var col = data.collections[c];
-      if (!col.active) continue;
-      for (var p = 0; p < col.products.length; p++) {
-        var prod = col.products[p];
-        if (!prod.active) continue;
-        var url = '';
-        if (prod.vendors && prod.vendors.length) {
-          for (var vi = 0; vi < prod.vendors.length; vi++) {
-            if (prod.vendors[vi].active !== false) { url = prod.vendors[vi].url; break; }
-          }
-        }
-        var item = {
-          '@type': 'ListItem',
-          'position': pos++,
-          'item': {
-            '@type': 'Product',
-            'name': prod.title,
-            'description': prod.desc,
-            'brand': { '@type': 'Brand', 'name': 'Jeff Jenx' }
-          }
-        };
-        if (url) {
-          item.item['url'] = url;
-        }
-        items.push(item);
-      }
-    }
-    var el = document.createElement('script');
-    el.type = 'application/ld+json';
-    el.text = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'ItemList',
-      'name': 'Jeff Jenx Shop \u2014 All Products',
-      'url': 'https://www.jeffjenx.com',
-      'numberOfItems': items.length,
-      'itemListElement': items
-    });
-    document.head.appendChild(el);
-  }
-
   function onData(data) {
     catalog = data;
     buildFilters(data);
     renderShop(data, 'all');
-    injectProductSchema(data);
 
     // Close picker on Escape
     document.addEventListener('keydown', function (e) {
