@@ -1066,9 +1066,14 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
     setupSearch(data);
 
     // Apply initial filter from URL hash (e.g. jeffjenx.com/#www)
-    var initialFilter = getHashFilter(data);
-    renderShop(data, initialFilter);
-    if (initialFilter !== 'all') activateFilterBtn(initialFilter);
+    // Skip if a ?q= search was already rendered by setupSearch
+    var hasSearchQuery = false;
+    try { hasSearchQuery = !!(new URLSearchParams(window.location.search).get('q')); } catch (e) {}
+    if (!hasSearchQuery) {
+      var initialFilter = getHashFilter(data);
+      renderShop(data, initialFilter);
+      if (initialFilter !== 'all') activateFilterBtn(initialFilter);
+    }
 
     // Sync filter when user navigates back/forward
     window.addEventListener('hashchange', function () {
