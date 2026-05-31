@@ -1,0 +1,14 @@
+{
+  "name": "@jeffjenx/sync",
+  "version": "1.0.0",
+  "description": "Platform sync tool — jeffjenx.com products.json → Zazzle, Redbubble, and future platforms",
+  "main": "index.js",
+  "scripts": {
+    "status": "node index.js status",
+    "export": "node index.js export",
+    "help": "node index.js"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
