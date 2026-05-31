@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>[JJ] Business Dashboard</title>
+<style>
+/* =====================================================================
+   LAYER 1 — BASE (IE5.5+)
+   No custom properties. Explicit values only.
+   ===================================================================== */
+*, *::before, *::after { margin: 0; padding: 0; }
+body    { background: #0d0d0d; color: #e2e2e2; font-family: "IBM Plex Mono", "Courier New", monospace; font-size: 13px; line-height: 1.5; }
+a       { color: #60a5fa; text-decoration: none; }
+a:hover { text-decoration: underline; }
+h2      { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: #666; margin-bottom: 12px; }
+table   { border-collapse: collapse; width: 100%; font-size: 12px; }
+td, th  { padding: 6px 10px; border: 1px solid #2a2a2a; text-align: left; vertical-align: top; }
+th      { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: #555; background: #111; font-weight: 400; }
+
+/* Layout */
+.wrap   { max-width: 960px; margin: 0 auto; padding: 0 20px 60px; }
+
+/* Header */
+.hdr    { border-bottom: 1px solid #222; padding: 16px 20px; }
+.hdr-inner { max-width: 960px; margin: 0 auto; }
+.hdr h1 { font-size: 13px; font-weight: 500; letter-spacing: .05em; display: inline; }
+.hdr-links { float: right; font-size: 11px; }
+.hdr-links a { color: #555; margin-left: 16px; }
+.hdr-links a:hover { color: #e2e2e2; text-decoration: none; }
+
+/* Stat cards — table grid */
+.stat-grid { width: 100%; margin: 20px 0 0; border-collapse: collapse; }
+.stat-grid td { background: #171717; border: 1px solid #2a2a2a; padding: 16px 18px; width: 25%; vertical-align: top; }
+.stat-label { font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: #555; display: block; margin-bottom: 6px; }
+.stat-val   { font-size: 26px; font-weight: 500; letter-spacing: -.03em; color: #e2e2e2; display: block; line-height: 1; }
+.stat-sub   { font-size: 10px; color: #555; display: block; margin-top: 5px; }
+.stat-val.green  { color: #22c55e; }
+.stat-val.amber  { color: #f59e0b; }
+.stat-val.blue   { color: #60a5fa; }
+.stat-val.muted  { color: #555; }
+
+/* Section */
+.section { margin-top: 28px; }
+.section-head { margin-bottom: 10px; border-bottom: 1px solid #1e1e1e; padding-bottom: 8px; }
+
+/* Sync summary table */
+.sync-table td { background: #111; }
+.sync-table .lbl { color: #777; font-size: 11px; }
+.sync-table .val { font-size: 12px; font-family: "IBM Plex Mono", monospace; }
+.c-green { color: #22c55e; }
+.c-amber { color: #f59e0b; }
+.c-blue  { color: #60a5fa; }
+.c-dim   { color: #555; }
+
+/* Quick links bar */
+.links-bar { margin-top: 20px; }
+.links-bar a { display: inline-block; border: 1px solid #2a2a2a; background: #171717; color: #e2e2e2; padding: 7px 14px; margin: 0 8px 8px 0; font-size: 11px; letter-spacing: .05em; text-decoration: none; }
+.links-bar a:hover { background: #222; border-color: #444; color: #fff; text-decoration: none; }
+
+/* Ideas table */
+.ideas-table td { background: #0f0f0f; }
+.ideas-table .tag { display: inline-block; background: #1a1a1a; border: 1px solid #2a2a2a; padding: 1px 6px; font-size: 9px; letter-spacing: .06em; text-transform: uppercase; color: #555; margin-right: 4px; }
+.ideas-table .pri-high   { color: #f59e0b; }
+.ideas-table .pri-med    { color: #60a5fa; }
+.ideas-table .pri-low    { color: #555; }
+.ideas-table .pri-note   { font-size: 10px; color: #555; display: block; margin-top: 3px; }
+
+/* Checklist */
+.checklist { list-style: none; padding: 0; }
+.checklist li { padding: 9px 12px; border-bottom: 1px solid #1a1a1a; font-size: 12px; }
+.checklist li:last-child { border-bottom: none; }
+.checklist .cadence { display: inline-block; width: 80px; color: #555; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
+.checklist .task { color: #ccc; }
+.checklist .detail { display: block; color: #444; font-size: 10px; margin-top: 3px; margin-left: 86px; }
+
+/* Loading / status text */
+.loading-text { color: #444; font-size: 11px; }
+.error-text   { color: #f87171; font-size: 11px; }
+
+/* =====================================================================
+   LAYER 2 — CSS Grid (Chrome 57+, FF 52+, Safari 10.1+)
+   ===================================================================== */
+@supports (display: grid) {
+  .stat-grid, .stat-grid tr, .stat-grid td { display: block; border: none; padding: 0; width: auto; }
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
+  .stat-grid td { background: #171717; border: 1px solid #2a2a2a; padding: 16px 18px; }
+}
+
+/* =====================================================================
+   LAYER 3 — CSS Custom Properties (Chrome 49+)
+   ===================================================================== */
+@supports (--x: 0) {
+  :root {
+    --bg:       #0d0d0d;
+    --bg-card:  #171717;
+    --bg-deep:  #0f0f0f;
+    --border:   #2a2a2a;
+    --text:     #e2e2e2;
+    --muted:    #666;
+    --dim:      #444;
+    --green:    #22c55e;
+    --amber:    #f59e0b;
+    --blue:     #60a5fa;
+    --red:      #f87171;
+    --mono:     "IBM Plex Mono", "Courier New", monospace;
+  }
+  body   { background: var(--bg); color: var(--text); font-family: var(--mono); }
+  h2     { color: var(--muted); }
+  td, th { border-color: var(--border); }
+  th     { background: #111; color: var(--dim); }
+  .stat-grid td { background: var(--bg-card); border-color: var(--border); }
+  .stat-label   { color: var(--dim); }
+  .stat-val     { color: var(--text); }
+  .stat-val.green { color: var(--green); }
+  .stat-val.amber { color: var(--amber); }
+  .stat-val.blue  { color: var(--blue); }
+  .stat-val.muted { color: var(--muted); }
+  .stat-sub       { color: var(--muted); }
+  .sync-table td  { background: #111; }
+  .sync-table .lbl{ color: var(--muted); }
+  .c-green { color: var(--green); }
+  .c-amber { color: var(--amber); }
+  .c-blue  { color: var(--blue); }
+  .c-dim   { color: var(--dim); }
+  .links-bar a { border-color: var(--border); background: var(--bg-card); color: var(--text); }
+  .links-bar a:hover { background: #222; border-color: #444; }
+  .ideas-table td { background: var(--bg-deep); }
+  .ideas-table .tag { background: #1a1a1a; border-color: var(--border); color: var(--dim); }
+  .ideas-table .pri-high { color: var(--amber); }
+  .ideas-table .pri-med  { color: var(--blue); }
+  .ideas-table .pri-low  { color: var(--dim); }
+  .ideas-table .pri-note { color: var(--dim); }
+  .checklist li   { border-color: #1a1a1a; }
+  .checklist .cadence { color: var(--dim); }
+  .checklist .task    { color: #ccc; }
+  .checklist .detail  { color: var(--dim); }
+  .loading-text { color: var(--dim); }
+  .error-text   { color: var(--red); }
+  .section-head { border-color: #1e1e1e; }
+  .hdr { border-color: #222; }
+  .hdr-links a { color: var(--muted); }
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <h1>[JJ] Business Dashboard</h1>
+    <span class="hdr-links">
+      <a href="index.html">Sync Tool</a>
+      <a href="https://www.jeffjenx.com/" target="_blank" rel="noopener">Store</a>
+    </span>
+    <div style="clear:both"></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ── Stat cards ──────────────────────────────────────────────────── -->
+  <table class="stat-grid">
+    <tr>
+      <td>
+        <span class="stat-label">Active Products</span>
+        <span class="stat-val" id="stat-products">—</span>
+        <span class="stat-sub" id="stat-collections">— collections</span>
+      </td>
+      <td>
+        <span class="stat-label">Multi-Vendor</span>
+        <span class="stat-val blue" id="stat-multivend">—</span>
+        <span class="stat-sub">on 2+ platforms</span>
+      </td>
+      <td>
+        <span class="stat-label">Zazzle Sync</span>
+        <span class="stat-val" id="stat-zazzle-sync">—</span>
+        <span class="stat-sub" id="stat-zazzle-sub">loading…</span>
+      </td>
+      <td>
+        <span class="stat-label">Redbubble Sync</span>
+        <span class="stat-val" id="stat-rb-sync">—</span>
+        <span class="stat-sub" id="stat-rb-sub">loading…</span>
+      </td>
+    </tr>
+  </table>
+  <div id="load-status" class="loading-text" style="margin-top:8px">Loading live data…</div>
+
+  <!-- ── Sync breakdown ──────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-head"><h2>Sync Coverage</h2></div>
+    <table class="sync-table">
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>In Sync</th>
+          <th>Untracked</th>
+          <th>Not Listed</th>
+          <th>Total Active</th>
+          <th>Last Sync Recorded</th>
+        </tr>
+      </thead>
+      <tbody id="sync-tbody">
+        <tr><td colspan="6" class="loading-text">Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── Catalog breakdown ───────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-head"><h2>Catalog by Collection</h2></div>
+    <table>
+      <thead>
+        <tr>
+          <th>Collection</th>
+          <th>Active Products</th>
+          <th>Zazzle</th>
+          <th>Redbubble</th>
+          <th>Multi-Vendor</th>
+        </tr>
+      </thead>
+      <tbody id="catalog-tbody">
+        <tr><td colspan="5" class="loading-text">Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── Quick links ─────────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-head"><h2>Quick Links</h2></div>
+    <div class="links-bar">
+      <a href="https://www.zazzle.com/store/jeffjenx" target="_blank" rel="noopener">Zazzle Store ↗</a>
+      <a href="https://www.redbubble.com/people/jeffjenx/shop" target="_blank" rel="noopener">Redbubble Store ↗</a>
+      <a href="https://search.google.com/search-console" target="_blank" rel="noopener">Search Console ↗</a>
+      <a href="https://github.com/jeffjenx/jeffjenx.com" target="_blank" rel="noopener">GitHub Repo ↗</a>
+      <a href="https://github.com/jeffjenx/jeffjenx.com/issues" target="_blank" rel="noopener">GitHub Issues ↗</a>
+      <a href="index.html">Sync Tool</a>
+    </div>
+  </div>
+
+  <!-- ── Product ideas ───────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-head"><h2>Product Ideas &amp; Backlog</h2></div>
+    <table class="ideas-table">
+      <thead>
+        <tr><th>Priority</th><th>Idea</th><th>Collection</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="pri-high">▲ High</td>
+          <td>"It Works on My Machine"</td>
+          <td><span class="tag">warez</span></td>
+          <td>Classic dev humor. Strong search volume. Add to Zazzle + Redbubble.</td>
+        </tr>
+        <tr>
+          <td class="pri-high">▲ High</td>
+          <td>Redbubble Stickers — existing designs</td>
+          <td><span class="tag">all collections</span></td>
+          <td>Redbubble auto-generates sticker/mug/case listings from existing art. Enable product types in RB account — zero design work required.</td>
+        </tr>
+        <tr>
+          <td class="pri-high">▲ High</td>
+          <td>Digital Downloads Collection</td>
+          <td><span class="tag">digital</span></td>
+          <td>Collection already scaffolded in products.json (active: false). Add SVG icon pack or wallpaper set on Gumroad, flip active: true.</td>
+        </tr>
+        <tr>
+          <td class="pri-med">● Med</td>
+          <td>TypeScript Logo T-Shirt</td>
+          <td><span class="tag">www</span></td>
+          <td>Natural extension of HTML5/CSS3/JS lineup. TS is now dominant in web dev.</td>
+        </tr>
+        <tr>
+          <td class="pri-med">● Med</td>
+          <td>Blue Screen of Death (BSOD) T-Shirt</td>
+          <td><span class="tag">warez</span></td>
+          <td>Evergreen retro computing humor. High recognition factor.</td>
+        </tr>
+        <tr>
+          <td class="pri-med">● Med</td>
+          <td>"640K Ought to Be Enough" T-Shirt</td>
+          <td><span class="tag">warez</span></td>
+          <td>Legendary Bill Gates misquote. Strong niche appeal.</td>
+        </tr>
+        <tr>
+          <td class="pri-med">● Med</td>
+          <td>Node.js Logo T-Shirt</td>
+          <td><span class="tag">www</span></td>
+          <td>Rounds out the web stack alongside HTML5/CSS3/JS.</td>
+        </tr>
+        <tr>
+          <td class="pri-med">● Med</td>
+          <td>Euler's Number (e) T-Shirt</td>
+          <td><span class="tag">irrational</span></td>
+          <td>Natural companion to the Pi/math lineup. Irrational numbers theme.</td>
+        </tr>
+        <tr>
+          <td class="pri-low">▼ Low</td>
+          <td>"FORMAT C:" T-Shirt</td>
+          <td><span class="tag">warez</span></td>
+          <td>DOS nostalgia. Niche but loyal audience.</td>
+        </tr>
+        <tr>
+          <td class="pri-low">▼ Low</td>
+          <td>Floppy Disk T-Shirt</td>
+          <td><span class="tag">warez</span></td>
+          <td>Universal retro computing symbol. Broad appeal outside tech.</td>
+        </tr>
+        <tr>
+          <td class="pri-low">▼ Low</td>
+          <td>Game Boy / [JJ] Home Merch</td>
+          <td><span class="tag">new collection</span></td>
+          <td>Depends on home.gb project. When that ships, branded merch is a natural tie-in. Scaffold a GB collection in products.json.</td>
+        </tr>
+        <tr>
+          <td class="pri-low">▼ Low</td>
+          <td>Golden Ratio (φ) T-Shirt</td>
+          <td><span class="tag">irrational</span></td>
+          <td>Math/design crossover. Bridges both audiences.</td>
+        </tr>
+        <tr>
+          <td class="pri-low">▼ Low</td>
+          <td>More AI-Generated Designs</td>
+          <td><span class="tag">artificial</span></td>
+          <td>Artificial collection has only 1 product. Low effort to expand with more generated art.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── Maintenance checklist ───────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-head"><h2>Maintenance Checklist</h2></div>
+    <ul class="checklist">
+      <li>
+        <span class="cadence">Monthly</span>
+        <span class="task">Check Google Search Console for new structured data or coverage issues</span>
+        <span class="detail">→ <a href="https://search.google.com/search-console" target="_blank" rel="noopener">search.google.com/search-console</a></span>
+      </li>
+      <li>
+        <span class="cadence">Monthly</span>
+        <span class="task">Review GitHub Issues for open items on jeffjenx.com</span>
+        <span class="detail">→ <a href="https://github.com/jeffjenx/jeffjenx.com/issues" target="_blank" rel="noopener">github.com/jeffjenx/jeffjenx.com/issues</a></span>
+      </li>
+      <li>
+        <span class="cadence">Quarterly</span>
+        <span class="task">Run URL liveness audit on all active vendor listings</span>
+        <span class="detail">→ Open Sync Tool → review any products marked Untracked or with dead URLs in products.json</span>
+      </li>
+      <li>
+        <span class="cadence">As needed</span>
+        <span class="task">After editing products.json — sync changes to Zazzle and Redbubble</span>
+        <span class="detail">→ Open <a href="index.html">Sync Tool</a> → export updated titles/descriptions/tags → paste into platform dashboards → mark synced</span>
+      </li>
+      <li>
+        <span class="cadence">As needed</span>
+        <span class="task">After adding a new product — verify it appears correctly on store page</span>
+        <span class="detail">→ <a href="https://www.jeffjenx.com/" target="_blank" rel="noopener">jeffjenx.com</a> → confirm card renders, vendor link works, picker fires if multi-vendor</span>
+      </li>
+      <li>
+        <span class="cadence">As needed</span>
+        <span class="task">If a vendor URL goes dead — deactivate in products.json, do not delete</span>
+        <span class="detail">→ Set <code>active: false</code> on the vendor entry + add a <code>note</code> field explaining why. Preserves audit history.</span>
+      </li>
+    </ul>
+  </div>
+
+</div><!-- /.wrap -->
+
+<script type="text/javascript">
+(function () {
+  'use strict';
+
+  // Public GitHub raw URLs — no auth required
+  var PRODUCTS_URL   = 'https://raw.githubusercontent.com/jeffjenx/jeffjenx.com/main/products.json';
+  var SYNC_STATE_URL = 'https://raw.githubusercontent.com/jeffjenx/jeffjenx.com/main/tools/sync/sync-state.json';
+
+  // ── XHR (IE5+ compatible) ────────────────────────────────────────────────
+  function loadJSON(url, cb) {
+    var xhr = null;
+    if (typeof XMLHttpRequest !== 'undefined') {
+      xhr = new XMLHttpRequest();
+    } else {
+      // IE5/6 fallback
+      var types = ['Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.6.0', 'Msxml2.XMLHTTP.3.0'];
+      for (var i = 0; i < types.length; i++) {
+        try { xhr = new ActiveXObject(types[i]); break; } catch (e) {}
+      }
+    }
+    if (!xhr) { cb(null, 'XHR not available'); return; }
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState !== 4) return;
+      if (xhr.status === 200) {
+        var data;
+        try {
+          data = (window.JSON && JSON.parse) ? JSON.parse(xhr.responseText) : eval('(' + xhr.responseText + ')');
+        } catch (e) { cb(null, 'Parse error: ' + e.message); return; }
+        cb(data, null);
+      } else {
+        cb(null, 'HTTP ' + xhr.status);
+      }
+    };
+    try { xhr.open('GET', url + '?t=' + (new Date()).getTime(), true); xhr.send(); }
+    catch (e) { cb(null, e.message); }
+  }
+
+  // ── DOM helpers ──────────────────────────────────────────────────────────
+  function el(id) { return document.getElementById(id); }
+  function setText(id, val) { var e = el(id); if (e) e.innerHTML = val; }
+
+  // ── Process products.json ────────────────────────────────────────────────
+  function processProducts(data) {
+    var total = 0, multiVend = 0;
+    var collections = [];
+    var colMap = {};  // id → { label, total, zazzle, redbubble, multi }
+
+    (data.collections || []).forEach(function (col) {
+      if (!col.active) return;
+      var entry = { id: col.id, label: col.label, total: 0, zazzle: 0, redbubble: 0, multi: 0 };
+      var hasProd = false;
+
+      (col.products || []).forEach(function (p) {
+        if (p.active === false) return;
+        hasProd = true;
+        total++;
+        entry.total++;
+        var activeVendors = (p.vendors || []).filter(function (v) { return v.active !== false; });
+        var names = activeVendors.map(function (v) { return v.name; });
+        if (names.indexOf('zazzle') >= 0)    entry.zazzle++;
+        if (names.indexOf('redbubble') >= 0) entry.redbubble++;
+        if (activeVendors.length > 1) { entry.multi++; multiVend++; }
+      });
+
+      if (hasProd) { collections.push(entry); colMap[col.id] = entry; }
+    });
+
+    // Stat cards
+    setText('stat-products', total);
+    setText('stat-collections', collections.length + ' collections');
+    var mvEl = el('stat-multivend');
+    if (mvEl) { mvEl.innerHTML = multiVend; mvEl.className = 'stat-val ' + (multiVend > 0 ? 'blue' : 'muted'); }
+
+    // Catalog table
+    var rows = '';
+    collections.forEach(function (c) {
+      rows += '<tr>'
+        + '<td class="lbl">' + c.label + '</td>'
+        + '<td class="val">' + c.total + '</td>'
+        + '<td class="val ' + (c.zazzle > 0 ? 'c-green' : 'c-dim') + '">' + (c.zazzle || '—') + '</td>'
+        + '<td class="val ' + (c.redbubble > 0 ? 'c-green' : 'c-dim') + '">' + (c.redbubble || '—') + '</td>'
+        + '<td class="val ' + (c.multi > 0 ? 'c-blue' : 'c-dim') + '">' + (c.multi || '—') + '</td>'
+        + '</tr>';
+    });
+    setText('catalog-tbody', rows || '<tr><td colspan="5" class="c-dim">No active products</td></tr>');
+
+    return { total: total, multiVend: multiVend, products: data };
+  }
+
+  // ── Process sync-state.json ──────────────────────────────────────────────
+  function processSyncState(syncData, productData) {
+    var platforms = ['zazzle', 'redbubble'];
+    var rows = '';
+
+    platforms.forEach(function (platform) {
+      var stateForPlatform = syncData[platform] || {};
+      var syncedIds = Object.keys(stateForPlatform);
+
+      // Count active products per platform and their sync state
+      var totalActive = 0, inSync = 0, untracked = 0, notListed = 0;
+      var latestSync = null;
+
+      (productData.collections || []).forEach(function (col) {
+        if (!col.active) return;
+        (col.products || []).forEach(function (p) {
+          if (p.active === false) return;
+          var hasVendor = (p.vendors || []).some(function (v) { return v.name === platform && v.active !== false; });
+          if (!hasVendor) { notListed++; return; }
+          totalActive++;
+          var entry = stateForPlatform[p.id];
+          if (entry) {
+            inSync++;
+            if (entry.synced) {
+              var d = new Date(entry.synced);
+              if (!latestSync || d > latestSync) latestSync = d;
+            }
+          } else {
+            untracked++;
+          }
+        });
+      });
+
+      var syncClass = untracked > 0 ? 'c-amber' : 'c-green';
+      var syncText  = untracked > 0 ? (untracked + ' untracked') : 'all tracked';
+      var lastStr   = latestSync ? latestSync.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '—';
+
+      // Update top stat cards
+      if (platform === 'zazzle') {
+        var zEl = el('stat-zazzle-sync');
+        if (zEl) { zEl.innerHTML = inSync + '<span style="font-size:14px;color:#555">/' + totalActive + '</span>'; zEl.className = 'stat-val ' + (untracked > 0 ? 'amber' : 'green'); }
+        setText('stat-zazzle-sub', syncText);
+      }
+      if (platform === 'redbubble') {
+        var rEl = el('stat-rb-sync');
+        if (rEl) { rEl.innerHTML = inSync + '<span style="font-size:14px;color:#555">/' + totalActive + '</span>'; rEl.className = 'stat-val ' + (untracked > 0 ? 'amber' : 'green'); }
+        setText('stat-rb-sub', syncText);
+      }
+
+      rows += '<tr>'
+        + '<td class="lbl">' + platform.charAt(0).toUpperCase() + platform.slice(1) + '</td>'
+        + '<td class="val c-green">' + inSync + '</td>'
+        + '<td class="val ' + (untracked > 0 ? 'c-amber' : 'c-dim') + '">' + (untracked || '—') + '</td>'
+        + '<td class="val c-dim">' + (notListed || '—') + '</td>'
+        + '<td class="val">' + totalActive + '</td>'
+        + '<td class="val c-dim">' + lastStr + '</td>'
+        + '</tr>';
+    });
+
+    setText('sync-tbody', rows);
+  }
+
+  // ── Load both files ──────────────────────────────────────────────────────
+  var productResult = null;
+  var syncResult    = null;
+  var loadError     = null;
+  var done          = 0;
+
+  function onBothLoaded() {
+    if (done < 2) return;
+    el('load-status') && (el('load-status').style.display = 'none');
+    if (loadError) {
+      setText('load-status', '<span class="error-text">Error loading data: ' + loadError + '</span>');
+      el('load-status').style.display = 'block';
+      return;
+    }
+    if (productResult) processSyncState(syncResult || {}, productResult);
+  }
+
+  loadJSON(PRODUCTS_URL, function (data, err) {
+    done++;
+    if (err || !data) {
+      loadError = err || 'Empty response';
+      onBothLoaded();
+      return;
+    }
+    productResult = data;
+    processProducts(data);
+    onBothLoaded();
+  });
+
+  loadJSON(SYNC_STATE_URL, function (data, err) {
+    done++;
+    syncResult = data || {};
+    if (err) loadError = loadError || err;
+    onBothLoaded();
+  });
+
+}());
+</script>
+</body>
+</html>
