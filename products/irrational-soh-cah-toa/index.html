@@ -32,7 +32,7 @@ body{background:#f8f8f8;color:#0a0a0a;font-family:"IBM Plex Sans","Helvetica Neu
 a{color:#0a0a0a;}a:hover{opacity:.75;}
 .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
 /* Nav */
-.jj-nav{border-bottom:1px solid #e0e0e0;padding:12px 24px;background:#f8f8f8;}
+.jj-nav{position:sticky;top:0;z-index:10;border-bottom:1px solid #e0e0e0;padding:12px 24px;background:#f8f8f8;}
 .jj-nav-inner{max-width:760px;margin:0 auto;}
 .jj-nav-left{display:inline;vertical-align:middle;}
 .jj-nav-right{float:right;vertical-align:middle;}
@@ -63,6 +63,9 @@ a{color:#0a0a0a;}a:hover{opacity:.75;}
 .pg-btn--vendor{background:#f8f8f8;color:#0a0a0a;}
 .pg-btn--vendor:hover{background:#0a0a0a;color:#f8f8f8;}
 .pg-unavail{color:#999;font-family:"IBM Plex Mono","Courier New",monospace;font-size:13px;margin-bottom:24px;}
+/* Product visual */
+.pg-visual{height:200px;display:flex;align-items:center;justify-content:center;margin-bottom:32px;}
+.pg-visual-mark{font-family:"IBM Plex Mono","Courier New",monospace;font-size:80px;color:#f8f8f8;line-height:1;user-select:none;}
 /* Tags */
 .pg-tags{margin-bottom:32px;}
 .pg-tag{display:inline-block;background:#ebebeb;font-family:"IBM Plex Mono","Courier New",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;margin:0 4px 4px 0;color:#666;}
@@ -77,6 +80,8 @@ a{color:#0a0a0a;}a:hover{opacity:.75;}
 @media (max-width:600px){
   .pg-title{font-size:20px;}
   .jj-nav-right{display:none;}
+  .pg-visual{height:140px;}
+  .pg-visual-mark{font-size:52px;}
 }
 
 /* Layer 3 — CSS custom properties (Chrome 49+) */
@@ -112,6 +117,8 @@ a{color:#0a0a0a;}a:hover{opacity:.75;}
     <span class="sep" aria-hidden="true">/</span>
     <span>SOH CAH TOA T-Shirt</span>
   </nav>
+
+  <div class="pg-visual" style="background:#0891B2" aria-hidden="true"><span class="pg-visual-mark">π</span></div>
 
   <div class="pg-collection-bar">The Irrational Collection</div>
 
