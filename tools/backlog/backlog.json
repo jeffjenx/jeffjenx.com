@@ -278,7 +278,56 @@
       "completedAt": "2026-05-31"
     },
     {
-      "id": "phase4b-typescript-tee",
+      "id": "product-pages-dark-mode",
+      "title": "Full dark mode on all product pages",
+      "detail": "Generator upgraded to output complete dark mode CSS: prefers-color-scheme auto-detection, data-theme override, theme toggle button in nav (localStorage persist). All 24 pages regenerated.",
+      "category": "ux",
+      "value": 4, "alignment": 4, "urgency": 3, "effort": 2,
+      "status": "done",
+      "files": ["tools/generate/index.js"],
+      "completedAt": "2026-06-01"
+    },
+    {
+      "id": "product-pages-share-button",
+      "title": "Share button on all product pages",
+      "detail": "Generator adds a Share button to every product page. Copies canonical URL to clipboard (navigator.clipboard + execCommand fallback). Copied feedback state with dark mode support.",
+      "category": "marketing",
+      "value": 3, "alignment": 4, "urgency": 2, "effort": 1,
+      "status": "done",
+      "files": ["tools/generate/index.js"],
+      "completedAt": "2026-06-01"
+    },
+    {
+      "id": "product-pages-cross-sell",
+      "title": "Also-in-Collection cross-sell on product pages",
+      "detail": "Generator builds static sibling-product links at generation time (up to 4 per page). Displays as pill links in a bordered section above the back link. Improves internal linking and session depth.",
+      "category": "ux",
+      "value": 4, "alignment": 4, "urgency": 2, "effort": 1,
+      "status": "done",
+      "files": ["tools/generate/index.js"],
+      "completedAt": "2026-06-01"
+    },
+    {
+      "id": "admin-tasks-panel",
+      "title": "Human Tasks panel in admin dashboard",
+      "detail": "admin/index.html now includes a Human Tasks section with 11 pre-populated tasks (stickers, designs, thumbnails, Gumroad). localStorage persistence, priority tiers, group display, mark-done + clear-done controls.",
+      "category": "infrastructure",
+      "value": 3, "alignment": 4, "urgency": 2, "effort": 1,
+      "status": "done",
+      "files": ["admin/index.html"],
+      "completedAt": "2026-06-01"
+    },
+    {
+      "id": "manifest-humans-txt",
+      "title": "Add manifest.json and humans.txt",
+      "detail": "manifest.json created (PWA installability, theme colors). humans.txt created. manifest linked in shop index.html head. robots.txt updated to reference humans.txt.",
+      "category": "infrastructure",
+      "value": 2, "alignment": 3, "urgency": 1, "effort": 1,
+      "status": "done",
+      "files": ["manifest.json", "humans.txt", "robots.txt", "index.html"],
+      "completedAt": "2026-06-01"
+    },
+    {
       "title": "Create and list TypeScript Logo T-Shirt (Phase 4B)",
       "detail": "Draft entry www-typescript-logo is in products.json (active: false). TAG_MAP entries added. Create design using official TypeScript logo (MIT licensed). Upload to Zazzle and Redbubble. Add vendor URLs to products.json draft entry, set active: true, remove _draft field.",
       "category": "revenue",
