@@ -1,0 +1,17 @@
+/* TEAM */
+Creator & Designer: Jeff Jenx
+Site: https://www.jeffjenx.com
+Twitter: @jeff_jenx
+GitHub: https://github.com/jeffjenx
+Location: United States
+
+/* THANKS */
+IBM for IBM Plex Mono and IBM Plex Sans — https://www.ibm.com/plex/
+
+/* SITE */
+Last update: 2025-01-01
+Language: English
+Doctype: HTML5
+IDE: VS Code
+Standards: HTML5, CSS3, JSON-LD
+Components: Zero tracking, zero ads, zero data collected

@@ -261,6 +261,20 @@
       "effort": 1,
       "status": "done",
       "files": ["index.html"],
+      "completedAt": "2026-05-31",
+      "completionNote": "Fixed product URL to point to /products/{id}/ (not vendor URL). Added priceCurrency: USD to offers. Added image field support (renders when product.image is set)."
+    },
+    {
+      "id": "share-button",
+      "title": "Add Share button to product cards",
+      "detail": "Each product card gets a Share button in the card footer. Clicking copies the /products/{id}/ URL to clipboard (navigator.clipboard with textarea fallback). Shows 'Copied!' feedback for 1.8s. Prevents card navigation/picker from firing when share is clicked. Dark mode support via CSS custom properties.",
+      "category": "marketing",
+      "value": 3,
+      "alignment": 4,
+      "urgency": 2,
+      "effort": 1,
+      "status": "done",
+      "files": ["index.html"],
       "completedAt": "2026-05-31"
     },
     {

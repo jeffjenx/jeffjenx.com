@@ -65,7 +65,7 @@ function vendorAriaLabel(vendorName, productTitle) {
 
 // ── Build one product page ────────────────────────────────────────────────────
 
-function buildPage(product, collection) {
+function buildPage(product, collection, siblings) {
   var isDigital   = product.type === 'digital';
   var canonicalUrl = BASE_URL + '/products/' + product.id + '/';
   var shopUrl      = BASE_URL + '/#' + collection.id;
@@ -139,6 +139,18 @@ function buildPage(product, collection) {
   var accentBase  = esc(collection.accent  || '#0a0a0a');
   var accentLight = esc(collection.accent_light || '#f0f0f0');
   var accentDark  = esc(collection.accent_dark  || '#222');
+
+  // Siblings cross-sell HTML
+  var siblingsHtml = '';
+  if (siblings && siblings.length > 0) {
+    siblingsHtml = '\n  <div class="pg-also">\n'
+      + '    <span class="pg-also-label">Also in ' + esc(collection.label) + '</span>\n'
+      + '    <div class="pg-also-list">';
+    siblings.forEach(function (s) {
+      siblingsHtml += '<a class="pg-also-link" href="' + esc(BASE_URL + '/products/' + s.id + '/') + '">' + esc(s.title) + '</a>';
+    });
+    siblingsHtml += '</div>\n  </div>\n';
+  }
 
   return '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">\n'
     + '<html lang="en">\n'
@@ -226,15 +238,57 @@ function buildPage(product, collection) {
     + '  .pg-visual-mark{font-size:52px;}\n'
     + '}\n'
     + '\n'
+    + '/* Share button */\n'
+    + '.share-btn{background:none;border:none;cursor:pointer;font-family:"IBM Plex Mono","Courier New",monospace;font-size:11px;letter-spacing:.10em;text-transform:uppercase;color:#717171;padding:0;margin:0 0 24px;display:inline-block;}\n'
+    + '.share-btn:hover{color:#0a0a0a;text-decoration:none;}\n'
+    + '.share-btn--copied{color:#166534;}\n'
+    + '/* Theme toggle */\n'
+    + '#theme-toggle{float:right;font-family:"IBM Plex Mono","Courier New",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:none;border:1px solid #c8c8c8;color:#555;padding:5px 11px;cursor:pointer;vertical-align:middle;}\n'
+    + '#theme-toggle:hover{background:#e8e8e8;}\n'
+    + '/* Also-in-collection */\n'
+    + '.pg-also{margin-bottom:32px;padding-top:24px;border-top:1px solid #e0e0e0;}\n'
+    + '.pg-also-label{font-family:"IBM Plex Mono","Courier New",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#999;display:block;margin-bottom:12px;}\n'
+    + '.pg-also-list{display:block;}\n'
+    + '.pg-also-link{display:inline-block;font-family:"IBM Plex Mono","Courier New",monospace;font-size:11px;text-decoration:none;color:#0a0a0a;border:1px solid #e0e0e0;padding:6px 12px;margin:0 6px 6px 0;}\n'
+    + '.pg-also-link:hover{border-color:#0a0a0a;opacity:1;}\n'
+    + '\n'
     + '/* Layer 3 — CSS custom properties (Chrome 49+) */\n'
     + '@supports(--x:0){\n'
-    + '  body{background:var(--jj-bg,#f8f8f8);color:var(--jj-fg,#0a0a0a);}\n'
-    + '  .jj-nav{background:var(--jj-bg,#f8f8f8);border-color:var(--jj-border-color,#e0e0e0);}\n'
-    + '  .pg-tag{background:var(--jj-bg-raised,#ebebeb);}\n'
+    + '  :root{--jj-bg:#f8f8f8;--jj-fg:#0a0a0a;--jj-fg-muted:#555;--jj-border-color:#e0e0e0;--jj-bg-raised:#ebebeb;}\n'
+    + '  @media(prefers-color-scheme:dark){:root{--jj-bg:#0a0a0a;--jj-fg:#f0f0f0;--jj-fg-muted:#aaa;--jj-border-color:#2a2a2a;--jj-bg-raised:#1a1a1a;}}\n'
+    + '  [data-theme="dark"]{--jj-bg:#0a0a0a;--jj-fg:#f0f0f0;--jj-fg-muted:#aaa;--jj-border-color:#2a2a2a;--jj-bg-raised:#1a1a1a;}\n'
+    + '  [data-theme="light"]{--jj-bg:#f8f8f8;--jj-fg:#0a0a0a;--jj-fg-muted:#555;--jj-border-color:#e0e0e0;--jj-bg-raised:#ebebeb;}\n'
+    + '  body{background:var(--jj-bg);color:var(--jj-fg);}\n'
+    + '  .jj-nav{background:var(--jj-bg);border-color:var(--jj-border-color);}\n'
+    + '  .pg-breadcrumb,.pg-breadcrumb a{color:var(--jj-fg-muted);}\n'
+    + '  .pg-desc{color:var(--jj-fg-muted);}\n'
+    + '  .pg-tag{background:var(--jj-bg-raised);color:var(--jj-fg-muted);}\n'
+    + '  .pg-back{color:var(--jj-fg-muted);border-bottom-color:var(--jj-border-color);}\n'
+    + '  .jj-footer{color:var(--jj-fg-muted);border-top-color:var(--jj-border-color);}\n'
+    + '  .jj-footer a{color:var(--jj-fg-muted);}\n'
+    + '  .share-btn{color:var(--jj-fg-muted);}\n'
+    + '  .share-btn:hover{color:var(--jj-fg);}\n'
+    + '  [data-theme="dark"] .share-btn--copied{color:#4ade80;}\n'
+    + '  #theme-toggle{border-color:var(--jj-border-color);color:var(--jj-fg-muted);}\n'
+    + '  #theme-toggle:hover{background:var(--jj-bg-raised);}\n'
+    + '  .pg-also{border-top-color:var(--jj-border-color);}\n'
+    + '  .pg-also-label{color:var(--jj-fg-muted);}\n'
+    + '  .pg-also-link{color:var(--jj-fg);border-color:var(--jj-border-color);}\n'
+    + '  .pg-also-link:hover{border-color:var(--jj-fg);}\n'
     + '}\n'
     + '</style>\n'
     + '</head>\n'
     + '<body>\n'
+    + '\n'
+    + '<script>\n'
+    + '(function(){\n'
+    + '  var r=document.documentElement,s;\n'
+    + '  try{s=localStorage.getItem(\'jj-theme\');}catch(e){}\n'
+    + '  var ov;try{ov=localStorage.getItem(\'jj-theme-override\')==="true";}catch(e){}\n'
+    + '  var sys=window.matchMedia&&window.matchMedia(\'(prefers-color-scheme:dark)\').matches;\n'
+    + '  r.setAttribute(\'data-theme\',(ov&&s)?s:(sys?\'dark\':\'light\'));\n'
+    + '})();\n'
+    + '</script>\n'
     + '\n'
     + '<div class="jj-nav">\n'
     + '  <div class="jj-nav-inner">\n'
@@ -242,6 +296,7 @@ function buildPage(product, collection) {
     + '      <a class="jj-mark-sm" href="https://www.jeffjenx.com/">[JJ]</a><a class="jj-brand" href="https://www.jeffjenx.com/">Jeff Jenx</a>\n'
     + '    </span>\n'
     + '    <span class="jj-nav-right">\n'
+    + '      <button id="theme-toggle" type="button" aria-label="Toggle dark mode">Dark</button>\n'
     + '      <a class="jj-nav-link" href="https://www.jeffjenx.com/">Shop</a>\n'
     + '      <a class="jj-nav-link" href="https://jeffjenx.design/">Design</a>\n'
     + '      <a class="jj-nav-link" href="https://jeffjenx.net/">Network</a>\n'
@@ -274,7 +329,10 @@ function buildPage(product, collection) {
     + '\n'
     + '  ' + vendorHtml + '\n'
     + '\n'
+    + '  <button class="share-btn" id="share-btn" type="button" aria-label="Copy link to this product">Share &uarr;</button>\n'
+    + '\n'
     + '  <div class="pg-tags">' + tagsHtml + '</div>\n'
+    + (siblingsHtml ? siblingsHtml : '')
     + '\n'
     + '  <a class="pg-back" href="' + esc(shopUrl) + '">&larr; Back to ' + esc(collection.label) + '</a>\n'
     + '\n'
@@ -284,6 +342,33 @@ function buildPage(product, collection) {
     + '  </footer>\n'
     + '\n'
     + '</div>\n'
+    + '\n'
+    + '<script>\n'
+    + '(function(){\n'
+    + '  // Theme toggle\n'
+    + '  var r=document.documentElement,btn=document.getElementById(\'theme-toggle\');\n'
+    + '  if(btn){\n'
+    + '    var t=r.getAttribute(\'data-theme\')||(\'light\');\n'
+    + '    btn.textContent=t==="dark"?"Light":"Dark";\n'
+    + '    btn.addEventListener(\'click\',function(){\n'
+    + '      var next=r.getAttribute(\'data-theme\')==="dark"?"light":"dark";\n'
+    + '      r.setAttribute(\'data-theme\',next);\n'
+    + '      try{localStorage.setItem(\'jj-theme\',next);localStorage.setItem(\'jj-theme-override\',\'true\');}catch(e){}\n'
+    + '      btn.textContent=next==="dark"?"Light":"Dark";\n'
+    + '    });\n'
+    + '  }\n'
+    + '  // Share button\n'
+    + '  var sb=document.getElementById(\'share-btn\');\n'
+    + '  if(sb){\n'
+    + '    sb.addEventListener(\'click\',function(){\n'
+    + '      var url=window.location.href;\n'
+    + '      function onCopied(){sb.textContent="Copied!";sb.classList.add(\'share-btn--copied\');setTimeout(function(){sb.textContent="Share \\u2191";sb.classList.remove(\'share-btn--copied\');},1800);}\n'
+    + '      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(onCopied,function(){fb(url);onCopied();});}else{fb(url);onCopied();}\n'
+    + '      function fb(t){var ta=document.createElement(\'textarea\');ta.value=t;ta.style.position="fixed";ta.style.top="-9999px";document.body.appendChild(ta);ta.select();try{document.execCommand(\'copy\');}catch(e){}document.body.removeChild(ta);}\n'
+    + '    });\n'
+    + '  }\n'
+    + '})();\n'
+    + '</script>\n'
     + '</body>\n'
     + '</html>\n';
 }
@@ -315,8 +400,12 @@ var errors    = [];
 
 (data.collections || []).forEach(function (col) {
   if (!col.active) return;
-  (col.products || []).forEach(function (product) {
+  var activeInCol = (col.products || []).filter(function (p) { return p.active !== false; });
+  activeInCol.forEach(function (product) {
     if (!product.active) { skipped++; return; }
+
+    // Siblings: other active products in same collection, up to 4
+    var siblings = activeInCol.filter(function (p) { return p.id !== product.id; }).slice(0, 4);
 
     var outDir  = path.join(OUTPUT_DIR, product.id);
     var outFile = path.join(outDir, 'index.html');
@@ -329,7 +418,7 @@ var errors    = [];
 
     try {
       if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
-      var html = buildPage(product, col);
+      var html = buildPage(product, col, siblings);
       fs.writeFileSync(outFile, html, 'utf8');
       console.log('  \u2713  products/' + product.id + '/index.html');
       generated++;

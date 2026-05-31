@@ -130,6 +130,27 @@ input:focus { outline: 1px solid var(--blue); }
 /* ── Spinner ─────────────────────────────────────── */
 @keyframes spin { to { transform: rotate(360deg); } }
 .spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid var(--border); border-top-color: var(--text-muted); border-radius: 50%; animation: spin .7s linear infinite; vertical-align: middle; margin-right: 6px; }
+
+/* ── Tasks ───────────────────────────────────────── */
+.tasks-section { margin-top: 40px; }
+.tasks-header { margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
+.tasks-header h2 { font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--text-muted); letter-spacing: .08em; }
+.tasks-count { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); }
+.task-group { margin-bottom: 20px; }
+.task-group-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; padding-left: 4px; }
+.task-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 6px; display: flex; align-items: flex-start; gap: 12px; }
+.task-item.task-done { opacity: .45; }
+.task-check { width: 16px; height: 16px; border: 1px solid var(--border); border-radius: 2px; flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--green); margin-top: 1px; }
+.task-check.checked { background: var(--green-bg); border-color: var(--green); }
+.task-body { flex: 1; min-width: 0; }
+.task-title { font-family: var(--font-mono); font-size: 12px; color: var(--text); margin-bottom: 3px; }
+.task-desc  { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin-bottom: 0; }
+.task-link  { font-family: var(--font-mono); font-size: 10px; color: var(--blue); display: inline-block; margin-top: 4px; }
+.task-meta  { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); white-space: nowrap; flex-shrink: 0; }
+.task-priority-high   { border-left: 2px solid var(--amber); }
+.task-priority-medium { border-left: 2px solid var(--blue); }
+.task-priority-low    { border-left: 2px solid var(--text-dim); }
+.tasks-clear-btn { background: none; border: 1px solid var(--border); color: var(--text-dim); font-size: 10px; padding: 3px 8px; }
 </style>
 </head>
 <body>
@@ -181,6 +202,19 @@ input:focus { outline: 1px solid var(--blue); }
     </div>
   </div>
   <div id="listings"></div>
+
+  <!-- Human Tasks ──────────────────────────────── -->
+  <div class="tasks-section">
+    <div class="tasks-header">
+      <h2>HUMAN TASKS</h2>
+      <div style="display:flex;align-items:center;gap:12px">
+        <span class="tasks-count" id="tasks-count"></span>
+        <button class="tasks-clear-btn" id="tasks-clear-done" type="button">Clear done</button>
+      </div>
+    </div>
+    <div id="tasks-output"><div class="loading">Loading tasks…</div></div>
+  </div>
+
 </div>
 
 <script>
@@ -785,6 +819,169 @@ async function refresh() {
 }
 
 init();
+
+// ── Human Tasks ─────────────────────────────────────────────────────────────
+(function () {
+  'use strict';
+
+  var TASK_STORE = 'jj-admin-tasks-v1';
+
+  var TASKS = [
+    {
+      id: 'rb-stickers-showdown',     group: 'Platform', priority: 'high',
+      title: 'Enable stickers on Redbubble — Showdown & Grand Theft Army',
+      desc: 'Go to your Redbubble product and enable the Sticker product type. Takes ~2 min per product.',
+      link: 'https://www.redbubble.com/studio/works',
+      linkLabel: 'Open Redbubble Studio →'
+    },
+    {
+      id: 'rb-stickers-warez',        group: 'Platform', priority: 'high',
+      title: 'Enable stickers on Redbubble — Warez collection (CDOS, DOS Prompt, Hello World, SMPTE)',
+      desc: 'Enable Sticker type on all 4 Warez products. Stickers = highest-margin, lowest-price entry point.',
+      link: 'https://www.redbubble.com/studio/works',
+      linkLabel: 'Open Redbubble Studio →'
+    },
+    {
+      id: 'rb-stickers-www',          group: 'Platform', priority: 'high',
+      title: 'Enable stickers on Redbubble — WWW collection (HTML5, CSS3, JavaScript)',
+      desc: 'Enable Sticker type on all 3 WWW products.',
+      link: 'https://www.redbubble.com/studio/works',
+      linkLabel: 'Open Redbubble Studio →'
+    },
+    {
+      id: 'design-typescript-tee',    group: 'Product Design', priority: 'high',
+      title: 'Create design — TypeScript Logo T-Shirt',
+      desc: 'Design: TypeScript "TS" block logo mark (blue square, white TS). Transparent PNG, 4500×5400px minimum. Export and upload to Zazzle + Redbubble.',
+      link: 'https://www.zazzle.com/store/jeffjenx',
+      linkLabel: 'Open Zazzle Store →'
+    },
+    {
+      id: 'design-nodejs-tee',        group: 'Product Design', priority: 'high',
+      title: 'Create design — Node.js Logo T-Shirt',
+      desc: 'Design: Node.js hex logo mark. Transparent PNG, 4500×5400px minimum.',
+      link: null
+    },
+    {
+      id: 'design-itwomm-tee',        group: 'Product Design', priority: 'medium',
+      title: 'Create design — ITWOMM T-Shirt',
+      desc: '"I Think We\'re on My Map" — illustrated design. Concept TBD.',
+      link: null
+    },
+    {
+      id: 'design-bsod-tee',          group: 'Product Design', priority: 'medium',
+      title: 'Create design — BSOD T-Shirt',
+      desc: 'Classic Windows BSOD screen in wearable form. Blue shirt, white mono text. Concept TBD.',
+      link: null
+    },
+    {
+      id: 'design-euler-tee',         group: 'Product Design', priority: 'medium',
+      title: "Create design — Euler's Identity T-Shirt",
+      desc: 'e^(i\u03c0) + 1 = 0. Clean math typesetting on a shirt. Multiple colorways to consider.',
+      link: null
+    },
+    {
+      id: 'design-640k-tee',          group: 'Product Design', priority: 'low',
+      title: 'Create design — "640K Ought to Be Enough" T-Shirt',
+      desc: 'Retro computing humour. Monospace quote, maybe on a terminal-green or off-white shirt.',
+      link: null
+    },
+    {
+      id: 'thumbnails-products',      group: 'Assets', priority: 'medium',
+      title: 'Create product thumbnail images (400×400px per product)',
+      desc: 'Add product.image field to each active entry in products.json. Used in structured data (JSON-LD) and OpenGraph. Simple flat renders are fine — use the product design asset.',
+      link: 'https://github.com/jeffjenx/jeffjenx.com/blob/main/products.json',
+      linkLabel: 'View products.json on GitHub →'
+    },
+    {
+      id: 'gumroad-digital-setup',    group: 'Platform', priority: 'medium',
+      title: 'Set up Gumroad for digital downloads',
+      desc: 'Create Gumroad account for jeffjenx. Needed to unlock digital product listing (icon packs, wallpapers, etc). Currently blocked by missing icons design.',
+      link: 'https://gumroad.com/',
+      linkLabel: 'Gumroad →'
+    }
+  ];
+
+  var TASK_STORAGE_KEY = TASK_STORE;
+
+  function loadDone() {
+    try { return JSON.parse(localStorage.getItem(TASK_STORAGE_KEY) || '{}'); } catch (e) { return {}; }
+  }
+  function saveDone(done) {
+    try { localStorage.setItem(TASK_STORAGE_KEY, JSON.stringify(done)); } catch (e) {}
+  }
+
+  function groupBy(arr, key) {
+    var groups = {};
+    arr.forEach(function (item) {
+      if (!groups[item[key]]) groups[item[key]] = [];
+      groups[item[key]].push(item);
+    });
+    return groups;
+  }
+
+  function renderTasks() {
+    var done   = loadDone();
+    var output = document.getElementById('tasks-output');
+    var countEl = document.getElementById('tasks-count');
+    if (!output) return;
+
+    var pending = TASKS.filter(function (t) { return !done[t.id]; }).length;
+    if (countEl) countEl.textContent = pending + ' open / ' + TASKS.length + ' total';
+
+    var groups  = groupBy(TASKS, 'group');
+    var html    = '';
+
+    Object.keys(groups).forEach(function (groupName) {
+      html += '<div class="task-group">';
+      html += '<div class="task-group-label">' + groupName + '</div>';
+      groups[groupName].forEach(function (task) {
+        var isDone = !!done[task.id];
+        var pClass = 'task-priority-' + (task.priority || 'low');
+        html += '<div class="task-item ' + pClass + (isDone ? ' task-done' : '') + '" data-task-id="' + task.id + '">';
+        html += '  <div class="task-check' + (isDone ? ' checked' : '') + '" data-check="' + task.id + '" title="Mark complete">' + (isDone ? '&#10003;' : '') + '</div>';
+        html += '  <div class="task-body">';
+        html += '    <div class="task-title">' + task.title + '</div>';
+        html += '    <div class="task-desc">'  + task.desc  + '</div>';
+        if (task.link) {
+          html += '    <a class="task-link" href="' + task.link + '" target="_blank" rel="noopener">' + (task.linkLabel || task.link) + '</a>';
+        }
+        html += '  </div>';
+        html += '  <div class="task-meta">' + (task.priority.toUpperCase()) + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    });
+
+    output.innerHTML = html;
+
+    output.addEventListener('click', function (e) {
+      var checkEl = e.target.closest ? e.target.closest('[data-check]') : (e.target.getAttribute('data-check') ? e.target : null);
+      if (!checkEl) return;
+      var id = checkEl.getAttribute('data-check');
+      if (!id) return;
+      var done2 = loadDone();
+      if (done2[id]) {
+        delete done2[id];
+      } else {
+        done2[id] = Date.now();
+      }
+      saveDone(done2);
+      renderTasks();
+    });
+  }
+
+  document.getElementById('tasks-clear-done') && document.getElementById('tasks-clear-done').addEventListener('click', function () {
+    var done = loadDone();
+    var keys = Object.keys(done);
+    if (!keys.length) return;
+    if (confirm('Clear ' + keys.length + ' completed task(s) from history?')) {
+      saveDone({});
+      renderTasks();
+    }
+  });
+
+  renderTasks();
+})();
 </script>
 </body>
 </html>

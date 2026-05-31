@@ -1,0 +1,16 @@
+{
+  "name": "Jeff Jenx Shop",
+  "short_name": "JJ Shop",
+  "description": "Developer apparel for people who sweat the details.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f8f8f8",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

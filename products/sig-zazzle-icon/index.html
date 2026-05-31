@@ -84,15 +84,57 @@ a{color:#0a0a0a;}a:hover{opacity:.75;}
   .pg-visual-mark{font-size:52px;}
 }
 
+/* Share button */
+.share-btn{background:none;border:none;cursor:pointer;font-family:"IBM Plex Mono","Courier New",monospace;font-size:11px;letter-spacing:.10em;text-transform:uppercase;color:#717171;padding:0;margin:0 0 24px;display:inline-block;}
+.share-btn:hover{color:#0a0a0a;text-decoration:none;}
+.share-btn--copied{color:#166534;}
+/* Theme toggle */
+#theme-toggle{float:right;font-family:"IBM Plex Mono","Courier New",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:none;border:1px solid #c8c8c8;color:#555;padding:5px 11px;cursor:pointer;vertical-align:middle;}
+#theme-toggle:hover{background:#e8e8e8;}
+/* Also-in-collection */
+.pg-also{margin-bottom:32px;padding-top:24px;border-top:1px solid #e0e0e0;}
+.pg-also-label{font-family:"IBM Plex Mono","Courier New",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#999;display:block;margin-bottom:12px;}
+.pg-also-list{display:block;}
+.pg-also-link{display:inline-block;font-family:"IBM Plex Mono","Courier New",monospace;font-size:11px;text-decoration:none;color:#0a0a0a;border:1px solid #e0e0e0;padding:6px 12px;margin:0 6px 6px 0;}
+.pg-also-link:hover{border-color:#0a0a0a;opacity:1;}
+
 /* Layer 3 — CSS custom properties (Chrome 49+) */
 @supports(--x:0){
-  body{background:var(--jj-bg,#f8f8f8);color:var(--jj-fg,#0a0a0a);}
-  .jj-nav{background:var(--jj-bg,#f8f8f8);border-color:var(--jj-border-color,#e0e0e0);}
-  .pg-tag{background:var(--jj-bg-raised,#ebebeb);}
+  :root{--jj-bg:#f8f8f8;--jj-fg:#0a0a0a;--jj-fg-muted:#555;--jj-border-color:#e0e0e0;--jj-bg-raised:#ebebeb;}
+  @media(prefers-color-scheme:dark){:root{--jj-bg:#0a0a0a;--jj-fg:#f0f0f0;--jj-fg-muted:#aaa;--jj-border-color:#2a2a2a;--jj-bg-raised:#1a1a1a;}}
+  [data-theme="dark"]{--jj-bg:#0a0a0a;--jj-fg:#f0f0f0;--jj-fg-muted:#aaa;--jj-border-color:#2a2a2a;--jj-bg-raised:#1a1a1a;}
+  [data-theme="light"]{--jj-bg:#f8f8f8;--jj-fg:#0a0a0a;--jj-fg-muted:#555;--jj-border-color:#e0e0e0;--jj-bg-raised:#ebebeb;}
+  body{background:var(--jj-bg);color:var(--jj-fg);}
+  .jj-nav{background:var(--jj-bg);border-color:var(--jj-border-color);}
+  .pg-breadcrumb,.pg-breadcrumb a{color:var(--jj-fg-muted);}
+  .pg-desc{color:var(--jj-fg-muted);}
+  .pg-tag{background:var(--jj-bg-raised);color:var(--jj-fg-muted);}
+  .pg-back{color:var(--jj-fg-muted);border-bottom-color:var(--jj-border-color);}
+  .jj-footer{color:var(--jj-fg-muted);border-top-color:var(--jj-border-color);}
+  .jj-footer a{color:var(--jj-fg-muted);}
+  .share-btn{color:var(--jj-fg-muted);}
+  .share-btn:hover{color:var(--jj-fg);}
+  [data-theme="dark"] .share-btn--copied{color:#4ade80;}
+  #theme-toggle{border-color:var(--jj-border-color);color:var(--jj-fg-muted);}
+  #theme-toggle:hover{background:var(--jj-bg-raised);}
+  .pg-also{border-top-color:var(--jj-border-color);}
+  .pg-also-label{color:var(--jj-fg-muted);}
+  .pg-also-link{color:var(--jj-fg);border-color:var(--jj-border-color);}
+  .pg-also-link:hover{border-color:var(--jj-fg);}
 }
 </style>
 </head>
 <body>
+
+<script>
+(function(){
+  var r=document.documentElement,s;
+  try{s=localStorage.getItem('jj-theme');}catch(e){}
+  var ov;try{ov=localStorage.getItem('jj-theme-override')==="true";}catch(e){}
+  var sys=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;
+  r.setAttribute('data-theme',(ov&&s)?s:(sys?'dark':'light'));
+})();
+</script>
 
 <div class="jj-nav">
   <div class="jj-nav-inner">
@@ -100,6 +142,7 @@ a{color:#0a0a0a;}a:hover{opacity:.75;}
       <a class="jj-mark-sm" href="https://www.jeffjenx.com/">[JJ]</a><a class="jj-brand" href="https://www.jeffjenx.com/">Jeff Jenx</a>
     </span>
     <span class="jj-nav-right">
+      <button id="theme-toggle" type="button" aria-label="Toggle dark mode">Dark</button>
       <a class="jj-nav-link" href="https://www.jeffjenx.com/">Shop</a>
       <a class="jj-nav-link" href="https://jeffjenx.design/">Design</a>
       <a class="jj-nav-link" href="https://jeffjenx.net/">Network</a>
@@ -130,7 +173,14 @@ a{color:#0a0a0a;}a:hover{opacity:.75;}
 
   <a class="pg-btn pg-btn--primary" href="https://www.zazzle.com/zazzle_icon_t_shirt-256787922315309811" target="_blank" rel="noopener noreferrer">Buy on Zazzle &rarr;</a>
 
+  <button class="share-btn" id="share-btn" type="button" aria-label="Copy link to this product">Share &uarr;</button>
+
   <div class="pg-tags"><span class="pg-tag">t-shirt</span><span class="pg-tag">apparel</span><span class="pg-tag">signature</span><span class="pg-tag">icon</span><span class="pg-tag">zazzle</span><span class="pg-tag">qr-code</span></div>
+
+  <div class="pg-also">
+    <span class="pg-also-label">Also in The Signature Collection</span>
+    <div class="pg-also-list"><a class="pg-also-link" href="https://www.jeffjenx.com/products/sig-github-icon/">GitHub Icon T-Shirt</a><a class="pg-also-link" href="https://www.jeffjenx.com/products/sig-zazzle-icon-2020/">Zazzle Icon 2020 T-Shirt</a><a class="pg-also-link" href="https://www.jeffjenx.com/products/sig-discord-icon/">Discord Icon T-Shirt</a><a class="pg-also-link" href="https://www.jeffjenx.com/products/sig-patreon-icon/">Patreon Icon T-Shirt</a></div>
+  </div>
 
   <a class="pg-back" href="https://www.jeffjenx.com/#signature">&larr; Back to The Signature Collection</a>
 
@@ -140,5 +190,32 @@ a{color:#0a0a0a;}a:hover{opacity:.75;}
   </footer>
 
 </div>
+
+<script>
+(function(){
+  // Theme toggle
+  var r=document.documentElement,btn=document.getElementById('theme-toggle');
+  if(btn){
+    var t=r.getAttribute('data-theme')||('light');
+    btn.textContent=t==="dark"?"Light":"Dark";
+    btn.addEventListener('click',function(){
+      var next=r.getAttribute('data-theme')==="dark"?"light":"dark";
+      r.setAttribute('data-theme',next);
+      try{localStorage.setItem('jj-theme',next);localStorage.setItem('jj-theme-override','true');}catch(e){}
+      btn.textContent=next==="dark"?"Light":"Dark";
+    });
+  }
+  // Share button
+  var sb=document.getElementById('share-btn');
+  if(sb){
+    sb.addEventListener('click',function(){
+      var url=window.location.href;
+      function onCopied(){sb.textContent="Copied!";sb.classList.add('share-btn--copied');setTimeout(function(){sb.textContent="Share \u2191";sb.classList.remove('share-btn--copied');},1800);}
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(onCopied,function(){fb(url);onCopied();});}else{fb(url);onCopied();}
+      function fb(t){var ta=document.createElement('textarea');ta.value=t;ta.style.position="fixed";ta.style.top="-9999px";document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);}
+    });
+  }
+})();
+</script>
 </body>
 </html>

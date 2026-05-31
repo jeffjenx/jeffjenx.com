@@ -22,6 +22,8 @@
 <meta name="twitter:description" content="Developer shirts, retro computing gear, gaming apparel, and digital downloads. Printed on demand via Zazzle and Redbubble.">
 <meta name="twitter:image" content="https://www.jeffjenx.com/og-image.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="manifest" href="/manifest.json">
+<meta name="referrer" content="origin-when-cross-origin">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"Jeff Jenx","url":"https://www.jeffjenx.com","logo":{"@type":"ImageObject","url":"https://www.jeffjenx.com/og-image.png"},"sameAs":["https://jeffjenx.design","https://jeffjenx.net","https://github.com/jeffjenx","https://x.com/jeff_jenx","https://www.linkedin.com/in/jeffjenx","https://www.instagram.com/jeffjenx.jpg","https://www.facebook.com/jeffjenx.me","https://www.twitch.tv/jeffjenx","https://stackoverflow.com/users/1028949/jeffjenx","https://www.zazzle.com/store/jeffjenx","https://www.redbubble.com/people/jeffjenx/shop","https://jeffjenx.gumroad.com"]},{"@type":"WebSite","name":"Jeff Jenx Shop","url":"https://www.jeffjenx.com","description":"Official Jeff Jenx merchandise. Developer t-shirts, retro computing apparel, gaming gear, math-themed clothing, and digital downloads. Printed on demand."}]}
 </script>
 
@@ -164,11 +166,14 @@ img { display: block; max-width: 100%; border: 0; }
 .jj-card-desc   { font-size: 12px; color: #555; font-family: "IBM Plex Sans", Arial, sans-serif; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0; line-height: 1.5; }
 .jj-card-tags   { display: none; margin-bottom: 0; }
 .jj-tag         { display: inline-block; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid #c8c8c8; color: #717171; padding: 2px 6px; margin: 0 3px 3px 0; }
-.jj-card-footer { border-top: 1px solid #e8e8e8; padding: 10px 18px; }
+.jj-card-footer { border-top: 1px solid #e8e8e8; padding: 10px 18px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; }
 .jj-price       { font-size: 16px; font-weight: 500; letter-spacing: -0.02em; display: inline-block; vertical-align: middle; }
 .jj-new-badge       { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; background: #0a0a0a; color: #f8f8f8; padding: 2px 5px; display: inline-block; vertical-align: middle; margin-left: 6px; }
 .jj-download-badge  { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; background: #166534; color: #f8f8f8; padding: 2px 5px; display: inline-block; vertical-align: middle; margin-left: 6px; }
 .jj-cta         { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #717171; padding: 4px 0; }
+.jj-share-btn   { background: none; border: none; cursor: pointer; font-family: "IBM Plex Mono", "Courier New", monospace; font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: #717171; padding: 4px 0; -ms-flex-negative: 0; flex-shrink: 0; }
+.jj-share-btn:hover { color: #0a0a0a; }
+.jj-share-btn--copied { color: #166534; }
 
 /* Multi-vendor card (div, acts as button) */
 div.jj-card     { cursor: pointer; }
@@ -314,6 +319,9 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   .jj-price       { color: var(--jj-fg); }
   .jj-tag         { border-color: var(--jj-border-color); color: var(--jj-fg-subtle); }
   .jj-cta         { color: var(--jj-fg-subtle); }
+  .jj-share-btn   { color: var(--jj-fg-subtle); }
+  .jj-share-btn:hover { color: var(--jj-fg); }
+  .jj-share-btn--copied { color: #4ade80; }
   .jj-new-badge      { background: var(--jj-fg); color: var(--jj-bg); }
   .jj-download-badge  { background: #166534; color: #f8f8f8; }
   div.jj-card:focus { outline-color: var(--jj-fg); }
@@ -585,6 +593,37 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
     if (t) setTimeout(function () { t.focus(); }, 0);
   }
 
+  function copyProductLink(productId, btn) {
+    var url = window.location.origin + '/products/' + productId + '/';
+    var original = btn.textContent;
+    function showCopied() {
+      btn.textContent = 'Copied!';
+      btn.classList.add('jj-share-btn--copied');
+      setTimeout(function () {
+        btn.textContent = original;
+        btn.classList.remove('jj-share-btn--copied');
+      }, 1800);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(showCopied, function () { fallbackCopy(url); showCopied(); });
+    } else {
+      fallbackCopy(url);
+      showCopied();
+    }
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.top = '-9999px';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
   function renderCard(product, catLabel, accent, mark) {
     // Collect all active vendors
     var activeVendors = [];
@@ -621,6 +660,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
       + '<div class="jj-card-footer">'
         + priceHtml
         + '<span class="jj-cta">' + (isDigital ? 'Download' : 'Shop') + ' &rarr;</span>'
+        + '<button class="jj-share-btn" data-share="' + esc(product.id) + '" aria-label="Copy link for ' + esc(product.title) + '">Share</button>'
       + '</div>';
 
     if (activeVendors.length === 0) {
@@ -846,6 +886,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
             '@type': 'Offer',
             'url': v.url,
             'availability': 'https://schema.org/InStock',
+            'priceCurrency': 'USD',
             'seller': {
               '@type': 'Organization',
               'name': v.name.charAt(0).toUpperCase() + v.name.slice(1)
@@ -853,17 +894,20 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
           };
         });
 
+        var productLd = {
+          '@type': 'Product',
+          'name': product.title,
+          'description': product.desc,
+          'url': 'https://www.jeffjenx.com/products/' + product.id + '/',
+          'brand': { '@type': 'Brand', 'name': 'Jeff Jenx' },
+          'offers': offers.length === 1 ? offers[0] : offers
+        };
+        if (product.image) productLd['image'] = 'https://www.jeffjenx.com' + product.image;
+
         items.push({
           '@type': 'ListItem',
           'position': pos,
-          'item': {
-            '@type': 'Product',
-            'name': product.title,
-            'description': product.desc,
-            'url': vendors[0].url,
-            'brand': { '@type': 'Brand', 'name': 'Jeff Jenx' },
-            'offers': offers.length === 1 ? offers[0] : offers
-          }
+          'item': productLd
         });
       });
     });
@@ -921,7 +965,21 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
     var output = document.getElementById('shop-output');
     if (output) {
       output.addEventListener('click', function (e) {
+        // Share button takes priority — stop propagation to prevent card navigation
         var el = e.target;
+        var shareBtn = null;
+        while (el && el !== output) {
+          if (el.getAttribute && el.getAttribute('data-share')) { shareBtn = el; break; }
+          el = el.parentNode;
+        }
+        if (shareBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+          copyProductLink(shareBtn.getAttribute('data-share'), shareBtn);
+          return;
+        }
+        // Multi-vendor card click opens picker
+        el = e.target;
         var card = null;
         while (el && el !== output) {
           if (el.getAttribute && el.getAttribute('data-pid')) { card = el; break; }
