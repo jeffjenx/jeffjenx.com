@@ -27,7 +27,7 @@
         {
           "id": "showdown-grand-theft-army",
           "title": "Grand Theft Army Tri Blend Shirt",
-          "desc": "Parody meets comfort. Tri-blend fabric for the Showdown community.",
+          "desc": "Represent South Warren in this Grand Theft Auto inspired parody design for Showdown — the skateboard and snowboard company out of metro Detroit, Michigan. The original iconic first-release design from 2009, printed on a premium tri-blend tee.",
           "price": "",
           "vendors": [
             {
@@ -55,7 +55,7 @@
         {
           "id": "artificial-mythical-odyssey",
           "title": "Mythical Odyssey T-Shirt",
-          "desc": "An adventure awaits. Mythological vibes created with AI.",
+          "desc": "An AI-generated mythical creature inspired by folklore and mythology — dynamic pose, intricate detail, vibrant color against a fantastical landscape. Wearable fantasy art for fans of mythology, RPGs, and imaginative design.",
           "price": "",
           "vendors": [
             {
@@ -88,7 +88,7 @@
         {
           "id": "emoticon-heart-eyes",
           "title": "Smiling Face with Heart Eyes Emoji T-Shirt",
-          "desc": "😍 Pure joy in emoji form.",
+          "desc": "Show support for Microsoft's open source Fluent Emoji. Features the Smiling Face with Heart Eyes 😍 (U+1F60D, Unicode 5.0, Emoji 1.0 — 2015). A fun gift for designers, developers, and emoji enthusiasts.",
           "price": "",
           "vendors": [
             {
@@ -116,7 +116,7 @@
         {
           "id": "irrational-pi",
           "title": "Pi T-Shirt",
-          "desc": "π. For mathematicians, engineers, and lovers of irrational numbers.",
+          "desc": "A shirt covered in digits of pi: 3.14159265358979323846264... and it just keeps going. The irrational radius-circumference constant that shows up everywhere from geometry to physics. Funny, nerdy, and the perfect Pi Day gift.",
           "price": "",
           "vendors": [
             {
@@ -132,7 +132,7 @@
         {
           "id": "irrational-pi-symbol",
           "title": "Pi Symbol T-Shirt",
-          "desc": "The Greek letter π. Elegant and timeless.",
+          "desc": "The Greek letter pi — the ratio of a circle's circumference to its diameter, approximately 3.14159. Irrational, transcendental, and appearing everywhere in mathematics and physics. The essential shirt for mathematicians, engineers, and STEM enthusiasts.",
           "price": "",
           "vendors": [
             {
@@ -148,7 +148,7 @@
         {
           "id": "irrational-i-love-pi",
           "title": "I Love Pi T-Shirt",
-          "desc": "I ❤ π. For the truly devoted.",
+          "desc": "The classic I Love Pi design — paying homage to the iconic I Love NY brand. The perfect Pi Day gift for mathematicians, mathletes, and any nerd who can recite more than 3.14159265... How many digits do you know?",
           "price": "",
           "vendors": [
             {
@@ -169,7 +169,7 @@
         {
           "id": "irrational-soh-cah-toa",
           "title": "SOH CAH TOA T-Shirt",
-          "desc": "Sine Cosine Tangent. For trigonometry students and professors.",
+          "desc": "Saddle Our Horses, Canter Away Happily, To Other Adventures — the classic SOH CAH TOA mnemonic for sine, cosine, and tangent. The perfect Pi Day gift for math students, teachers, and anyone who loves trigonometry.",
           "price": "",
           "vendors": [
             {
@@ -197,7 +197,7 @@
         {
           "id": "justice-copyright-year",
           "title": "Copyright Year T-Shirt",
-          "desc": "© YYYY. Customizable year. Your mark of ownership. Assert your rights.",
+          "desc": "The copyright symbol with a fully customizable year — perfect for showing when your work was made. Defaults to 1983, but customize it to any four-digit year: 1969, 1988, 1997, 2020, or any other. Show your roots with the Copyright Year T-Shirt.",
           "price": "",
           "vendors": [
             {
@@ -225,7 +225,7 @@
         {
           "id": "pcmr-another-castle",
           "title": "Another Castle Hoodie",
-          "desc": "Princess is in another castle. Cozy comfort in video game nostalgia.",
+          "desc": "The princess is in another castle. A pixelated hero on a never-ending quest — the classic Nintendo reference every gamer knows. The perfect retro gaming gift for Mario fans, NES veterans, and old-school gamers.",
           "price": "",
           "vendors": [
             {
@@ -253,7 +253,7 @@
         {
           "id": "sig-github-icon",
           "title": "GitHub Icon T-Shirt",
-          "desc": "Octocat in grayscale. The signature icon of distributed version control.",
+          "desc": "Jeff Jenx signature GitHub Profile logo on the front chest with a QR code on the back. The go-to shirt for developers, open source contributors, and Git power users.",
           "price": "",
           "vendors": [
             {
@@ -269,7 +269,7 @@
         {
           "id": "sig-zazzle-icon-2020",
           "title": "Zazzle Icon 2020 T-Shirt",
-          "desc": "The Z mark. My personal brand on the platform.",
+          "desc": "Jeff Jenx signature Zazzle Profile logo from 2020 on the front chest with a QR code on the back. A wearable piece of Jeff Jenx creator history.",
           "price": "",
           "vendors": [
             {
@@ -285,7 +285,7 @@
         {
           "id": "sig-zazzle-icon",
           "title": "Zazzle Icon T-Shirt",
-          "desc": "The Z mark classic. Retro style signature.",
+          "desc": "Jeff Jenx classic Zazzle Profile logo on the front chest with a QR code on the back. A signature piece from the Jeff Jenx creator collection.",
           "price": "",
           "vendors": [
             {
@@ -301,7 +301,7 @@
         {
           "id": "sig-discord-icon",
           "title": "Discord Icon T-Shirt",
-          "desc": "The Discord blurple. My signature mark in the communities I build.",
+          "desc": "Jeff Jenx signature Discord Profile logo on the front chest with a QR code on the back. Rep your community in Discord blurple — a great shirt for server admins, gamers, and Discord regulars.",
           "price": "",
           "vendors": [
             {
@@ -317,7 +317,7 @@
         {
           "id": "sig-patreon-icon",
           "title": "Patreon Icon T-Shirt",
-          "desc": "Support creators. My signature mark for patrons.",
+          "desc": "Jeff Jenx signature Patreon Profile logo on the front chest. Show support for creator culture — a perfect gift for Patreon backers and content creators.",
           "price": "",
           "vendors": [
             {
@@ -333,7 +333,7 @@
         {
           "id": "sig-twitch-icon",
           "title": "Twitch Icon T-Shirt",
-          "desc": "Stream culture. My signature presence on streaming platforms.",
+          "desc": "Jeff Jenx signature Twitch Profile logo on the front chest. Represent your streaming community — a perfect gift for streamers, content creators, and gaming fans.",
           "price": "",
           "vendors": [
             {
@@ -349,7 +349,7 @@
         {
           "id": "sig-redbubble-icon",
           "title": "Redbubble Icon T-Shirt",
-          "desc": "My signature mark on Redbubble. The universal profile avatar personalized.",
+          "desc": "Jeff Jenx signature Redbubble Profile icon on the front chest. A collector's piece from the Jeff Jenx creator signature collection.",
           "price": "",
           "vendors": [
             {
@@ -377,7 +377,7 @@
         {
           "id": "unba-bottom-fifth",
           "title": "Bottom of the Fifth Jersey T-Shirt",
-          "desc": "Baseball energy. Game on. Sports excellence.",
+          "desc": "Perfect for your rec league — baseball, softball, or kickball. Customize each player's name and number and celebrate the wins at your favorite bar or brewery. A great gift for the whole team.",
           "price": "",
           "vendors": [
             {
@@ -405,7 +405,7 @@
         {
           "id": "warez-cdos-run",
           "title": "C:\\DOS\\RUN T-Shirt",
-          "desc": "The command that started everything. Black on white, sharp corners.",
+          "desc": "See DOS. See DOS run. Run, DOS, run! This programming humor classic in original pixelated MS-DOS font always gets a laugh at any gathering of nerds, geeks, and retro computing fans. Wear your command prompt proudly.",
           "price": "",
           "vendors": [
             {
@@ -421,7 +421,7 @@
         {
           "id": "warez-dos-prompt",
           "title": "DOS Prompt T-Shirt",
-          "desc": "C:\\> and a blinking cursor. The original UI.",
+          "desc": "The classic DOS prompt on the front chest — minimal, iconic, and instantly recognizable to anyone who lived through the command-line era. A must-have retro computing shirt for programmers and vintage tech fans.",
           "price": "",
           "vendors": [
             {
@@ -437,7 +437,7 @@
         {
           "id": "warez-hello-world",
           "title": "Hello World T-Shirt",
-          "desc": "The first program everyone writes. The last shirt you'll need.",
+          "desc": "Hello, World! — the first program every programmer writes. A rite of passage in every language and every framework. The essential programmer t-shirt and a perfect gift for developers and computer science students.",
           "price": "",
           "vendors": [
             {
@@ -458,7 +458,7 @@
         {
           "id": "warez-smpte-color-bars",
           "title": "SMPTE TV Color Bars T-Shirt",
-          "desc": "The engineer's palette. Test pattern nostalgia. Vintage computing aesthetics.",
+          "desc": "The classic SMPTE color bar test pattern — a staple of broadcast television engineering and vintage computing. The engineer's palette on a shirt. A must-have for AV nerds, broadcast engineers, and anyone who grew up seeing this at 2am.",
           "price": "",
           "vendors": [
             {
@@ -486,7 +486,7 @@
         {
           "id": "www-html5-logo",
           "title": "HTML5 Logo T-Shirt",
-          "desc": "The orange shield. Standards-based markup.",
+          "desc": "HTML5 — introduced in 2014 and still the foundation of the modern web. The iconic orange shield belongs on every web developer's chest. A must-have programmer t-shirt and a perfect gift for front-end developers and web designers.",
           "price": "",
           "vendors": [
             {
@@ -507,7 +507,7 @@
         {
           "id": "www-css3-logo",
           "title": "CSS3 Logo T-Shirt",
-          "desc": "The blue shield. Styling the web.",
+          "desc": "CSS3 — introduced in 2011 and still styling the modern web. The blue shield is the badge of every front-end developer and UI designer who has ever fought a z-index war. A must-have web developer t-shirt and the perfect gift for any CSS wizard.",
           "price": "",
           "vendors": [
             {
@@ -523,7 +523,7 @@
         {
           "id": "www-javascript-logo",
           "title": "JavaScript Logo T-Shirt",
-          "desc": "The yellow square. For the language everyone loves to argue about.",
+          "desc": "JavaScript — introduced in 1996 and still powering the modern web. The yellow JS square is the badge of every front-end developer and full-stack engineer. A must-have programmer t-shirt and the perfect web dev gift.",
           "price": "",
           "vendors": [
             {
