@@ -61,7 +61,8 @@
             {
               "name": "zazzle",
               "url": "https://www.zazzle.com/mythical_odyssey_tee_t_shirt-256342782260475510",
-              "active": true
+              "active": false,
+              "note": "Product unavailable on Zazzle — confirmed dead May 2026"
             },
             {
               "name": "redbubble",
@@ -557,10 +558,10 @@
     "totalCollections": 11,
     "activeCollections": 10,
     "totalProducts": 26,
-    "totalZazzleProducts": 23,
+    "totalZazzleProducts": 22,
     "totalRedbubbleProducts": 6,
-    "multiVendorProducts": 3,
-    "redbubbleOnlyProducts": 3,
+    "multiVendorProducts": 2,
+    "redbubbleOnlyProducts": 4,
     "productTypes": ["physical", "digital"],
     "vendors": ["zazzle", "redbubble", "gumroad"],
     "note": "SOURCE OF TRUTH: Product catalog using multi-vendor schema (one entry per product with multiple vendor URLs). Phase 3 complete (full catalog with multi-vendor). Phase 3B in progress (UI + API integrations). Phase 4: Digital Downloads collection ready — set active: true and add products with type: 'digital' and gumroad vendor URLs."
