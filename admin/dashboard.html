@@ -168,6 +168,11 @@ th      { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; col
         <span class="stat-sub" id="stat-collections">— collections</span>
       </td>
       <td>
+        <span class="stat-label">Draft Products</span>
+        <span class="stat-val muted" id="stat-drafts">—</span>
+        <span class="stat-sub">active: false, pending launch</span>
+      </td>
+      <td>
         <span class="stat-label">Multi-Vendor</span>
         <span class="stat-val blue" id="stat-multivend">—</span>
         <span class="stat-sub">on 2+ platforms</span>
@@ -250,7 +255,7 @@ th      { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; col
           <td class="pri-high">▲ High</td>
           <td>"It Works on My Machine"</td>
           <td><span class="tag">warez</span></td>
-          <td>Classic dev humor. Strong search volume. Add to Zazzle + Redbubble.</td>
+          <td>✅ <strong>Draft in products.json</strong> (<code>warez-it-works</code>). Create design → upload to Zazzle + Redbubble → add vendor URLs → set active: true.</td>
         </tr>
         <tr>
           <td class="pri-high">▲ High</td>
@@ -268,13 +273,13 @@ th      { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; col
           <td class="pri-med">● Med</td>
           <td>TypeScript Logo T-Shirt</td>
           <td><span class="tag">www</span></td>
-          <td>Natural extension of HTML5/CSS3/JS lineup. TS is now dominant in web dev.</td>
+          <td>✅ <strong>Draft in products.json</strong> (<code>www-typescript-logo</code>). Create design → upload → add vendor URLs → set active: true.</td>
         </tr>
         <tr>
           <td class="pri-med">● Med</td>
           <td>Blue Screen of Death (BSOD) T-Shirt</td>
           <td><span class="tag">warez</span></td>
-          <td>Evergreen retro computing humor. High recognition factor.</td>
+          <td>✅ <strong>Draft in products.json</strong> (<code>warez-bsod</code>). Create design → upload → add vendor URLs → set active: true.</td>
         </tr>
         <tr>
           <td class="pri-med">● Med</td>
@@ -286,13 +291,13 @@ th      { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; col
           <td class="pri-med">● Med</td>
           <td>Node.js Logo T-Shirt</td>
           <td><span class="tag">www</span></td>
-          <td>Rounds out the web stack alongside HTML5/CSS3/JS.</td>
+          <td>✅ <strong>Draft in products.json</strong> (<code>www-nodejs-logo</code>). Create design → upload → add vendor URLs → set active: true.</td>
         </tr>
         <tr>
           <td class="pri-med">● Med</td>
           <td>Euler's Number (e) T-Shirt</td>
           <td><span class="tag">irrational</span></td>
-          <td>Natural companion to the Pi/math lineup. Irrational numbers theme.</td>
+          <td>✅ <strong>Draft in products.json</strong> (<code>irrational-euler</code>). Create design → upload → add vendor URLs → set active: true.</td>
         </tr>
         <tr>
           <td class="pri-low">▼ Low</td>
@@ -345,7 +350,7 @@ th      { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; col
       <li>
         <span class="cadence">Quarterly</span>
         <span class="task">Run URL liveness audit on all active vendor listings</span>
-        <span class="detail">→ Open Sync Tool → review any products marked Untracked or with dead URLs in products.json</span>
+        <span class="detail">→ CLI: <code>cd tools/health &amp;&amp; node index.js</code> — exits 1 if any URLs dead. See <code>tools/health/README.md</code></span>
       </li>
       <li>
         <span class="cadence">As needed</span>
@@ -414,6 +419,7 @@ th      { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; col
     var total = 0, multiVend = 0;
     var collections = [];
     var colMap = {};  // id → { label, total, zazzle, redbubble, multi }
+    var draftCount = 0;
 
     (data.collections || []).forEach(function (col) {
       if (!col.active) return;
@@ -421,7 +427,7 @@ th      { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; col
       var hasProd = false;
 
       (col.products || []).forEach(function (p) {
-        if (p.active === false) return;
+        if (p.active === false) { draftCount++; return; }
         hasProd = true;
         total++;
         entry.total++;
@@ -438,6 +444,7 @@ th      { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; col
     // Stat cards
     setText('stat-products', total);
     setText('stat-collections', collections.length + ' collections');
+    setText('stat-drafts', draftCount > 0 ? draftCount : '—');
     var mvEl = el('stat-multivend');
     if (mvEl) { mvEl.innerHTML = multiVend; mvEl.className = 'stat-val ' + (multiVend > 0 ? 'blue' : 'muted'); }
 

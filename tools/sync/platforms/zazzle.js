@@ -26,12 +26,16 @@ var TAG_MAP = {
   'html':         ['html5', 'markup', 'web-developer'],
   'css':          ['css3', 'stylesheet', 'frontend'],
   'javascript':   ['js', 'nodejs', 'frontend'],
+  'typescript':   ['ts', 'typed-javascript', 'type-safety', 'microsoft'],
+  'nodejs':       ['node', 'javascript-runtime', 'backend', 'server-side'],
   'standards':    ['web-standards', 'developer'],
   'math':         ['mathematics', 'stem', 'pi-day', 'math-teacher'],
   'pi':           ['pi-day', 'mathematics', 'geometry', 'irrational'],
   'love':         ['heart', 'gift', 'i-love'],
   'greek':        ['letter', 'symbol', 'mathematics', 'stem'],
   'trigonometry': ['sine', 'cosine', 'tangent', 'math'],
+  'euler':        ['eulers-number', 'calculus', 'mathematics', 'natural-log'],
+  'calculus':     ['derivatives', 'integrals', 'limits', 'math'],
   'education':    ['student', 'teacher', 'school', 'learning'],
   'gaming':       ['gamer', 'video-games', 'game'],
   'nintendo':     ['nes', 'super-mario', 'retrogaming'],
@@ -46,6 +50,8 @@ var TAG_MAP = {
   'emotion':      ['emoticon', 'feeling', 'smiley'],
   'expression':   ['emoticon', 'fun', 'personality'],
   'humor':        ['funny', 'gag-gift', 'comedy'],
+  'bsod':         ['windows', 'crash', 'error-screen', 'microsoft'],
+  'windows':      ['microsoft', 'operating-system', 'pc'],
   'parody':       ['humor', 'funny', 'parody-design'],
   'showdown':     ['skateboard', 'snowboard', 'detroit'],
   'mythology':    ['fantasy', 'mythical', 'rpg'],
@@ -54,6 +60,7 @@ var TAG_MAP = {
   'rights':       ['justice', 'liberty', 'freedom'],
   'customizable': ['personalized', 'custom', 'your-name'],
   'smpte':        ['broadcast', 'television', 'engineering'],
+  'tv':           ['television', 'broadcast', 'test-pattern'],
   'engineering':  ['engineer', 'tech', 'av'],
   'vintage':      ['retro', 'classic', 'throwback'],
   'ai-generated': ['ai-art', 'generative', 'machine-learning'],
@@ -61,7 +68,8 @@ var TAG_MAP = {
   'signature':    ['personal', 'branded', 'qr-code'],
   'qr-code':      ['scan', 'link', 'profile'],
   'zazzle':       ['creator', 'custom-design', 'marketplace'],
-  'redbubble':    ['creator', 'artist', 'indie-design']
+  'redbubble':    ['creator', 'artist', 'indie-design'],
+  'creator':      ['content-creator', 'indie-designer', 'artist']
 };
 
 function expandTags(baseTags) {

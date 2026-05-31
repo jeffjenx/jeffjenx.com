@@ -118,3 +118,11 @@ node index.js next 5  # top 5 action items with detail
 node index.js all     # include done + blocked
 node index.js done <id>
 ```
+
+---
+
+## Related Tools
+
+- `tools/health/` — URL liveness checker. Run before editing products.json to confirm which vendor URLs are still live. Exit code 1 on failures. See `tools/health/README.md`.
+- `admin/index.html` — Browser-based sync dashboard with hash comparison and one-click mark-synced via GitHub API.
+- `admin/dashboard.html` — Business overview: product counts, sync state, product ideas, maintenance checklist.

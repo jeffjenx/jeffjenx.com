@@ -25,12 +25,16 @@ var TAG_MAP = {
   'html':         ['html5', 'markup', 'web-dev'],
   'css':          ['css3', 'stylesheet', 'web-design'],
   'javascript':   ['js', 'typescript', 'frontend'],
+  'typescript':   ['ts', 'typed-js', 'type-safety', 'microsoft', 'web-dev'],
+  'nodejs':       ['node', 'javascript-runtime', 'backend-dev', 'server-side'],
   'standards':    ['web-standards', 'developer'],
   'math':         ['mathematics', 'stem', 'pi-day', 'math-gift'],
   'pi':           ['pi-day', 'irrational-number', 'geometry', 'pi-symbol'],
   'love':         ['heart-gift', 'i-love', 'valentines'],
   'greek':        ['greek-letter', 'mathematics', 'science', 'stem-gift'],
   'trigonometry': ['sine-cosine-tangent', 'soh-cah-toa', 'right-triangle'],
+  'euler':        ['eulers-number', 'natural-log', 'e-constant', 'calculus-gift'],
+  'calculus':     ['derivatives', 'integrals', 'euler', 'math-gift'],
   'education':    ['math-teacher', 'student', 'school', 'learning'],
   'gaming':       ['gamer', 'video-games', 'gaming-culture'],
   'nintendo':     ['nes', 'super-mario', 'retro-gaming', 'nintendo-fan'],
@@ -45,6 +49,8 @@ var TAG_MAP = {
   'emotion':      ['expressive', 'emoji-art', 'fun-gift'],
   'expression':   ['emoji', 'mood', 'unicode-art'],
   'humor':        ['funny-gift', 'gag-gift', 'comedy-shirt'],
+  'bsod':         ['windows-crash', 'stop-error', 'blue-screen', 'microsoft'],
+  'windows':      ['microsoft', 'windows-os', 'pc-gaming'],
   'parody':       ['funny', 'humor', 'parody-design', 'gag-gift'],
   'showdown':     ['skateboarding', 'snowboarding', 'detroit', 'michigan'],
   'mythology':    ['fantasy-art', 'mythical-creature', 'folklore'],
@@ -52,6 +58,7 @@ var TAG_MAP = {
   'copyright':    ['copyright-symbol', 'customizable', 'personalized'],
   'rights':       ['justice-gift', 'freedom', 'civil-rights'],
   'smpte':        ['tv-test-pattern', 'broadcast', 'color-bars'],
+  'tv':           ['television', 'broadcast', 'test-pattern', 'analog-tv'],
   'engineering':  ['engineer', 'av-tech', 'broadcast-engineering'],
   'vintage':      ['retro-aesthetic', 'classic', 'old-school'],
   'ai-generated': ['ai-art', 'generative-art', 'machine-learning'],
@@ -59,7 +66,8 @@ var TAG_MAP = {
   'signature':    ['personal-brand', 'qr-code', 'creator'],
   'qr-code':      ['scan-me', 'link', 'profile-link'],
   'zazzle':       ['custom-merch', 'creator-design', 'print-on-demand'],
-  'redbubble':    ['indie-art', 'artist-merch', 'creator']
+  'redbubble':    ['indie-art', 'artist-merch', 'creator'],
+  'creator':      ['content-creator', 'indie-artist', 'creative']
 };
 
 function expandTags(baseTags) {

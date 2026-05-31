@@ -10,6 +10,68 @@
   },
   "items": [
     {
+      "id": "url-health-check-tool",
+      "title": "Build URL health check CLI tool",
+      "detail": "Zero-dep Node.js tool that checks all active vendor URLs in products.json. HEAD requests with GET fallback, redirect following, configurable timeout, exit code 1 on failures.",
+      "category": "infrastructure",
+      "value": 4,
+      "alignment": 4,
+      "urgency": 4,
+      "effort": 2,
+      "status": "done",
+      "files": [
+        "tools/health/index.js",
+        "tools/health/README.md"
+      ],
+      "completedAt": "2026-05-31"
+    },
+    {
+      "id": "url-health-check-ci",
+      "title": "Add weekly URL health check GitHub Actions workflow",
+      "detail": "Scheduled workflow (Mondays 09:00 UTC) runs node tools/health/index.js. Exits 1 on dead URLs so failures are visible in GitHub. Also manually triggerable.",
+      "category": "infrastructure",
+      "value": 3,
+      "alignment": 4,
+      "urgency": 2,
+      "effort": 1,
+      "status": "done",
+      "files": [
+        ".github/workflows/url-health-check.yml"
+      ],
+      "completedAt": "2026-05-31"
+    },
+    {
+      "id": "verify-b006-403-listings",
+      "title": "Manually verify 2 Zazzle listings returning 403",
+      "detail": "First health check run (2026-05-31) flagged showdown-grand-theft-army and unba-bottom-fifth as returning 403. Open both URLs in browser to confirm live vs dead. If dead, set vendor active: false in products.json. See B-006.",
+      "category": "data-quality",
+      "value": 3,
+      "alignment": 3,
+      "urgency": 3,
+      "effort": 1,
+      "status": "done",
+      "completedAt": "2026-05-31",
+      "completionNote": "Both URLs confirmed live by Jeff. Zazzle bot-blocking returns 403 for automated requests. Health check tool updated to treat 403 as warning, not failure.",
+      "files": [
+        "products.json"
+      ]
+    },
+    {
+      "id": "unavailable-card-state",
+      "title": "Implement unavailable product card state",
+      "detail": "When all vendors for a product are active: false, render a muted card with 'Currently unavailable' instead of a broken CTA. CSS class .jj-card--unavailable, pointer-events: none, aria-disabled.",
+      "category": "ux",
+      "value": 2,
+      "alignment": 3,
+      "urgency": 2,
+      "effort": 1,
+      "status": "done",
+      "files": [
+        "index.html"
+      ],
+      "completedAt": "2026-05-31"
+    },
+    {
       "id": "tagmap-missing-entries",
       "title": "Add missing TAG_MAP entries (greek, emotion, love, expression, rights)",
       "detail": "Tags used in products.json have no TAG_MAP expansion: greek, emotion, love, expression, rights, humor. These products fill to MAX_TAGS with generic words instead of relevant keywords — directly hurting search rank on Zazzle and Redbubble.",
@@ -174,6 +236,128 @@
       "status": "blocked",
       "blocker": "APIs not publicly available (404 on both doc pages as of May 2026)",
       "files": []
+    },
+    {
+      "id": "hash-routing-shop",
+      "title": "Hash-based URL routing for shop collection filters",
+      "detail": "jeffjenx.com/#www, /#warez etc. deep-link to a filtered collection view. Filter clicks update window.location.hash via history.replaceState. hashchange listener syncs browser back/forward navigation. getHashFilter() validates hash against collection IDs before applying.",
+      "category": "ux",
+      "value": 3,
+      "alignment": 4,
+      "urgency": 2,
+      "effort": 1,
+      "status": "done",
+      "files": ["index.html"],
+      "completedAt": "2026-05-31"
+    },
+    {
+      "id": "product-structured-data",
+      "title": "Dynamic schema.org Product JSON-LD from products.json",
+      "detail": "buildStructuredData() function generates a CollectionPage + ItemList with one Product entry per active product (name, description, offers per vendor). Injected as <script type=application/ld+json> after products.json loads. Improves Google discoverability. No product images yet — add image field to products.json + upload thumbnails to complete.",
+      "category": "seo",
+      "value": 4,
+      "alignment": 4,
+      "urgency": 2,
+      "effort": 1,
+      "status": "done",
+      "files": ["index.html"],
+      "completedAt": "2026-05-31"
+    },
+    {
+      "id": "phase4b-typescript-tee",
+      "title": "Create and list TypeScript Logo T-Shirt (Phase 4B)",
+      "detail": "Draft entry www-typescript-logo is in products.json (active: false). TAG_MAP entries added. Create design using official TypeScript logo (MIT licensed). Upload to Zazzle and Redbubble. Add vendor URLs to products.json draft entry, set active: true, remove _draft field.",
+      "category": "revenue",
+      "value": 4,
+      "alignment": 5,
+      "urgency": 3,
+      "effort": 2,
+      "status": "open",
+      "files": ["products.json"]
+    },
+    {
+      "id": "phase4b-nodejs-tee",
+      "title": "Create and list Node.js Logo T-Shirt (Phase 4B)",
+      "detail": "Draft entry www-nodejs-logo is in products.json (active: false). TAG_MAP entries added. Create design using Node.js logo (guidelines at nodejs.org/en/about/trademark). Upload to Zazzle and Redbubble. Add vendor URLs, set active: true, remove _draft field.",
+      "category": "revenue",
+      "value": 4,
+      "alignment": 5,
+      "urgency": 3,
+      "effort": 2,
+      "status": "open",
+      "files": ["products.json"]
+    },
+    {
+      "id": "phase4b-itwomm-tee",
+      "title": "Create and list 'It Works on My Machine' T-Shirt (Phase 4B)",
+      "detail": "Draft entry warez-it-works is in products.json (active: false). Text-based design — low design effort. Upload to Zazzle and Redbubble. Add vendor URLs, set active: true, remove _draft field. High meme-factor = high organic share potential.",
+      "category": "revenue",
+      "value": 5,
+      "alignment": 5,
+      "urgency": 3,
+      "effort": 2,
+      "status": "open",
+      "files": ["products.json"]
+    },
+    {
+      "id": "phase4b-bsod-tee",
+      "title": "Create and list Blue Screen of Death T-Shirt (Phase 4B)",
+      "detail": "Draft entry warez-bsod is in products.json (active: false). TAG_MAP entries added. Iconographic/retro design. Upload to Zazzle and Redbubble. Add vendor URLs, set active: true, remove _draft field.",
+      "category": "revenue",
+      "value": 4,
+      "alignment": 5,
+      "urgency": 3,
+      "effort": 2,
+      "status": "open",
+      "files": ["products.json"]
+    },
+    {
+      "id": "phase4b-euler-tee",
+      "title": "Create and list Euler's Number T-Shirt (Phase 4B)",
+      "detail": "Draft entry irrational-euler is in products.json (active: false). TAG_MAP entries added. Typography-only design — low effort. Upload to Zazzle and Redbubble. Add vendor URLs, set active: true, remove _draft field.",
+      "category": "revenue",
+      "value": 3,
+      "alignment": 5,
+      "urgency": 2,
+      "effort": 2,
+      "status": "open",
+      "files": ["products.json"]
+    },
+    {
+      "id": "phase4b-640k-tee",
+      "title": "Create and list '640K Ought to Be Enough' T-Shirt (Phase 4B)",
+      "detail": "Draft entry warez-640k added to products.json (active: false, 2026-05-31). Text-based design quoting the apocryphal Bill Gates line. Upload to Zazzle and Redbubble. Add vendor URLs, set active: true, remove _draft field. High nerd-recognition factor.",
+      "category": "revenue",
+      "value": 3,
+      "alignment": 4,
+      "urgency": 1,
+      "effort": 2,
+      "status": "open",
+      "files": ["products.json"]
+    },
+    {
+      "id": "phase4c-redbubble-stickers",
+      "title": "Enable stickers on all 6 Redbubble designs (Phase 4C)",
+      "detail": "Redbubble auto-generates sticker, mug, tote, and phone case listings from existing artwork at no extra design cost. Log in to Redbubble, enable additional product types for all 6 designs. No products.json change needed. Zero design effort — pure revenue expansion.",
+      "category": "revenue",
+      "value": 5,
+      "alignment": 5,
+      "urgency": 3,
+      "effort": 1,
+      "status": "open",
+      "files": []
+    },
+    {
+      "id": "product-images",
+      "title": "Add product images to products.json and jeffjenx.com",
+      "detail": "Products have no images. Adding an 'image' field to each product entry + hosting 400x400 thumbnails on jeffjenx.com would: (a) enable og:image per product if we ever do product pages, (b) complete the schema.org Product JSON-LD (currently missing image), (c) make the shop visually scannable. Zazzle and Redbubble both have downloadable product preview images.",
+      "category": "ux",
+      "value": 4,
+      "alignment": 4,
+      "urgency": 1,
+      "effort": 3,
+      "status": "open",
+      "files": ["products.json", "index.html"]
     }
   ]
 }

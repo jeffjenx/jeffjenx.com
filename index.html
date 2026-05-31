@@ -164,6 +164,10 @@ img { display: block; max-width: 100%; border: 0; }
 div.jj-card     { cursor: pointer; }
 div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
 
+/* Unavailable card (all vendors inactive) */
+.jj-card--unavailable { cursor: default; opacity: 0.55; pointer-events: none; }
+.jj-cta--unavailable  { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #c0c0c0; padding: 4px 0; font-style: italic; }
+
 /* Vendor picker overlay */
 .jj-overlay {
   display: none;
@@ -300,6 +304,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   .jj-new-badge      { background: var(--jj-fg); color: var(--jj-bg); }
   .jj-download-badge  { background: #166534; color: #f8f8f8; }
   div.jj-card:focus { outline-color: var(--jj-fg); }
+  .jj-cta--unavailable { color: var(--jj-fg-subtle); }
   .jj-picker      { background: var(--jj-bg); border-color: var(--jj-fg); }
   .jj-picker-eyebrow { color: var(--jj-fg-subtle); }
   .jj-picker-title   { color: var(--jj-fg); border-bottom-color: var(--jj-border-color); }
@@ -600,7 +605,24 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
         + '<span class="jj-cta">' + (isDigital ? 'Download' : 'Shop') + ' &rarr;</span>'
       + '</div>';
 
-    if (activeVendors.length > 1) {
+    if (activeVendors.length === 0) {
+      // No active vendors: render muted unavailable state
+      var unavailableBody = thumbHtml
+        + '<div class="jj-card-body">'
+          + '<span class="jj-card-cat">' + esc(catLabel) + '</span>'
+          + '<span class="jj-card-title">' + esc(product.title) + '</span>'
+          + '<span class="jj-card-desc">' + esc(product.desc) + '</span>'
+          + '<div class="jj-card-tags">' + renderTags(product.tags) + '</div>'
+        + '</div>'
+        + '<div class="jj-card-footer">'
+          + '<span class="jj-cta jj-cta--unavailable">Currently unavailable</span>'
+        + '</div>';
+      return '<div class="jj-col"' + accentStyle + '>'
+        + '<div class="jj-card jj-card--unavailable" aria-disabled="true" aria-label="' + esc(product.title) + ' — currently unavailable">'
+          + unavailableBody
+        + '</div>'
+        + '</div>';
+    } else if (activeVendors.length > 1) {
       // Multi-vendor: clicking opens the picker overlay
       multiVendorProducts[product.id] = { title: product.title, vendors: activeVendors };
       return '<div class="jj-col"' + accentStyle + '>'
@@ -610,7 +632,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
         + '</div>';
     } else {
       // Single vendor: entire card is a direct link
-      var url = activeVendors.length > 0 ? activeVendors[0].url : '#';
+      var url = activeVendors[0].url;
       return '<div class="jj-col"' + accentStyle + '>'
         + '<a class="jj-card" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer" aria-label="Shop ' + esc(product.title) + '">'
           + cardBody
@@ -656,6 +678,34 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
       + '<hr class="jj-collection-divider"' + dividerStyle + '>'
       + '<div class="jj-grid">' + cards + '</div>'
       + '</section>';
+  }
+
+  // ── Hash routing ─────────────────────────────────────────────────────────
+
+  /**
+   * Return the collection ID from the URL hash, validated against loaded data.
+   * Falls back to 'all' if hash is absent, 'all', or doesn't match a known collection.
+   */
+  function getHashFilter(data) {
+    var hash = window.location.hash.replace(/^#/, '');
+    if (!hash || hash === 'all') return 'all';
+    for (var i = 0; i < data.collections.length; i++) {
+      if (data.collections[i].id === hash && data.collections[i].active !== false) return hash;
+    }
+    return 'all';
+  }
+
+  /** Sync the filter bar's active button to match filterId. */
+  function activateFilterBtn(filterId) {
+    var bar = document.getElementById('filter-bar');
+    if (!bar) return;
+    var btns = bar.getElementsByTagName('button');
+    for (var i = 0; i < btns.length; i++) {
+      var f = btns[i].getAttribute('data-filter') || 'all';
+      var active = (f === filterId);
+      btns[i].className = active ? 'jj-filter-btn is-active' : 'jj-filter-btn';
+      btns[i].setAttribute('aria-pressed', active ? 'true' : 'false');
+    }
   }
 
   // ── Filter buttons ───────────────────────────────────────────────────────
@@ -708,6 +758,15 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
       target.className = 'jj-filter-btn is-active';
       target.setAttribute('aria-pressed', 'true');
 
+      // Update URL hash for shareability (no history entry — use replaceState)
+      if (window.history && window.history.replaceState) {
+        if (f === 'all') {
+          window.history.replaceState(null, '', window.location.pathname + window.location.search);
+        } else {
+          window.history.replaceState(null, '', '#' + f);
+        }
+      }
+
       renderShop(catalog, f);
     };
   }
@@ -742,10 +801,98 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
 
   // ── Data loading ─────────────────────────────────────────────────────────
 
+  // ── Structured data (SEO) ────────────────────────────────────────────────
+
+  /**
+   * Generate schema.org CollectionPage + ItemList from the loaded catalog and
+   * inject it as a <script type="application/ld+json"> tag in <head>.
+   * Complements the static Organization/WebSite JSON-LD already in the HTML.
+   * Only active products with at least one active vendor are included.
+   */
+  function buildStructuredData(data) {
+    var items = [];
+    var pos = 0;
+
+    (data.collections || []).forEach(function (col) {
+      if (col.active === false) return;
+      (col.products || []).forEach(function (product) {
+        if (product.active === false) return;
+        var vendors = (product.vendors || []).filter(function (v) {
+          return v.active !== false;
+        });
+        if (!vendors.length) return;
+
+        pos++;
+        var offers = vendors.map(function (v) {
+          return {
+            '@type': 'Offer',
+            'url': v.url,
+            'availability': 'https://schema.org/InStock',
+            'seller': {
+              '@type': 'Organization',
+              'name': v.name.charAt(0).toUpperCase() + v.name.slice(1)
+            }
+          };
+        });
+
+        items.push({
+          '@type': 'ListItem',
+          'position': pos,
+          'item': {
+            '@type': 'Product',
+            'name': product.title,
+            'description': product.desc,
+            'url': vendors[0].url,
+            'brand': { '@type': 'Brand', 'name': 'Jeff Jenx' },
+            'offers': offers.length === 1 ? offers[0] : offers
+          }
+        });
+      });
+    });
+
+    if (!items.length) return;
+
+    var ld = {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      'name': 'Jeff Jenx Shop',
+      'url': 'https://www.jeffjenx.com/',
+      'description': 'Official Jeff Jenx merchandise. Developer t-shirts, retro computing apparel, gaming gear, and math-themed clothing. Printed on demand.',
+      'mainEntity': {
+        '@type': 'ItemList',
+        'name': 'Jeff Jenx Products',
+        'numberOfItems': items.length,
+        'itemListElement': items
+      }
+    };
+
+    var script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(ld);
+    document.head.appendChild(script);
+  }
+
+  // ── Data loading ─────────────────────────────────────────────────────────
+
   function onData(data) {
     catalog = data;
     buildFilters(data);
-    renderShop(data, 'all');
+
+    // Apply initial filter from URL hash (e.g. jeffjenx.com/#www)
+    var initialFilter = getHashFilter(data);
+    renderShop(data, initialFilter);
+    if (initialFilter !== 'all') activateFilterBtn(initialFilter);
+
+    // Sync filter when user navigates back/forward
+    window.addEventListener('hashchange', function () {
+      var f = getHashFilter(catalog);
+      currentFilter = f;
+      activateFilterBtn(f);
+      renderShop(catalog, f);
+    });
+
+    // Inject product structured data for SEO (schema.org ItemList)
+    buildStructuredData(data);
 
     // Close picker on Escape
     document.addEventListener('keydown', function (e) {

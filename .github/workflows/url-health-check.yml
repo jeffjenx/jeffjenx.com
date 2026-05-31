@@ -1,0 +1,36 @@
+name: URL Health Check
+
+# Runs weekly to verify all product vendor URLs are still live.
+# Also runnable manually from Actions tab.
+#
+# Exits 1 (fails the workflow) if any URL is dead — this creates a
+# visible failure in GitHub so it isn't missed.
+#
+# Tip: If this fails due to a Zazzle/Redbubble outage (not a dead
+# product), re-run the workflow after the outage clears.
+
+on:
+  schedule:
+    # Every Monday at 09:00 UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+    # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  url-health-check:
+    name: Check product vendor URLs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run URL health check
+        run: node tools/health/index.js --timeout 15000
+        # Exits 1 if any URL is dead (403, 404, timeout, etc.)
+        # Exit 0 if all 2xx — job passes

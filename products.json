@@ -182,6 +182,17 @@
           "tags": ["t-shirt", "apparel", "math", "trigonometry", "education"],
           "new": false,
           "active": true
+        },
+        {
+          "id": "irrational-euler",
+          "title": "Euler's Number T-Shirt",
+          "desc": "Euler's number e ≈ 2.71828... — the base of the natural logarithm and the most important constant in calculus and continuous growth. It appears in compound interest, population models, complex numbers, and Euler's identity: e^(iπ) + 1 = 0. For mathematicians, physicists, and calculus survivors.",
+          "price": "",
+          "vendors": [],
+          "tags": ["t-shirt", "apparel", "math", "euler", "calculus", "education"],
+          "new": false,
+          "active": false,
+          "_draft": "Phase 4B — list on Zazzle and Redbubble, add vendor URLs, set active: true"
         }
       ]
     },
@@ -471,6 +482,39 @@
           "tags": ["t-shirt", "apparel", "smpte", "tv", "retro", "engineering", "vintage"],
           "new": false,
           "active": true
+        },
+        {
+          "id": "warez-it-works",
+          "title": "It Works on My Machine T-Shirt",
+          "desc": "\"It works on my machine\" — the programmer's universal non-apology. The classic developer excuse that ships the bug to production and becomes someone else's problem. A must-have for every developer who has ever said these words.",
+          "price": "",
+          "vendors": [],
+          "tags": ["t-shirt", "apparel", "programming", "humor", "computing"],
+          "new": false,
+          "active": false,
+          "_draft": "Phase 4B — list on Zazzle and Redbubble, add vendor URLs, set active: true"
+        },
+        {
+          "id": "warez-bsod",
+          "title": "Blue Screen of Death T-Shirt",
+          "desc": "The most famous error message in computing history. A STOP error. A kernel panic. The unmistakable blue screen that ended countless unsaved documents and sent system administrators running. Wear it proudly — you survived it.",
+          "price": "",
+          "vendors": [],
+          "tags": ["t-shirt", "apparel", "bsod", "windows", "computing", "retro", "humor"],
+          "new": false,
+          "active": false,
+          "_draft": "Phase 4B — list on Zazzle and Redbubble, add vendor URLs, set active: true"
+        },
+        {
+          "id": "warez-640k",
+          "title": "640K Ought to Be Enough T-Shirt",
+          "desc": "\"640K ought to be enough for anybody\" — the legendary misattributed quote from the early days of personal computing. Whether or not Bill Gates said it, it became the most famous underestimation in tech history. Wear the bug proudly.",
+          "price": "",
+          "vendors": [],
+          "tags": ["t-shirt", "apparel", "computing", "retro", "humor", "dos"],
+          "new": false,
+          "active": false,
+          "_draft": "Phase 4B — list on Zazzle and Redbubble, add vendor URLs, set active: true"
         }
       ]
     },
@@ -537,6 +581,28 @@
           "tags": ["t-shirt", "apparel", "javascript", "web", "standards"],
           "new": false,
           "active": true
+        },
+        {
+          "id": "www-typescript-logo",
+          "title": "TypeScript Logo T-Shirt",
+          "desc": "TypeScript — Microsoft's typed superset of JavaScript, now dominant across modern web development. The blue TS square is the badge of every developer who values type safety, autocomplete, and catching errors at compile time. The essential shirt for TypeScript devs.",
+          "price": "",
+          "vendors": [],
+          "tags": ["t-shirt", "apparel", "typescript", "javascript", "web", "programming"],
+          "new": false,
+          "active": false,
+          "_draft": "Phase 4B — list on Zazzle and Redbubble, add vendor URLs, set active: true"
+        },
+        {
+          "id": "www-nodejs-logo",
+          "title": "Node.js Logo T-Shirt",
+          "desc": "Node.js — JavaScript on the server, running since 2009. The green hexagon is the badge of every full-stack developer and backend engineer who left the browser behind. The essential shirt for Node devs and JavaScript everywhere enthusiasts.",
+          "price": "",
+          "vendors": [],
+          "tags": ["t-shirt", "apparel", "nodejs", "javascript", "web", "programming"],
+          "new": false,
+          "active": false,
+          "_draft": "Phase 4B — list on Zazzle and Redbubble, add vendor URLs, set active: true"
         }
       ]
     },
@@ -557,11 +623,13 @@
     "lastUpdated": "2026-05-31",
     "totalCollections": 11,
     "activeCollections": 10,
-    "totalProducts": 26,
-    "totalZazzleProducts": 22,
+    "totalProducts": 30,
+    "activeProducts": 24,
+    "draftProducts": 6,
+    "totalZazzleProducts": 20,
     "totalRedbubbleProducts": 6,
     "multiVendorProducts": 2,
-    "redbubbleOnlyProducts": 4,
+    "redbubbleOnlyProducts": 3,
     "productTypes": ["physical", "digital"],
     "vendors": ["zazzle", "redbubble", "gumroad"],
     "note": "SOURCE OF TRUTH: Product catalog using multi-vendor schema (one entry per product with multiple vendor URLs). Phase 3 complete (full catalog with multi-vendor). Phase 3B in progress (UI + API integrations). Phase 4: Digital Downloads collection ready — set active: true and add products with type: 'digital' and gumroad vendor URLs."
