@@ -57,6 +57,9 @@
 -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="theme-color" content="#f8f8f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+<script>/* anti-FOUC: set data-theme before paint */(function(){var r=document.documentElement,s;try{s=localStorage.getItem('jj-theme');}catch(e){}if(!s){s=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';}r.setAttribute('data-theme',s);})();</script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
 
@@ -251,6 +254,27 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
 }
 #theme-toggle:hover { background: #e8e8e8; }
 
+/* Skeleton loading */
+@keyframes jj-shimmer { 0%{background-position:-400px 0} 100%{background-position:calc(400px + 100%) 0} }
+.jj-skeleton-card { height: 260px; background: #ebebeb; background-image: linear-gradient(90deg,#ebebeb 0,#e2e2e2 80px,#ebebeb 160px); background-size: 600px 100%; animation: jj-shimmer 1.8s infinite linear; }
+
+/* Search */
+.jj-search-row { margin-bottom: 20px; }
+.jj-search-input { width: 100%; box-sizing: border-box; font-family: "IBM Plex Mono","Courier New",monospace; font-size: 14px; letter-spacing: .01em; padding: 10px 16px; border: 1px solid #c8c8c8; background: #f8f8f8; color: #0a0a0a; -webkit-appearance: none; outline: none; border-radius: 0; }
+.jj-search-input:focus { border-color: #0a0a0a; }
+.jj-search-input::-webkit-search-cancel-button { -webkit-appearance: none; }
+.jj-search-meta { font-family: "IBM Plex Mono","Courier New",monospace; font-size: 11px; letter-spacing: .04em; color: #717171; margin-top: 8px; min-height: 18px; }
+
+/* Card entrance animation */
+@keyframes jj-card-in { from{opacity:0;transform:translateY(7px)} to{opacity:1;transform:none} }
+.jj-grid .jj-col { animation: jj-card-in 300ms cubic-bezier(0.4,0,0.2,1) both; }
+.jj-grid .jj-col:nth-child(2) { animation-delay: 40ms; }
+.jj-grid .jj-col:nth-child(3) { animation-delay: 80ms; }
+.jj-grid .jj-col:nth-child(4) { animation-delay: 80ms; }
+.jj-grid .jj-col:nth-child(5) { animation-delay: 120ms; }
+.jj-grid .jj-col:nth-child(6) { animation-delay: 120ms; }
+@media (prefers-reduced-motion: reduce) { .jj-grid .jj-col { animation: none; } }
+
 /* =========================================================================
    LAYER 2 — RESPONSIVE (IE9+)
    ========================================================================= */
@@ -343,6 +367,17 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   .jj-footer a    { color: var(--jj-fg-subtle); }
   #theme-toggle   { border-color: var(--jj-border-color); color: var(--jj-fg-muted); font-family: var(--jj-font-mono); transition: background var(--jj-dur-fast) var(--jj-ease); }
   #theme-toggle:hover { background: var(--jj-bg-sunken); }
+  /* Dark mode transitions */
+  body { transition: background-color 200ms var(--jj-ease), color 150ms var(--jj-ease); }
+  .jj-nav { transition: background-color 200ms var(--jj-ease), border-color 150ms var(--jj-ease); }
+  .jj-footer, .jj-page-header { transition: border-color 150ms var(--jj-ease); }
+  /* Search dark mode */
+  .jj-search-input { background: var(--jj-bg); color: var(--jj-fg); border-color: var(--jj-border-color); transition: border-color var(--jj-dur-fast) var(--jj-ease); }
+  .jj-search-input:focus { border-color: var(--jj-fg); }
+  .jj-search-input::placeholder { color: var(--jj-fg-subtle); }
+  .jj-search-meta { color: var(--jj-fg-subtle); }
+  /* Skeleton dark mode */
+  .jj-skeleton-card { background: var(--jj-bg-raised); background-image: linear-gradient(90deg,var(--jj-bg-raised) 0,var(--jj-bg-sunken) 80px,var(--jj-bg-raised) 160px); background-size: 600px 100%; }
 }
 
 /* =========================================================================
@@ -440,6 +475,11 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   </header>
 
   <div class="jj-page-header">
+    <div class="jj-search-row">
+      <label for="search-input" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Search products</label>
+      <input type="search" id="search-input" class="jj-search-input" placeholder="Search products…" autocomplete="off" spellcheck="false">
+      <div class="jj-search-meta" id="search-meta" aria-live="polite"></div>
+    </div>
     <!-- filter buttons injected by JS -->
     <div class="jj-filter-row" id="filter-bar" role="group" aria-label="Filter by category"></div>
     <p class="jj-shop-note">Click any product to shop. Multi-platform products show a store picker. Jeff Jenx does not process orders.</p>
@@ -506,26 +546,19 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   // ── Theme toggle ─────────────────────────────────────────────────────────
 
   function initTheme() {
+    // data-theme already set by anti-FOUC head script; just wire up the toggle button
+    var html = document.documentElement;
     var btn = document.createElement('button');
     btn.id = 'theme-toggle';
-    btn.innerHTML = 'Dark';
     btn.setAttribute('aria-label', 'Toggle dark/light theme');
-
-    var html = document.documentElement;
-    var stored;
-    try { stored = localStorage.getItem('jj-theme'); } catch (e) {}
-    if (stored) {
-      html.setAttribute('data-theme', stored);
-      btn.innerHTML = stored === 'dark' ? 'Light' : 'Dark';
-    }
+    var current = html.getAttribute('data-theme') || 'light';
+    btn.innerHTML = current === 'dark' ? 'Light' : 'Dark';
     btn.onclick = function () {
-      var current = html.getAttribute('data-theme');
-      var next = current === 'dark' ? 'light' : 'dark';
+      var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       html.setAttribute('data-theme', next);
       btn.innerHTML = next === 'dark' ? 'Light' : 'Dark';
       try { localStorage.setItem('jj-theme', next); } catch (e) {}
     };
-
     var nav = document.querySelector('.jj-nav-inner');
     if (nav) nav.appendChild(btn);
   }
@@ -862,6 +895,76 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
     output.innerHTML = html;
   }
 
+  // ── Search ───────────────────────────────────────────────────────────────
+
+  function setupSearch(data) {
+    var input   = document.getElementById('search-input');
+    var metaEl  = document.getElementById('search-meta');
+    var filterBar = document.getElementById('filter-bar');
+    if (!input) return;
+
+    var total = 0;
+    (data.collections || []).forEach(function (c) {
+      (c.products || []).forEach(function (p) { if (p.active !== false) total++; });
+    });
+    input.placeholder = 'Search ' + total + ' products…';
+
+    var debounce;
+    input.addEventListener('input', function () {
+      clearTimeout(debounce);
+      debounce = setTimeout(function () {
+        var q = input.value.trim();
+        if (!q) {
+          if (filterBar) filterBar.style.display = '';
+          if (metaEl) metaEl.textContent = '';
+          renderShop(data, currentFilter);
+          return;
+        }
+        if (filterBar) filterBar.style.display = 'none';
+        var ql = q.toLowerCase();
+        var results = [];
+        (data.collections || []).forEach(function (col) {
+          if (!col.active) return;
+          (col.products || []).forEach(function (p) {
+            if (!p.active) return;
+            if (
+              p.title.toLowerCase().indexOf(ql) !== -1 ||
+              p.desc.toLowerCase().indexOf(ql) !== -1 ||
+              col.label.toLowerCase().indexOf(ql) !== -1 ||
+              (p.tags || []).some(function (t) { return t.indexOf(ql) !== -1; })
+            ) results.push({ p: p, col: col });
+          });
+        });
+        if (metaEl) metaEl.textContent = results.length === 0
+          ? 'No results for \u201c' + q + '\u201d'
+          : results.length + ' product' + (results.length !== 1 ? 's' : '');
+        var output = document.getElementById('shop-output');
+        if (!output) return;
+        multiVendorProducts = {};
+        if (!results.length) {
+          output.innerHTML = '<div class="jj-state"><div class="jj-state-mark" aria-hidden="true">[JJ]</div><p>No products match \u201c' + esc(q) + '\u201d.</p></div>';
+          return;
+        }
+        var cards = '';
+        results.forEach(function (r) {
+          var acc = r.col.accent ? { base: r.col.accent, light: r.col.accent_light || '', dark: r.col.accent_dark || '' } : null;
+          cards += renderCard(r.p, r.col.label, acc, r.col.mark || '');
+        });
+        output.innerHTML = '<div class="jj-grid">' + cards + '</div>';
+      }, 80);
+    });
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' || e.keyCode === 27) {
+        input.value = '';
+        if (filterBar) filterBar.style.display = '';
+        if (metaEl) metaEl.textContent = '';
+        renderShop(data, currentFilter);
+        input.blur();
+      }
+    });
+  }
+
   // ── Data loading ─────────────────────────────────────────────────────────
 
   // ── Structured data (SEO) ────────────────────────────────────────────────
@@ -944,6 +1047,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   function onData(data) {
     catalog = data;
     buildFilters(data);
+    setupSearch(data);
 
     // Apply initial filter from URL hash (e.g. jeffjenx.com/#www)
     var initialFilter = getHashFilter(data);
@@ -1018,6 +1122,13 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   }
 
   function loadData() {
+    // Show skeleton cards while products.json loads
+    var output = document.getElementById('shop-output');
+    if (output) {
+      var s = '';
+      for (var si = 0; si < 6; si++) s += '<div class="jj-col"><div class="jj-skeleton-card"></div></div>';
+      output.innerHTML = '<div class="jj-grid" style="animation:none">' + s + '</div>';
+    }
     // fetch() — modern browsers
     if (typeof window.fetch === 'function') {
       window.fetch(DATA_URL)

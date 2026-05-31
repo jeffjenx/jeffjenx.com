@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>404 — Jeff Jenx</title>
+<meta name="theme-color" content="#f8f8f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+<script>/* anti-FOUC */(function(){var r=document.documentElement,s;try{s=localStorage.getItem('jj-theme');}catch(e){}if(!s){s=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';}r.setAttribute('data-theme',s);})();</script>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layer 1 — base */
+*  { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "IBM Plex Mono","Courier New",monospace;
+  background: #f8f8f8;
+  color: #0a0a0a;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Nav */
+.jj-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid #c8c8c8;
+  background: #f8f8f8;
+}
+.jj-nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 16px;
+}
+.jj-lockup { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; gap: 12px; }
+.jj-mark-sm {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  background: #0a0a0a;
+  color: #f8f8f8;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.jj-nav-name { font-size: 16px; font-weight: 500; line-height: 1.1; }
+.jj-nav-sub  { display: block; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #717171; }
+
+/* Main 404 content */
+.jj-404 {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 80px 24px;
+  text-align: center;
+}
+.jj-404-mark {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #717171;
+  margin-bottom: 32px;
+}
+.jj-404-code {
+  font-size: 80px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #0a0a0a;
+  margin-bottom: 16px;
+}
+.jj-404-msg {
+  font-size: 18px;
+  font-weight: 400;
+  color: #555;
+  margin-bottom: 48px;
+}
+.jj-404-link {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid #c8c8c8;
+  padding: 12px 24px;
+  color: #0a0a0a;
+  transition: background 80ms ease, border-color 80ms ease;
+}
+.jj-404-link:hover { background: #0a0a0a; color: #f8f8f8; border-color: #0a0a0a; text-decoration: none; }
+
+/* Footer */
+.jj-footer {
+  border-top: 1px solid #c8c8c8;
+  padding: 24px;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: #717171;
+}
+.jj-footer a { color: #717171; }
+.jj-footer a:hover { color: #0a0a0a; }
+
+/* Layer 3 — CSS custom properties */
+@supports (--x: 0) {
+  :root {
+    --jj-bg: #f8f8f8; --jj-bg-raised: #fff; --jj-bg-sunken: #e8e8e8;
+    --jj-fg: #0a0a0a; --jj-fg-muted: #555; --jj-fg-subtle: #717171;
+    --jj-border-color: #c8c8c8;
+    --jj-font-mono: "IBM Plex Mono","Courier New",monospace;
+    --jj-font-sans: "IBM Plex Sans",system-ui,Arial,sans-serif;
+    --jj-ease: cubic-bezier(0.4,0,0.2,1);
+  }
+  [data-theme="dark"] {
+    --jj-bg: #1a1a1a; --jj-bg-raised: #2a2a2a; --jj-bg-sunken: #111;
+    --jj-fg: #f8f8f8; --jj-fg-muted: #aaa; --jj-fg-subtle: #888;
+    --jj-border-color: #3a3a3a;
+  }
+  [data-theme="light"] {
+    --jj-bg: #f8f8f8; --jj-bg-raised: #fff; --jj-bg-sunken: #e8e8e8;
+    --jj-fg: #0a0a0a; --jj-fg-muted: #555; --jj-fg-subtle: #717171;
+    --jj-border-color: #c8c8c8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --jj-bg: #1a1a1a; --jj-bg-raised: #2a2a2a; --jj-bg-sunken: #111;
+      --jj-fg: #f8f8f8; --jj-fg-muted: #aaa; --jj-fg-subtle: #888;
+      --jj-border-color: #3a3a3a;
+    }
+  }
+  body         { background: var(--jj-bg); color: var(--jj-fg); font-family: var(--jj-font-mono); transition: background-color 200ms var(--jj-ease), color 150ms var(--jj-ease); }
+  .jj-nav      { background: color-mix(in srgb, var(--jj-bg) 92%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom-color: var(--jj-border-color); transition: background-color 200ms var(--jj-ease), border-color 150ms var(--jj-ease); }
+  .jj-mark-sm  { background: var(--jj-fg); color: var(--jj-bg); }
+  .jj-nav-sub  { color: var(--jj-fg-subtle); }
+  .jj-404-code { color: var(--jj-fg); }
+  .jj-404-msg  { color: var(--jj-fg-muted); font-family: var(--jj-font-sans); }
+  .jj-404-mark { color: var(--jj-fg-subtle); }
+  .jj-404-link { border-color: var(--jj-border-color); color: var(--jj-fg); transition: background 80ms var(--jj-ease), border-color 80ms var(--jj-ease), color 80ms var(--jj-ease); }
+  .jj-404-link:hover { background: var(--jj-fg); color: var(--jj-bg); border-color: var(--jj-fg); }
+  .jj-footer   { border-top-color: var(--jj-border-color); color: var(--jj-fg-subtle); transition: border-color 150ms var(--jj-ease); }
+  .jj-footer a { color: var(--jj-fg-subtle); }
+  .jj-footer a:hover { color: var(--jj-fg); }
+  #theme-toggle {
+    margin-left: auto;
+    background: none;
+    border: 1px solid var(--jj-border-color);
+    color: var(--jj-fg-muted);
+    font-family: var(--jj-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    cursor: pointer;
+    transition: background 80ms var(--jj-ease);
+  }
+  #theme-toggle:hover { background: var(--jj-bg-sunken); }
+}
+</style>
+</head>
+<body>
+
+<nav class="jj-nav" role="navigation" aria-label="Site navigation">
+  <div class="jj-nav-inner">
+    <a href="/" class="jj-lockup" aria-label="Jeff Jenx — home">
+      <span class="jj-mark-sm" aria-hidden="true">[JJ]</span>
+      <span class="jj-nav-name">Jeff Jenx<span class="jj-nav-sub">Shop</span></span>
+    </a>
+  </div>
+</nav>
+
+<main class="jj-404" role="main">
+  <p class="jj-404-mark">[JJ] &mdash; Error</p>
+  <p class="jj-404-code">404</p>
+  <p class="jj-404-msg">This page doesn&rsquo;t exist.</p>
+  <a href="/" class="jj-404-link">Browse the Shop &rarr;</a>
+</main>
+
+<footer class="jj-footer" role="contentinfo">
+  <p>&copy; 2024&ndash;2025 Jeff Jenx &middot;
+    <a href="/">jeffjenx.com</a> &middot;
+    <a href="https://jeffjenx.design">Design</a> &middot;
+    <a href="https://github.com/jeffjenx" rel="me">GitHub</a>
+  </p>
+</footer>
+
+<script>
+(function () {
+  var html = document.documentElement;
+  var btn = document.createElement('button');
+  btn.id = 'theme-toggle';
+  btn.setAttribute('aria-label', 'Toggle dark/light theme');
+  var current = html.getAttribute('data-theme') || 'light';
+  btn.innerHTML = current === 'dark' ? 'Light' : 'Dark';
+  btn.onclick = function () {
+    var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    btn.innerHTML = next === 'dark' ? 'Light' : 'Dark';
+    try { localStorage.setItem('jj-theme', next); } catch (e) {}
+  };
+  var nav = document.querySelector('.jj-nav-inner');
+  if (nav) nav.appendChild(btn);
+})();
+</script>
+
+</body>
+</html>
