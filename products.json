@@ -695,6 +695,6 @@
     "redbubbleOnlyProducts": 3,
     "productTypes": ["physical", "digital"],
     "vendors": ["zazzle", "redbubble", "gumroad"],
-    "note": "SOURCE OF TRUTH: Multi-vendor schema — one entry per product with multiple vendor URLs. Phase 3 complete (catalog + multi-vendor UI). Phase 4 in progress: 6 physical drafts need designs; 5 digital drafts need Gumroad setup. To activate digital collection: fix Gumroad payments → upload files → add vendor URLs → set digital products active:true → set digital collection active:true."
+    "note": "SOURCE OF TRUTH: Multi-vendor schema — one entry per product with multiple vendor URLs. Phase 3 complete (catalog + multi-vendor UI). Phase 4 in progress: 6 physical drafts need designs; 5 digital drafts need Ko-fi setup (preferred over Gumroad — 0% fee). To activate digital collection: create Ko-fi store → upload files → add vendor URLs → set digital products active:true → set digital collection active:true."
   }
 }
