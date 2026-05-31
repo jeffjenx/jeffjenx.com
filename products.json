@@ -627,7 +627,8 @@
           "tags": ["rom", "game-boy", "flash-cartridge", "homebrew", "retro-gaming", "nintendo"],
           "new": false,
           "active": false,
-          "_draft": "Phase 4A — upload Home-mbc*.gb + README.txt to Gumroad, add vendor URL, set active: true, then activate digital collection"
+          "_draft": "FUTURE — home.gb is in active development with months remaining until v1.0 stable release. Do NOT list for sale until stable release ships.",
+          "_status": "in-development"
         },
         {
           "id": "digital-design-tokens",

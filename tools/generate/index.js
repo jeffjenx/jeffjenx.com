@@ -83,8 +83,7 @@ function buildPage(product, collection) {
   });
   if (product.price) { offers.forEach(function (o) { o.price = product.price.replace(/[^0-9.]/g, ''); }); }
 
-  var structuredData = {
-    '@context': 'https://schema.org',
+  var productSchema = {
     '@type': 'Product',
     'name': product.title,
     'description': product.desc,
@@ -93,6 +92,20 @@ function buildPage(product, collection) {
     'category': collection.label,
     'keywords': (product.tags || []).join(', '),
     'offers': offers.length === 1 ? offers[0] : { '@type': 'AggregateOffer', 'offers': offers }
+  };
+
+  var breadcrumb = {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      { '@type': 'ListItem', 'position': 1, 'name': 'Shop', 'item': BASE_URL + '/' },
+      { '@type': 'ListItem', 'position': 2, 'name': collection.label, 'item': BASE_URL + '/#' + collection.id },
+      { '@type': 'ListItem', 'position': 3, 'name': product.title, 'item': canonicalUrl }
+    ]
+  };
+
+  var structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [productSchema, breadcrumb]
   };
 
   // Vendor buttons HTML
