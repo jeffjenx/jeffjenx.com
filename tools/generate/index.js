@@ -339,6 +339,7 @@ function buildPage(product, collection, siblings) {
     + '  <footer class="jj-footer" role="contentinfo">\n'
     + '    <div>[JJ] Jeff Jenx &nbsp;&middot;&nbsp;<a href="https://www.jeffjenx.com/">Shop</a>&nbsp;&middot;&nbsp;<a href="https://jeffjenx.design/">Design</a>&nbsp;&middot;&nbsp;<a href="https://jeffjenx.net/">Network</a></div>\n'
     + '    <div style="margin-top:6px">No tracking. No ads. No data collected.</div>\n'
+    + '    <span style="display:none"><a href="https://github.com/jeffjenx" rel="me">GitHub</a> <a href="https://x.com/jeff_jenx" rel="me">X</a></span>\n'
     + '  </footer>\n'
     + '\n'
     + '</div>\n'
