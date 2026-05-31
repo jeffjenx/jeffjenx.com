@@ -3,10 +3,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[JJ] Jeff Jenx Shop</title>
-<meta name="description" content="Jeff Jenx official shop. Web, retro computing, and gaming merchandise. Printed on demand via Zazzle.">
+<title>Jeff Jenx Shop — Developer T-Shirts, Retro Computing &amp; Gaming Apparel</title>
+<meta name="description" content="Official Jeff Jenx merchandise. Developer t-shirts, retro computing apparel, gaming gear, math-themed clothing, and digital downloads. Printed on demand via Zazzle and Redbubble.">
+<meta name="keywords" content="developer t-shirt, programmer shirt, retro computing apparel, HTML5 shirt, CSS shirt, JavaScript shirt, web dev gift, gaming shirt, math shirt, pi shirt, retro gaming, Jeff Jenx, print on demand, digital download">
 <meta name="robots" content="index, follow">
+<link rel="canonical" href="https://jeffjenx.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jeffjenx.com/">
+<meta property="og:title" content="Jeff Jenx Shop — Developer T-Shirts, Retro Computing &amp; Gaming Apparel">
+<meta property="og:description" content="Official Jeff Jenx merchandise. Developer t-shirts, retro computing apparel, gaming gear, math-themed clothing, and digital downloads. Printed on demand.">
+<meta property="og:site_name" content="Jeff Jenx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@jeff_jenx">
+<meta name="twitter:title" content="Jeff Jenx Shop — Developer T-Shirts &amp; Retro Computing Apparel">
+<meta name="twitter:description" content="Developer shirts, retro computing gear, gaming apparel, and digital downloads. Printed on demand via Zazzle and Redbubble.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='4' y='26' font-size='28' font-weight='bold' fill='%230a0a0a'>[J]</text></svg>">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"Jeff Jenx","url":"https://jeffjenx.com","sameAs":["https://jeffjenx.design","https://jeffjenx.net"]},{"@type":"WebSite","name":"Jeff Jenx Shop","url":"https://jeffjenx.com","description":"Official Jeff Jenx merchandise. Developer t-shirts, retro computing apparel, gaming gear, math-themed clothing, and digital downloads. Printed on demand."}]}
+</script>
 
 <!--
   [JJ] Jeff Jenx Shop · v1.1
@@ -133,7 +147,8 @@ img { display: block; max-width: 100%; border: 0; }
 .jj-tag         { display: inline-block; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid #c8c8c8; color: #888; padding: 2px 6px; margin: 0 3px 3px 0; }
 .jj-card-footer { border-top: 1px solid #e8e8e8; padding: 10px 18px; }
 .jj-price       { font-size: 16px; font-weight: 500; letter-spacing: -0.02em; display: inline-block; vertical-align: middle; }
-.jj-new-badge   { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; background: #0a0a0a; color: #f8f8f8; padding: 2px 5px; display: inline-block; vertical-align: middle; margin-left: 6px; }
+.jj-new-badge       { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; background: #0a0a0a; color: #f8f8f8; padding: 2px 5px; display: inline-block; vertical-align: middle; margin-left: 6px; }
+.jj-download-badge  { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; background: #166534; color: #f8f8f8; padding: 2px 5px; display: inline-block; vertical-align: middle; margin-left: 6px; }
 .jj-cta         { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #888; padding: 4px 0; }
 
 /* Multi-vendor card (div, acts as button) */
@@ -273,7 +288,8 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   .jj-price       { color: var(--jj-fg); }
   .jj-tag         { border-color: var(--jj-border-color); color: var(--jj-fg-subtle); }
   .jj-cta         { color: var(--jj-fg-subtle); }
-  .jj-new-badge   { background: var(--jj-fg); color: var(--jj-bg); }
+  .jj-new-badge      { background: var(--jj-fg); color: var(--jj-bg); }
+  .jj-download-badge  { background: #166534; color: #f8f8f8; }
   div.jj-card:focus { outline-color: var(--jj-fg); }
   .jj-picker      { background: var(--jj-bg); border-color: var(--jj-fg); }
   .jj-picker-eyebrow { color: var(--jj-fg-subtle); }
@@ -374,8 +390,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
   <div class="jj-page-header">
     <h1 class="jj-page-title">[JJ] Shop</h1>
     <p class="jj-page-lead">
-      Merchandise printed on demand. Ships directly from Zazzle or Redbubble.
-      No inventory held. No data collected.
+      Developer apparel, gaming gear, and digital downloads. Physical products ship directly from Zazzle or Redbubble. No inventory held. No personal data collected.
     </p>
     <!-- filter buttons injected by JS -->
     <div class="jj-filter-row" id="filter-bar" role="group" aria-label="Filter by category"></div>
@@ -383,6 +398,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
 
   <div class="jj-notice" role="note">
     <strong>How it works:</strong> Click any product to open its store listing.
+    Some products are available on multiple platforms — choose whichever you prefer.
     Jeff Jenx does not process orders or handle shipping.
   </div>
 
@@ -530,7 +546,9 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
       activeVendors.push({ name: product.vendor, url: product.url });
     }
 
-    var newHtml    = product['new'] ? '<span class="jj-new-badge" aria-label="New">NEW</span>' : '';
+    var isDigital  = product.type === 'digital';
+    var newHtml    = (product['new'] ? '<span class="jj-new-badge" aria-label="New">NEW</span>' : '')
+                   + (isDigital ? '<span class="jj-download-badge" aria-label="Digital download">DL</span>' : '');
     var priceHtml  = product.price ? '<div class="jj-price-cell"><span class="jj-price">' + esc(product.price) + '</span></div>' : '';
     var accentStyle = accent
       ? ' style="--jj-accent:' + esc(accent.base) + ';--jj-accent-light:' + esc(accent.light) + ';--jj-accent-dark:' + esc(accent.dark) + '"'
@@ -552,7 +570,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
       + '</div>'
       + '<div class="jj-card-footer">'
         + priceHtml
-        + '<span class="jj-cta">Shop &rarr;</span>'
+        + '<span class="jj-cta">' + (isDigital ? 'Download' : 'Shop') + ' &rarr;</span>'
       + '</div>';
 
     if (activeVendors.length > 1) {
@@ -697,10 +715,56 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
 
   // ── Data loading ─────────────────────────────────────────────────────────
 
+  function injectProductSchema(data) {
+    var items = [];
+    var pos = 1;
+    for (var c = 0; c < data.collections.length; c++) {
+      var col = data.collections[c];
+      if (!col.active) continue;
+      for (var p = 0; p < col.products.length; p++) {
+        var prod = col.products[p];
+        if (!prod.active) continue;
+        var url = '';
+        if (prod.vendors && prod.vendors.length) {
+          for (var vi = 0; vi < prod.vendors.length; vi++) {
+            if (prod.vendors[vi].active !== false) { url = prod.vendors[vi].url; break; }
+          }
+        }
+        var item = {
+          '@type': 'ListItem',
+          'position': pos++,
+          'item': {
+            '@type': 'Product',
+            'name': prod.title,
+            'description': prod.desc,
+            'brand': { '@type': 'Brand', 'name': 'Jeff Jenx' }
+          }
+        };
+        if (url) {
+          item.item['url'] = url;
+          item.item['offers'] = { '@type': 'Offer', 'url': url, 'availability': 'https://schema.org/InStock', 'priceCurrency': 'USD' };
+        }
+        items.push(item);
+      }
+    }
+    var el = document.createElement('script');
+    el.type = 'application/ld+json';
+    el.text = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      'name': 'Jeff Jenx Shop \u2014 All Products',
+      'url': 'https://jeffjenx.com',
+      'numberOfItems': items.length,
+      'itemListElement': items
+    });
+    document.head.appendChild(el);
+  }
+
   function onData(data) {
     catalog = data;
     buildFilters(data);
     renderShop(data, 'all');
+    injectProductSchema(data);
 
     // Close picker on Escape
     document.addEventListener('keydown', function (e) {

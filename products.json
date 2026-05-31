@@ -6,7 +6,7 @@
     "To add a collection: copy any collection object, paste it into the 'collections' array, update the fields, add products.",
     "To hide a product without deleting it: set 'active' to false.",
     "To mark a product as new: set 'new' to true.",
-    "Product fields: id (unique slug), title, desc, price (empty for Zazzle/RB auto-pricing), vendors array, tags, new, active.",
+    "Product fields: id (unique slug), title, desc, type ('physical'|'digital', defaults to 'physical'), price (empty for Zazzle/RB auto-pricing), vendors array, tags, new, active.",
     "Collection fields: id, label, desc, active, accent (hex), accent_light (hex), accent_dark (hex), mark (symbol/short text on card thumb), products.",
     "Vendor structure: { name ('zazzle'|'redbubble'|'gumroad'|'direct'), url, active }",
     "Each unique product should have one entry with multiple vendor URLs (not duplicated across products).",
@@ -537,19 +537,31 @@
           "active": true
         }
       ]
+    },
+    {
+      "id": "digital",
+      "label": "Digital Downloads",
+      "desc": "Instant digital downloads. Icon packs, design tokens, wallpapers, and more.",
+      "active": false,
+      "accent": "#6366F1",
+      "accent_light": "#eef2ff",
+      "accent_dark": "#4338CA",
+      "mark": "DL",
+      "products": []
     }
   ],
 
   "_metadata": {
     "lastUpdated": "2026-05-30",
-    "totalCollections": 10,
+    "totalCollections": 11,
     "activeCollections": 10,
     "totalProducts": 26,
     "totalZazzleProducts": 24,
     "totalRedbubbleProducts": 6,
     "multiVendorProducts": 4,
     "redbubbleOnlyProducts": 2,
-    "vendors": ["zazzle", "redbubble"],
-    "note": "SOURCE OF TRUTH: Product catalog using multi-vendor schema (one entry per product with multiple vendor URLs). Phase 1 complete (catalog existing). Phase 2 in progress (populate all 10 collections). Phase 3B: Build syndication tool for one-click publishing to Zazzle/Redbubble/other platforms."
+    "productTypes": ["physical", "digital"],
+    "vendors": ["zazzle", "redbubble", "gumroad"],
+    "note": "SOURCE OF TRUTH: Product catalog using multi-vendor schema (one entry per product with multiple vendor URLs). Phase 3 complete (full catalog with multi-vendor). Phase 3B in progress (UI + API integrations). Phase 4: Digital Downloads collection ready — set active: true and add products with type: 'digital' and gumroad vendor URLs."
   }
 }
