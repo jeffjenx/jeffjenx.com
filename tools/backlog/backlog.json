@@ -79,11 +79,12 @@
       "alignment": 3,
       "urgency": 1,
       "effort": 2,
-      "status": "open",
+      "status": "done",
       "files": [
         "index.html",
         "og-image.png"
-      ]
+      ],
+      "completedAt": "2026-05-31T11:10:25.629Z"
     },
     {
       "id": "zazzle-html5-variant",
@@ -94,10 +95,11 @@
       "alignment": 3,
       "urgency": 2,
       "effort": 1,
-      "status": "open",
+      "status": "done",
       "files": [
         "products.json"
-      ]
+      ],
+      "completedAt": "2026-05-31T03:52:16.968Z"
     },
     {
       "id": "multi-vendor-ui-testing",
@@ -108,10 +110,11 @@
       "alignment": 3,
       "urgency": 2,
       "effort": 1,
-      "status": "open",
+      "status": "done",
       "files": [
         "index.html"
-      ]
+      ],
+      "completedAt": "2026-05-31T03:54:11.250Z"
     },
     {
       "id": "phase3b-arch-docs",
@@ -122,10 +125,11 @@
       "alignment": 4,
       "urgency": 2,
       "effort": 2,
-      "status": "open",
+      "status": "done",
       "files": [
         "jeffjenx.org/decisions/"
-      ]
+      ],
+      "completedAt": "2026-05-31T11:11:41.674Z"
     },
     {
       "id": "accessibility-audit",
@@ -136,10 +140,11 @@
       "alignment": 2,
       "urgency": 1,
       "effort": 3,
-      "status": "open",
+      "status": "done",
       "files": [
         "index.html"
-      ]
+      ],
+      "completedAt": "2026-05-31T11:20:06.074Z"
     },
     {
       "id": "digital-downloads-setup",

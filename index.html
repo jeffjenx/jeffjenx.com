@@ -3,14 +3,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jeff Jenx Shop — Developer T-Shirts, Retro Computing &amp; Gaming Apparel</title>
+<title>Jeff Jenx · Shop</title>
 <meta name="description" content="Official Jeff Jenx merchandise. Developer t-shirts, retro computing apparel, gaming gear, math-themed clothing, and digital downloads. Printed on demand via Zazzle and Redbubble.">
 <meta name="keywords" content="developer t-shirt, programmer shirt, retro computing apparel, HTML5 shirt, CSS shirt, JavaScript shirt, web dev gift, gaming shirt, math shirt, pi shirt, retro gaming, Jeff Jenx, print on demand, digital download">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.jeffjenx.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.jeffjenx.com/">
-<meta property="og:title" content="Jeff Jenx Shop — Developer T-Shirts, Retro Computing &amp; Gaming Apparel">
+<meta property="og:title" content="Jeff Jenx · Shop">
 <meta property="og:description" content="Official Jeff Jenx merchandise. Developer t-shirts, retro computing apparel, gaming gear, math-themed clothing, and digital downloads. Printed on demand.">
 <meta property="og:site_name" content="Jeff Jenx">
 <meta property="og:image" content="https://www.jeffjenx.com/og-image.png">
@@ -18,7 +18,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@jeff_jenx">
-<meta name="twitter:title" content="Jeff Jenx Shop — Developer T-Shirts &amp; Retro Computing Apparel">
+<meta name="twitter:title" content="Jeff Jenx · Shop">
 <meta name="twitter:description" content="Developer shirts, retro computing gear, gaming apparel, and digital downloads. Printed on demand via Zazzle and Redbubble.">
 <meta name="twitter:image" content="https://www.jeffjenx.com/og-image.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -94,6 +94,7 @@ img { display: block; max-width: 100%; border: 0; }
 .jj-nav-brand { text-decoration: none; color: #0a0a0a; display: inline-block; vertical-align: middle; }
 .jj-nav-name  { font-size: 16px; font-weight: 500; letter-spacing: -0.02em; display: block; }
 .jj-nav-sub   { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #717171; display: block; }
+.jj-nav-text  { display: inline-block; vertical-align: middle; }
 .jj-mark-sm   { display: inline-block; background: #0a0a0a; color: #f8f8f8; font-weight: 500; font-size: 14px; width: 32px; height: 32px; text-align: center; line-height: 32px; vertical-align: middle; margin-right: 10px; }
 
 /* Wrap */
@@ -334,6 +335,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
 @supports (display: flex) {
   .jj-nav-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
   .jj-nav-left  { display: flex; align-items: center; gap: 20px; }
+  .jj-nav-brand { display: inline-flex; align-items: center; }
   .jj-nav-links-list { display: flex; gap: 18px; list-style: none; flex-wrap: wrap; }
   .jj-nav-link  { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: #717171; padding-bottom: 2px; border-bottom: 2px solid transparent; }
   .jj-nav-link:hover { color: #0a0a0a; border-bottom-color: #0a0a0a; opacity: 1; }
@@ -379,8 +381,10 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
     <div class="jj-nav-left">
       <a href="index.html" class="jj-nav-brand" aria-label="Jeff Jenx — home">
         <span class="jj-mark-sm" aria-hidden="true">JJ</span>
-        <span class="jj-nav-name">Jeff Jenx</span>
-        <span class="jj-nav-sub">Shop</span>
+        <span class="jj-nav-text">
+          <span class="jj-nav-name">Jeff Jenx</span>
+          <span class="jj-nav-sub">Shop</span>
+        </span>
       </a>
       <ul class="jj-nav-links-list" role="list">
         <li><a href="https://jeffjenx.com"    class="jj-nav-link" aria-current="page">Shop</a></li>
@@ -397,10 +401,6 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
 <main class="jj-main" id="main" role="main">
 
   <div class="jj-page-header">
-    <h1 class="jj-page-title">[JJ] Shop</h1>
-    <p class="jj-page-lead">
-      Developer apparel, gaming gear, and digital downloads. Physical products ship directly from Zazzle or Redbubble. No inventory held. No personal data collected.
-    </p>
     <!-- filter buttons injected by JS -->
     <div class="jj-filter-row" id="filter-bar" role="group" aria-label="Filter by category"></div>
   </div>
