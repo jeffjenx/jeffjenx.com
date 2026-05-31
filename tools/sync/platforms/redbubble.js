@@ -28,6 +28,8 @@ var TAG_MAP = {
   'standards':    ['web-standards', 'developer'],
   'math':         ['mathematics', 'stem', 'pi-day', 'math-gift'],
   'pi':           ['pi-day', 'irrational-number', 'geometry', 'pi-symbol'],
+  'love':         ['heart-gift', 'i-love', 'valentines'],
+  'greek':        ['greek-letter', 'mathematics', 'science', 'stem-gift'],
   'trigonometry': ['sine-cosine-tangent', 'soh-cah-toa', 'right-triangle'],
   'education':    ['math-teacher', 'student', 'school', 'learning'],
   'gaming':       ['gamer', 'video-games', 'gaming-culture'],
@@ -40,17 +42,24 @@ var TAG_MAP = {
   'sports':       ['athletic', 'team', 'recreational'],
   'jersey':       ['sports-jersey', 'team-shirt', 'athletic'],
   'emoji':        ['emoticon', 'unicode-emoji', 'smiley-face'],
+  'emotion':      ['expressive', 'emoji-art', 'fun-gift'],
+  'expression':   ['emoji', 'mood', 'unicode-art'],
+  'humor':        ['funny-gift', 'gag-gift', 'comedy-shirt'],
   'parody':       ['funny', 'humor', 'parody-design', 'gag-gift'],
   'showdown':     ['skateboarding', 'snowboarding', 'detroit', 'michigan'],
   'mythology':    ['fantasy-art', 'mythical-creature', 'folklore'],
   'adventure':    ['fantasy', 'epic-quest', 'rpg'],
   'copyright':    ['copyright-symbol', 'customizable', 'personalized'],
+  'rights':       ['justice-gift', 'freedom', 'civil-rights'],
   'smpte':        ['tv-test-pattern', 'broadcast', 'color-bars'],
   'engineering':  ['engineer', 'av-tech', 'broadcast-engineering'],
   'vintage':      ['retro-aesthetic', 'classic', 'old-school'],
   'ai-generated': ['ai-art', 'generative-art', 'machine-learning'],
   'icon':         ['logo', 'brand-icon', 'profile'],
-  'signature':    ['personal-brand', 'qr-code', 'creator']
+  'signature':    ['personal-brand', 'qr-code', 'creator'],
+  'qr-code':      ['scan-me', 'link', 'profile-link'],
+  'zazzle':       ['custom-merch', 'creator-design', 'print-on-demand'],
+  'redbubble':    ['indie-art', 'artist-merch', 'creator']
 };
 
 function expandTags(baseTags) {
@@ -62,7 +71,9 @@ function expandTags(baseTags) {
     if (!seen[lower]) { seen[lower] = true; tagSet.push(lower); }
   });
 
-  baseTags.forEach(function (t) {
+  // Expand in reverse order so topic-specific tags (last in the array) fill
+  // slots before generic product-type tags (t-shirt, apparel).
+  baseTags.slice().reverse().forEach(function (t) {
     var extras = TAG_MAP[t.toLowerCase()];
     if (!extras) return;
     extras.forEach(function (extra) {

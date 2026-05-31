@@ -1,0 +1,174 @@
+{
+  "_comment": "[JJ] Product & infrastructure backlog — scored for autonomous prioritization",
+  "_scoring": {
+    "formula": "score = (value * 2 + alignment + urgency) / effort",
+    "value": "1-5: direct revenue/quality impact",
+    "alignment": "1-5: advances long-term goal (sales, brand, infrastructure)",
+    "urgency": "1-5: blocking others or time-sensitive",
+    "effort": "1-5: 1=<30min, 2=1-2h, 3=half-day, 4=full-day, 5=multi-day",
+    "status": "open | in-progress | done | blocked"
+  },
+  "items": [
+    {
+      "id": "tagmap-missing-entries",
+      "title": "Add missing TAG_MAP entries (greek, emotion, love, expression, rights)",
+      "detail": "Tags used in products.json have no TAG_MAP expansion: greek, emotion, love, expression, rights, humor. These products fill to MAX_TAGS with generic words instead of relevant keywords — directly hurting search rank on Zazzle and Redbubble.",
+      "category": "quality",
+      "value": 5,
+      "alignment": 5,
+      "urgency": 4,
+      "effort": 1,
+      "status": "done",
+      "files": [
+        "tools/sync/platforms/zazzle.js",
+        "tools/sync/platforms/redbubble.js"
+      ],
+      "completedAt": "2026-05-31T03:07:44.490Z"
+    },
+    {
+      "id": "tagmap-duplicate-key",
+      "title": "Fix duplicate 'retro' key in TAG_MAP (zazzle.js)",
+      "detail": "zazzle.js TAG_MAP has 'retro' defined twice. Second definition silently overwrites the first in JS objects — 'throwback' is lost from the expansion. Products with 'retro' tag get an incorrect expansion.",
+      "category": "bug",
+      "value": 4,
+      "alignment": 4,
+      "urgency": 4,
+      "effort": 1,
+      "status": "done",
+      "files": [
+        "tools/sync/platforms/zazzle.js"
+      ],
+      "completedAt": "2026-05-31T03:07:44.536Z"
+    },
+    {
+      "id": "product-tags-audit",
+      "title": "Audit and improve per-product base tags in products.json",
+      "detail": "Several products have weak or incomplete base tags: sig-zazzle-icon-2020 missing 'zazzle', sig-redbubble-icon missing 'redbubble', warez-hello-world missing 'computing', irrational-pi-symbol has 'greek' (no expansion). Improving base tags = better search coverage.",
+      "category": "quality",
+      "value": 5,
+      "alignment": 5,
+      "urgency": 3,
+      "effort": 2,
+      "status": "done",
+      "files": [
+        "products.json"
+      ],
+      "completedAt": "2026-05-31T03:09:40.068Z"
+    },
+    {
+      "id": "sync-readme",
+      "title": "Write sync tool README.md",
+      "detail": "tools/sync/ has no README. Document all commands, workflow (edit products.json → diff → export → update platform → mark-synced), and file structure. Required for future maintainability and handoff.",
+      "category": "documentation",
+      "value": 3,
+      "alignment": 4,
+      "urgency": 2,
+      "effort": 1,
+      "status": "done",
+      "files": [
+        "tools/sync/README.md"
+      ],
+      "completedAt": "2026-05-31T03:07:44.584Z"
+    },
+    {
+      "id": "og-image",
+      "title": "Create og:image for social share previews",
+      "detail": "index.html has og:title, og:description, og:url but no og:image. Social shares (Twitter, Facebook, LinkedIn, Slack, Discord) show a blank preview. A static 1200x630 image would make every shared link display a branded preview card.",
+      "category": "marketing",
+      "value": 3,
+      "alignment": 3,
+      "urgency": 1,
+      "effort": 2,
+      "status": "open",
+      "files": [
+        "index.html",
+        "og-image.png"
+      ]
+    },
+    {
+      "id": "zazzle-html5-variant",
+      "title": "Resolve HTML5 Logo T-Shirt Zazzle variant (two SKUs in memory notes)",
+      "detail": "Memory notes show two Zazzle URLs for HTML5 Logo T-Shirt: -256071083697467896 and -256951261407813372. products.json uses the first. Confirm which is the canonical listing or whether both should appear.",
+      "category": "data-quality",
+      "value": 3,
+      "alignment": 3,
+      "urgency": 2,
+      "effort": 1,
+      "status": "open",
+      "files": [
+        "products.json"
+      ]
+    },
+    {
+      "id": "multi-vendor-ui-testing",
+      "title": "Verify multi-vendor UI for all 4 cross-platform products",
+      "detail": "Vendor selector UI was built (issue #13). Manual check needed: confirm all 4 cross-platform products show both vendor buttons, buttons open correct URLs, single-vendor products still use card-link behavior. Addresses Phase 3B issue #7.",
+      "category": "testing",
+      "value": 3,
+      "alignment": 3,
+      "urgency": 2,
+      "effort": 1,
+      "status": "open",
+      "files": [
+        "index.html"
+      ]
+    },
+    {
+      "id": "phase3b-arch-docs",
+      "title": "Write Phase 3B architecture documentation",
+      "detail": "Phase 3B issue #8. Document the multi-vendor schema design, sync tool architecture, platform formatter pattern, and future API integration path. Captures decisions made this week while context is fresh.",
+      "category": "documentation",
+      "value": 2,
+      "alignment": 4,
+      "urgency": 2,
+      "effort": 2,
+      "status": "open",
+      "files": [
+        "jeffjenx.org/decisions/"
+      ]
+    },
+    {
+      "id": "accessibility-audit",
+      "title": "WCAG AA accessibility audit on index.html",
+      "detail": "Rule #14 in jeffjenx.md: accessibility is non-negotiable. Review index.html for: color contrast on vendor buttons, keyboard navigation of product cards, ARIA labels on interactive elements, screen reader compatibility of dynamic JSON-LD injection.",
+      "category": "compliance",
+      "value": 2,
+      "alignment": 2,
+      "urgency": 1,
+      "effort": 3,
+      "status": "open",
+      "files": [
+        "index.html"
+      ]
+    },
+    {
+      "id": "digital-downloads-setup",
+      "title": "Set up Gumroad/Ko-fi and activate digital downloads collection",
+      "detail": "products.json has digital collection ready (active: false). Ko-fi has 0% platform fee vs Gumroad 10%. When icons are ready: create Ko-fi store, add product entries with type: 'digital', set digital collection active: true.",
+      "category": "revenue",
+      "value": 5,
+      "alignment": 5,
+      "urgency": 1,
+      "effort": 3,
+      "status": "blocked",
+      "blocker": "Icons not yet ready for sale",
+      "files": [
+        "products.json",
+        "index.html"
+      ]
+    },
+    {
+      "id": "platform-api-integration",
+      "title": "Investigate Zazzle/Redbubble API availability",
+      "detail": "Phase 3B issues #3 and #4. Both platform API doc URLs return 404. Monitor for future availability. Cannot build true sync without APIs.",
+      "category": "infrastructure",
+      "value": 4,
+      "alignment": 5,
+      "urgency": 1,
+      "effort": 4,
+      "status": "blocked",
+      "blocker": "APIs not publicly available (404 on both doc pages as of May 2026)",
+      "files": []
+    }
+  ]
+}

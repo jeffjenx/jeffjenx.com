@@ -19,7 +19,7 @@ var TAG_MAP = {
   't-shirt':      ['shirt', 'tee', 'unisex'],
   'hoodie':       ['sweatshirt', 'pullover', 'cozy'],
   'dos':          ['ms-dos', 'command-line', 'vintage-tech'],
-  'retro':        ['vintage', 'throwback', 'nostalgic'],
+  'retro':        ['vintage', 'throwback', 'classic', 'nostalgic'],
   'computing':    ['tech', 'geek', 'computer'],
   'programming':  ['developer', 'coder', 'programmer', 'software-engineer'],
   'web':          ['web-developer', 'internet', 'frontend'],
@@ -29,10 +29,11 @@ var TAG_MAP = {
   'standards':    ['web-standards', 'developer'],
   'math':         ['mathematics', 'stem', 'pi-day', 'math-teacher'],
   'pi':           ['pi-day', 'mathematics', 'geometry', 'irrational'],
+  'love':         ['heart', 'gift', 'i-love'],
+  'greek':        ['letter', 'symbol', 'mathematics', 'stem'],
   'trigonometry': ['sine', 'cosine', 'tangent', 'math'],
   'education':    ['student', 'teacher', 'school', 'learning'],
   'gaming':       ['gamer', 'video-games', 'game'],
-  'retro':        ['vintage', 'classic', 'nostalgic'],
   'nintendo':     ['nes', 'super-mario', 'retrogaming'],
   'github':       ['git', 'open-source', 'developer', 'version-control'],
   'discord':      ['gaming', 'community', 'server-admin'],
@@ -42,19 +43,25 @@ var TAG_MAP = {
   'sports':       ['athletic', 'team', 'league'],
   'jersey':       ['sports', 'team', 'uniform'],
   'emoji':        ['emoticon', 'unicode', 'smiley'],
-  'expression':   ['emoticon', 'fun'],
+  'emotion':      ['emoticon', 'feeling', 'smiley'],
+  'expression':   ['emoticon', 'fun', 'personality'],
+  'humor':        ['funny', 'gag-gift', 'comedy'],
   'parody':       ['humor', 'funny', 'parody-design'],
   'showdown':     ['skateboard', 'snowboard', 'detroit'],
   'mythology':    ['fantasy', 'mythical', 'rpg'],
   'adventure':    ['fantasy', 'quest', 'epic'],
   'copyright':    ['rights', 'legal', 'customizable'],
+  'rights':       ['justice', 'liberty', 'freedom'],
   'customizable': ['personalized', 'custom', 'your-name'],
   'smpte':        ['broadcast', 'television', 'engineering'],
   'engineering':  ['engineer', 'tech', 'av'],
   'vintage':      ['retro', 'classic', 'throwback'],
   'ai-generated': ['ai-art', 'generative', 'machine-learning'],
   'icon':         ['logo', 'brand', 'profile'],
-  'signature':    ['personal', 'branded', 'qr-code']
+  'signature':    ['personal', 'branded', 'qr-code'],
+  'qr-code':      ['scan', 'link', 'profile'],
+  'zazzle':       ['creator', 'custom-design', 'marketplace'],
+  'redbubble':    ['creator', 'artist', 'indie-design']
 };
 
 function expandTags(baseTags) {
@@ -66,7 +73,10 @@ function expandTags(baseTags) {
     if (!seen[lower]) { seen[lower] = true; tagSet.push(lower); }
   });
 
-  baseTags.forEach(function (t) {
+  // Expand in reverse order so topic-specific tags (last in the array) fill
+  // slots before generic product-type tags (t-shirt, apparel), which are
+  // already implied by the product category and least valuable for discovery.
+  baseTags.slice().reverse().forEach(function (t) {
     var extras = TAG_MAP[t.toLowerCase()];
     if (!extras) return;
     extras.forEach(function (extra) {

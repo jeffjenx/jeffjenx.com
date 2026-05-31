@@ -278,7 +278,7 @@
               "active": true
             }
           ],
-          "tags": ["t-shirt", "apparel", "signature", "icon"],
+          "tags": ["t-shirt", "apparel", "signature", "icon", "zazzle", "qr-code"],
           "new": false,
           "active": true
         },
@@ -294,7 +294,7 @@
               "active": true
             }
           ],
-          "tags": ["t-shirt", "apparel", "signature", "icon", "retro"],
+          "tags": ["t-shirt", "apparel", "signature", "icon", "zazzle", "qr-code"],
           "new": false,
           "active": true
         },
@@ -358,7 +358,7 @@
               "active": true
             }
           ],
-          "tags": ["t-shirt", "apparel", "signature", "icon"],
+          "tags": ["t-shirt", "apparel", "signature", "icon", "redbubble", "creator"],
           "new": false,
           "active": true
         }
@@ -451,7 +451,7 @@
               "active": true
             }
           ],
-          "tags": ["t-shirt", "apparel", "programming", "retro"],
+          "tags": ["t-shirt", "apparel", "programming", "retro", "computing"],
           "new": false,
           "active": true
         },
