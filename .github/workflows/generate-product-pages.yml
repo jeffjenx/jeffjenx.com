@@ -35,6 +35,13 @@ jobs:
         with:
           node-version: '20'
 
+      - name: URL health check (informational)
+        run: node tools/health/index.js
+        continue-on-error: true
+        # Non-blocking: Zazzle returns 403 for bot requests (known, not a failure).
+        # This step logs URL health for visibility without blocking deploys.
+        # Use the manual url-health-check workflow for full reporting.
+
       - name: Generate product pages
         run: node tools/generate/index.js --clean
 
