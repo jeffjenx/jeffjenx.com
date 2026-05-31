@@ -63,7 +63,7 @@ function slugify(str) {
 }
 
 function vendorLabel(name) {
-  var map = { zazzle: 'Buy on Zazzle', redbubble: 'Buy on Redbubble', gumroad: 'Download on Gumroad', direct: 'Buy Direct' };
+  var map = { zazzle: 'Buy on Zazzle', redbubble: 'Buy on Redbubble', gumroad: 'Download on Gumroad', kofi: 'Download on Ko-fi', direct: 'Buy Direct' };
   return map[name] || ('Buy on ' + name.charAt(0).toUpperCase() + name.slice(1));
 }
 
@@ -123,13 +123,13 @@ function buildPage(product, collection, siblings) {
     vendorHtml = '<p class="pg-unavail">Currently unavailable.</p>';
   } else if (activeVendors.length === 1) {
     vendorHtml = '<a class="pg-btn pg-btn--primary" href="' + esc(activeVendors[0].url) + '" target="_blank" rel="noopener noreferrer">'
-      + esc(isDigital ? 'Download on ' + activeVendors[0].name.charAt(0).toUpperCase() + activeVendors[0].name.slice(1) : vendorLabel(activeVendors[0].name))
+      + esc(vendorLabel(activeVendors[0].name))
       + ' &rarr;</a>';
   } else {
     vendorHtml = '<div class="pg-vendors">';
     activeVendors.forEach(function (v) {
       vendorHtml += '<a class="pg-btn pg-btn--vendor" href="' + esc(v.url) + '" target="_blank" rel="noopener noreferrer" aria-label="' + esc(vendorAriaLabel(v.name, product.title)) + '">'
-        + esc(isDigital ? 'Download on ' + v.name.charAt(0).toUpperCase() + v.name.slice(1) : vendorLabel(v.name))
+        + esc(vendorLabel(v.name))
         + '</a>';
     });
     vendorHtml += '</div>';
