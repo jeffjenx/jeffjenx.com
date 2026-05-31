@@ -604,7 +604,7 @@ div.jj-card:focus { outline: 2px solid #0a0a0a; outline-offset: -2px; }
       // Multi-vendor: clicking opens the picker overlay
       multiVendorProducts[product.id] = { title: product.title, vendors: activeVendors };
       return '<div class="jj-col"' + accentStyle + '>'
-        + '<div class="jj-card" data-pid="' + esc(product.id) + '" role="button" tabindex="0" aria-label="Shop ' + esc(product.title) + '">'
+        + '<div class="jj-card" data-pid="' + esc(product.id) + '" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Shop ' + esc(product.title) + '">'
           + cardBody
         + '</div>'
         + '</div>';
