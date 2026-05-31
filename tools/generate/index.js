@@ -187,6 +187,7 @@ function buildPage(product, collection, siblings) {
     + '<meta name="twitter:image" content="' + (product.image ? BASE_URL + esc(product.image) : BASE_URL + '/og-image.png') + '">\n'
     + '<meta name="twitter:image:alt" content="' + esc(product.title + ' \u2014 Jeff Jenx') + '">\n'
     + '<link rel="icon" href="/favicon.ico" sizes="any">\n'
+    + '<link rel="manifest" href="/manifest.json">\n'
     + '<script type="application/ld+json">' + escJson(structuredData) + '</script>\n'
     + '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
     + '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
