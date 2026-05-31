@@ -415,8 +415,8 @@ var errors    = [];
   activeInCol.forEach(function (product) {
     if (!product.active) { skipped++; return; }
 
-    // Siblings: other active products in same collection, up to 4
-    var siblings = activeInCol.filter(function (p) { return p.id !== product.id; }).slice(0, 4);
+    // Siblings: other active products in same collection, up to 6
+    var siblings = activeInCol.filter(function (p) { return p.id !== product.id; }).slice(0, 6);
 
     var outDir  = path.join(OUTPUT_DIR, product.id);
     var outFile = path.join(outDir, 'index.html');
