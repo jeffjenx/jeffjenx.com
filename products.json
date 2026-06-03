@@ -499,11 +499,21 @@
           "title": "Blue Screen of Death T-Shirt",
           "desc": "The most famous error message in computing history. A STOP error. A kernel panic. The unmistakable blue screen that ended countless unsaved documents and sent system administrators running. Wear it proudly — you survived it.",
           "price": "",
-          "vendors": [],
+          "vendors": [
+            {
+              "name": "zazzle",
+              "url": "https://www.zazzle.com/bsod_t_shirt-256763802970571533",
+              "active": true
+            },
+            {
+              "name": "redbubble",
+              "url": "https://www.redbubble.com/shop/ap/181181697",
+              "active": true
+            }
+          ],
           "tags": ["t-shirt", "apparel", "bsod", "windows", "computing", "retro", "humor"],
           "new": false,
-          "active": false,
-          "_draft": "Phase 4B — list on Zazzle and Redbubble, add vendor URLs, set active: true"
+          "active": false
         },
         {
           "id": "warez-640k",
@@ -603,6 +613,23 @@
           "new": false,
           "active": false,
           "_draft": "Phase 4B — list on Zazzle and Redbubble, add vendor URLs, set active: true"
+        },
+        {
+          "id": "www-svg-logo",
+          "title": "SVG Logo T-Shirt",
+          "desc": "Born in 2001 and still ruling the modern web. Crisp, infinitely scalable, and resolution-independent — the elegant SVG logo belongs on every web developer’s chest. A must-have programmer t-shirt and the perfect gift for front-end developers, UI/UX designers, and vector lovers.",
+          "price": "",
+          "vendors": [
+            {
+              "name": "zazzle",
+              "url": "https://www.zazzle.com/svg_logo_t_shirt-256606708662889845",
+              "active": false,
+              "note": "Unavailable on Zazzle — both SKUs (256071083697467896 and 256951261407813372) confirmed dead May 2026"
+            }
+          ],
+          "tags": ["t-shirt", "apparel", "svg", "web", "standards", "w3c"],
+          "new": false,
+          "active": true
         }
       ]
     },
@@ -683,12 +710,12 @@
   ],
 
   "_metadata": {
-    "lastUpdated": "2026-05-31",
+    "lastUpdated": "2026-06-01",
     "totalCollections": 11,
     "activeCollections": 10,
     "totalProducts": 35,
-    "activeProducts": 24,
-    "draftProducts": 11,
+    "activeProducts": 25,
+    "draftProducts": 10,
     "totalZazzleProducts": 20,
     "totalRedbubbleProducts": 6,
     "multiVendorProducts": 2,
