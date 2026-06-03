@@ -625,6 +625,11 @@
               "url": "https://www.zazzle.com/svg_logo_t_shirt-256606708662889845",
               "active": false,
               "note": "Unavailable on Zazzle — both SKUs (256071083697467896 and 256951261407813372) confirmed dead May 2026"
+            },
+            {
+              "name": "redbubble",
+              "url": "https://www.redbubble.com/i/t-shirt/SVG-Logo-by-jeffjenx/181214676/z4fd",
+              "active": true
             }
           ],
           "tags": ["t-shirt", "apparel", "svg", "web", "standards", "w3c"],
@@ -717,7 +722,7 @@
     "activeProducts": 26,
     "draftProducts": 10,
     "totalZazzleProducts": 21,
-    "totalRedbubbleProducts": 6,
+    "totalRedbubbleProducts": 7,
     "multiVendorProducts": 2,
     "redbubbleOnlyProducts": 3,
     "productTypes": ["physical", "digital"],
