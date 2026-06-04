@@ -249,6 +249,27 @@
           "tags": ["hoodie", "apparel", "gaming", "retro", "nintendo"],
           "new": false,
           "active": true
+        },
+        {
+          "id": "pcmr-i-love-8bit",
+          "title": "I Love 8-Bit T-Shirt",
+          "desc": "I Love 8-Bit -- the golden age of video games. The pixelated heart and blocky font pay homage to the classic 8-bit era of gaming. A must-have shirt for retro gamers, pixel art fans, and anyone who grew up with the Nintendo Entertainment System.",
+          "price": "",
+          "vendors": [
+            {
+              "name": "zazzle",
+              "url": "https://www.zazzle.com/i_love_8_bit_t_shirt-256798741171468993",
+              "active": true
+            },
+            {
+              "name": "redbubble",
+              "url": "https://www.redbubble.com/shop/ap/181247520?ref=studio-promote",
+              "active": true
+            }
+          ],
+          "tags": ["t-shirt", "apparel", "gaming", "retro", "nintendo", "pixel-art", "video-games", "zelda"],
+          "new": false,
+          "active": true
         }
       ]
     },
@@ -525,6 +546,27 @@
           "new": false,
           "active": false,
           "_draft": "Phase 4B — list on Zazzle and Redbubble, add vendor URLs, set active: true"
+        },
+        {
+          "id": "warez-floppy-3.5",
+          "title": "3.5\" Floppy Disk T-Shirt",
+          "desc": "The 3.5-inch floppy disk — the iconic data storage medium of the late 20th century. The square plastic shell with a metal shutter that protected the magnetic disk inside. A must-have shirt for retro computing fans, data hoarders, and anyone who remembers when this was how you saved your work.",
+          "price": "",
+          "vendors": [
+            {
+              "name": "zazzle",
+              "url": "https://www.zazzle.com/customizable_3_5_floppy_disk_t_shirt-256696391683327835",
+              "active": true
+            },
+            {
+              "name": "redbubble",
+              "url": "https://www.redbubble.com/shop/ap/181227559",
+              "active": true
+            }
+          ],
+          "tags": ["t-shirt", "apparel", "floppy-disk", "retro", "computing", "storage", "3.5-inch"],
+          "new": true,
+          "active": true
         }
       ]
     },
