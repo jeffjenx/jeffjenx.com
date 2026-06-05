@@ -394,6 +394,22 @@
           "tags": ["t-shirt", "apparel", "signature", "icon", "redbubble", "creator"],
           "new": false,
           "active": true
+        },
+        {
+          "id": "sig-stack-overflow-icon",
+          "title": "Stack Overflow Icon T-Shirt",
+          "desc": "Jeff's signature Stack Overflow Profile logo on the front chest. Show off your Stack Overflow rep and love for the programming Q&A site. A great shirt for developers, programmers, and anyone who has ever Googled an error message.",
+          "price": "",
+          "vendors": [
+            {
+              "name": "zazzle",
+              "url": "https://www.zazzle.com/stack_overflow_icon_t_shirt-256341399695316946",
+              "active": true
+            }
+          ],
+          "tags": ["t-shirt", "apparel", "stack overflow", "signature", "icon", "programming", "development", "software", "q&a", "stack exchange"],
+          "new": false,
+          "active": true
         }
       ]
     },
