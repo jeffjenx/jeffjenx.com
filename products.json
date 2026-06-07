@@ -39,6 +39,27 @@
           "tags": ["t-shirt", "apparel", "parody", "gaming", "showdown"],
           "new": false,
           "active": true
+        },
+        {
+          "id": "showdown-classic",
+          "title": "Classic Showdown Logo T-Shirt",
+          "desc": "The classic Showdown logo -- an iconic silhouette, representing the skate and snowboard company from metro Detroit. A must-have for fans of Showdown, skate culture, and Michigan pride.",
+          "price": "",
+          "vendors": [
+            {
+              "name": "zazzle",
+              "url": "https://www.zazzle.com/classic_showdown_logo_t_shirt-256786788744905089",
+              "active": true
+            },
+            {
+              "name": "redbubble",
+              "url": "https://www.redbubble.com/shop/ap/181299755?ref=studio-promote",
+              "active": true
+            }
+          ],
+          "tags": ["t-shirt", "apparel", "logo", "showdown", "skateboarding", "snowboarding", "extreme sports", "x-games", "tony hawk"],
+          "new": false,
+          "active": true
         }
       ]
     },
